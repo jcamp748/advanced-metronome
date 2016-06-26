@@ -1,5 +1,6 @@
 var ctx = null;
 var display = null;
+var thickness = 25;   // the thickness of the egede of the metronome box
 
 // create <canvas> element and add it to document
 function init() {
@@ -11,7 +12,7 @@ function init() {
   wrapper.appendChild(canvas);
 
   // initialize digital number display
-  display = new SegmentDisplay("metronome-canvas");
+  display = new SegmentDisplay("metronome-canvas", 0, 0, 0.4);
   display.pattern         = "#";
   display.cornerType      = 2;
   display.displayType     = 7;
@@ -40,13 +41,14 @@ function draw() {
 
 function drawBox() {
   roundedRect(ctx, 0, 0, 600, 400, 12, "black");
-  roundedRect(ctx, 25, 25, 550, 350, 12, "white");
+  roundedRect(ctx, thickness, thickness, 550, 350, 12, "white");
 }
 
 function drawDisplay() {
   display.setValue(1);
 }
 
+// utility function for drawing rectangles with rounded corners
 function roundedRect(ctx,x,y,width,height,radius, color){
   ctx.save();
   ctx.beginPath();

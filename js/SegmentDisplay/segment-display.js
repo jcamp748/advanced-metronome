@@ -23,7 +23,7 @@ SegmentDisplay.SquaredCorner   = 1;
 SegmentDisplay.RoundedCorner   = 2;
 
 
-function SegmentDisplay(displayId) {
+function SegmentDisplay(displayId, paddingX, paddingY, shrink) {
   this.displayId       = displayId;
   this.pattern         = '##:##:##';
   this.value           = '12:34:56';
@@ -37,6 +37,10 @@ function SegmentDisplay(displayId) {
   this.cornerType      = SegmentDisplay.RoundedCorner;
   this.colorOn         = 'rgb(233, 93, 15)';
   this.colorOff        = 'rgb(75, 30, 5)';
+  this.paddingX        = paddingX ? paddingX : 0;
+  this.paddingY        = paddingY ? paddingY : 0;
+  // add argument to display be made smaller than whole canvas
+  this.shrink          = shrink ? shrink : 1;
 };
 
 SegmentDisplay.prototype.setValue = function(value) {
@@ -50,7 +54,7 @@ SegmentDisplay.prototype.draw = function() {
     var context = display.getContext('2d');
     if (context) {
       // clear canvas
-      context.clearRect(0, 0, display.width, display.height);
+      //context.clearRect(0, 0, display.width, display.height);
       
       // compute and check display width
       var width = 0;
@@ -79,14 +83,27 @@ SegmentDisplay.prototype.draw = function() {
       
       // compute scale factor
       var scale = Math.min(display.width / (width + Math.abs(skew * this.digitHeight)), display.height / this.digitHeight);
+
+      // multiply scale by some fraction so it doesn't take up whole window
+      scale = scale * this.shrink;
       
       // compute display offset
-      var offsetX = (display.width - (width + skew * this.digitHeight) * scale) / 2.0;
-      var offsetY = (display.height - this.digitHeight * scale) / 2.0;
+      //
+      // this will center it
+      //var offsetX = (display.width - (width + skew * this.digitHeight) * scale) / 2.0;
+      //var offsetY = (display.height - this.digitHeight * scale) / 2.0;
       
+      // this will position it in the top left corner
+      var offsetX = 25 + skew * this.digitHeight + this.paddingX;
+      var offsetY = 0 + this.paddingY;
+
+      //var offsetX = 25 + skew * this.digitHeight;
+      //var offsetY = 0;
+
       // context transformation
       context.save();
       context.translate(offsetX, offsetY);
+      context.translate(25, 25);
       context.scale(scale, scale);
       context.transform(1, 0, skew, 1, 0, 0);
 
