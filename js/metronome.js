@@ -1,6 +1,9 @@
-var ctx = null;
-var display = null;
+var ctx = null;           // the drawing context
+var display = null;       // the canvas element
+var audioContext = null;  // audio context 
 var thickness = 25;   // the thickness of the egede of the metronome box
+var lookahead = 25.0;       // How frequently to call scheduling function 
+var isPlaying = false;
 
 // colorscheme for metronome screen
 var backgroundColor = "rgba(196, 226, 196, 1)";
@@ -32,7 +35,34 @@ function init() {
 
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
+  audioContext = new AudioContext();
   window.requestAnimationFrame(draw);
+
+  timerWorker = new Worker("js/metronomeworker.js");
+
+  timerWorker.onmessage = function(e) {
+      if (e.data == "tick") {
+          console.log("tick!");
+          //scheduler();
+      }
+      else
+          console.log("message: " + e.data);
+  };
+  timerWorker.postMessage({"interval":lookahead});
+
+}
+
+function play() {
+    isPlaying = !isPlaying;
+
+    if (isPlaying) { // start playing
+        nextNoteTime = audioContext.currentTime;
+        timerWorker.postMessage("start");
+        return "stop";
+    } else {
+        timerWorker.postMessage("stop");
+        return "play";
+    }
 }
 
 function draw() {
