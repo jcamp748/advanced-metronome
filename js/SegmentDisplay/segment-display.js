@@ -37,6 +37,7 @@ function SegmentDisplay(displayId, paddingX, paddingY, shrink) {
   this.cornerType      = SegmentDisplay.RoundedCorner;
   this.colorOn         = 'rgb(233, 93, 15)';
   this.colorOff        = 'rgb(75, 30, 5)';
+  // add argument to offset display from top left corner
   this.paddingX        = paddingX ? paddingX : 0;
   this.paddingY        = paddingY ? paddingY : 0;
   // add argument to display be made smaller than whole canvas
@@ -96,9 +97,6 @@ SegmentDisplay.prototype.draw = function() {
       // this will position it in the top left corner
       var offsetX = 25 + skew * this.digitHeight + this.paddingX;
       var offsetY = 0 + this.paddingY;
-
-      //var offsetX = 25 + skew * this.digitHeight;
-      //var offsetY = 0;
 
       // context transformation
       context.save();

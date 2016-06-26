@@ -2,6 +2,11 @@ var ctx = null;
 var display = null;
 var thickness = 25;   // the thickness of the egede of the metronome box
 
+// colorscheme for metronome screen
+var backgroundColor = "rgba(196, 226, 196, 1)";
+var segmentOn = "rgba(9, 9, 9, 1)";
+var segmentOff = "rgba(175, 203, 175, 1)";
+
 // create <canvas> element and add it to document
 function init() {
   var canvas = document.createElement("canvas");
@@ -22,8 +27,8 @@ function init() {
   display.digitDistance   = 2;
   display.segmentWidth    = 3;
   display.segmentDistance = 0.5;
-  display.colorOn         = "rgba(0, 0, 0, 0.9)";
-  display.colorOff        = "rgba(0, 0, 0, 0.1)";
+  display.colorOn         = segmentOn;
+  display.colorOff        = segmentOff;
 
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
@@ -41,11 +46,11 @@ function draw() {
 
 function drawBox() {
   roundedRect(ctx, 0, 0, 600, 400, 12, "black");
-  roundedRect(ctx, thickness, thickness, 550, 350, 12, "white");
+  roundedRect(ctx, thickness, thickness, 550, 350, 12, backgroundColor);
 }
 
 function drawDisplay() {
-  display.setValue(1);
+  display.setValue('1');
 }
 
 // utility function for drawing rectangles with rounded corners
