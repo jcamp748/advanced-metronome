@@ -1,18 +1,35 @@
-var ctx = null;           // the drawing context
-var beatValue = null;       // the canvas element
-var audioContext = null;  // audio context 
-var thickness = 25;   // the thickness of the egede of the metronome box
-var lookahead = 25.0;       // How frequently to call scheduling function 
+var ctx = null;                 // the drawing context
+var audioContext = null;        // audio context 
+var thickness = 25;             // the thickness of the egede of the metronome box
+var lookahead = 25.0;           // How frequently to call scheduling function 
 var isPlaying = false;
 var scheduleAheadTime = 0.1;    // How far ahead to schedule audio (sec)
-var tempo = 120.0;          // tempo (in beats per minute)
-var nextNoteTime = 0.0;     // when the next note is due.
+var tempo = 120.0;              // tempo (in beats per minute)
+var nextNoteTime = 0.0;         // when the next note is due.
 var currentBeat = 0;
-var beatUnit = 4;           //the bottom number of a time signature
-var beatsPerMeasure = 4;    //the top number of a time signature
-var notesInQueue = [];      // the notes that have been put into the web audio,
-var noteLength = 0.05;      // length of "beep" (in seconds)
-var measureCount = 4;      // number of measures left to play at current tempo
+var beatUnit = 4;               //the bottom number of a time signature
+var beatsPerMeasure = 4;        //the top number of a time signature
+var notesInQueue = [];          // the notes that have been put into the web audio,
+var noteLength = 0.05;          // length of "beep" (in seconds)
+var measureCount = 4;           // number of measures left to play at current tempo
+
+var beatValue = null;           // display beat number 
+var sigLabel = null;            // label for time signature
+var sigValue = null;            // value of time signature
+var tempoValue = null;          // tempo in bpm
+var tempoLabel = null;          // label for tempo
+var countLabel = null;          // label for how many measures are left
+var countValue = null;          // how many measures left in current time sig and tempo
+var sectionLabel = null;        // label for section
+var sectionValue = null;        // name of the current section
+
+
+// colorscheme for metronome screen
+var backgroundColor = "rgba(196, 226, 196, 1)";
+var segmentOn = "rgba(9, 9, 9, 1)";
+var segmentOff = "rgba(175, 203, 175, 1)";
+
+
 
 // colorscheme for metronome screen
 var backgroundColor = "rgba(196, 226, 196, 1)";
@@ -92,7 +109,7 @@ function drawDisplay() {
     displayBeat = beatsPerMeasure;
   beatValue.setValue(displayBeat.toString());
   tempoLabel.setValue('tempo');
-  tempoDisplay.setValue(tempo.toString());
+  tempoValue.setValue(tempo.toString());
   countLabel.setValue('count');
   countValue.setValue(measureCount.toString());
   sigLabel.setValue('sig');
@@ -156,19 +173,19 @@ function init() {
   sigValue.colorOn         = segmentOn;
   sigValue.colorOff        = segmentOff;
 
-  tempoDisplay = new SegmentDisplay("metronome-canvas", 200, 50, 0.2);
+  tempoValue = new SegmentDisplay("metronome-canvas", 200, 50, 0.2);
 
-  tempoDisplay.pattern         = "###";
-  tempoDisplay.cornerType      = 2;
-  tempoDisplay.displayType     = 7;
-  tempoDisplay.displayAngle    = 9;
-  tempoDisplay.digitHeight     = 20;
-  tempoDisplay.digitWidth      = 12;
-  tempoDisplay.digitDistance   = 2;
-  tempoDisplay.segmentWidth    = 3;
-  tempoDisplay.segmentDistance = 0.5;
-  tempoDisplay.colorOn         = segmentOn;
-  tempoDisplay.colorOff        = segmentOff;
+  tempoValue.pattern         = "###";
+  tempoValue.cornerType      = 2;
+  tempoValue.displayType     = 7;
+  tempoValue.displayAngle    = 9;
+  tempoValue.digitHeight     = 20;
+  tempoValue.digitWidth      = 12;
+  tempoValue.digitDistance   = 2;
+  tempoValue.segmentWidth    = 3;
+  tempoValue.segmentDistance = 0.5;
+  tempoValue.colorOn         = segmentOn;
+  tempoValue.colorOff        = segmentOff;
 
   tempoLabel = new SegmentDisplay("metronome-canvas", 200, 10, 0.2);
 

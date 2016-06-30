@@ -1,0 +1,9 @@
+beatValue
+sigLabel
+sigValue
+tempoDisplay
+tempoLabel
+countLabel
+countValue
+sectionLabel
+sectionValue
