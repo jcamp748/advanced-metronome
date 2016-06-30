@@ -1,5 +1,5 @@
 var ctx = null;           // the drawing context
-var beatDisplay = null;       // the canvas element
+var beatValue = null;       // the canvas element
 var audioContext = null;  // audio context 
 var thickness = 25;   // the thickness of the egede of the metronome box
 var lookahead = 25.0;       // How frequently to call scheduling function 
@@ -90,13 +90,15 @@ function drawDisplay() {
   var displayBeat = currentBeat;
   if(currentBeat === 0)
     displayBeat = beatsPerMeasure;
-  beatDisplay.setValue(displayBeat.toString());
+  beatValue.setValue(displayBeat.toString());
   tempoLabel.setValue('tempo');
   tempoDisplay.setValue(tempo.toString());
   countLabel.setValue('count');
   countValue.setValue(measureCount.toString());
   sigLabel.setValue('sig');
-  sigDisplay.setValue('4/4');
+  sigValue.setValue('4/4');
+  sectionLabel.setValue('section');
+  sectionValue.setValue('riff a');
 }
 
 
@@ -110,19 +112,19 @@ function init() {
   wrapper.appendChild(canvas);
 
   // initialize digital number display
-  beatDisplay = new SegmentDisplay("metronome-canvas", 0, 0, 0.2);
+  beatValue = new SegmentDisplay("metronome-canvas", 0, 0, 0.2);
 
-  beatDisplay.pattern         = "#";
-  beatDisplay.cornerType      = 2;
-  beatDisplay.displayType     = 7;
-  beatDisplay.displayAngle    = 9;
-  beatDisplay.digitHeight     = 20;
-  beatDisplay.digitWidth      = 12;
-  beatDisplay.digitDistance   = 2;
-  beatDisplay.segmentWidth    = 3;
-  beatDisplay.segmentDistance = 0.5;
-  beatDisplay.colorOn         = segmentOn;
-  beatDisplay.colorOff        = segmentOff;
+  beatValue.pattern         = "#";
+  beatValue.cornerType      = 2;
+  beatValue.displayType     = 7;
+  beatValue.displayAngle    = 9;
+  beatValue.digitHeight     = 20;
+  beatValue.digitWidth      = 12;
+  beatValue.digitDistance   = 2;
+  beatValue.segmentWidth    = 3;
+  beatValue.segmentDistance = 0.5;
+  beatValue.colorOn         = segmentOn;
+  beatValue.colorOff        = segmentOff;
 
   sigLabel = new SegmentDisplay("metronome-canvas", 80, 10, 0.12);
 
@@ -133,26 +135,26 @@ function init() {
   sigLabel.digitHeight     = 20;
   sigLabel.digitWidth      = 12;
   sigLabel.digitDistance   = 2;
-  sigLabel.segmentWidth    = 3;
+  sigLabel.segmentWidth    = 1;
   sigLabel.segmentDistance = 0.5;
   sigLabel.segmentCount    = 14;
   sigLabel.colorOn         = segmentOn;
   sigLabel.colorOff        = segmentOff;
 
-  sigDisplay = new SegmentDisplay("metronome-canvas", 80, 50, 0.12);
+  sigValue = new SegmentDisplay("metronome-canvas", 80, 50, 0.12);
 
-  sigDisplay.pattern         = "###";
-  sigDisplay.cornerType      = 2;
-  sigDisplay.displayType     = 7;
-  sigDisplay.displayAngle    = 9;
-  sigDisplay.digitHeight     = 20;
-  sigDisplay.digitWidth      = 12;
-  sigDisplay.digitDistance   = 2;
-  sigDisplay.segmentWidth    = 2;
-  sigDisplay.segmentDistance = 0.5;
-  sigDisplay.segmentCount    = 14;
-  sigDisplay.colorOn         = segmentOn;
-  sigDisplay.colorOff        = segmentOff;
+  sigValue.pattern         = "###";
+  sigValue.cornerType      = 2;
+  sigValue.displayType     = 7;
+  sigValue.displayAngle    = 9;
+  sigValue.digitHeight     = 20;
+  sigValue.digitWidth      = 12;
+  sigValue.digitDistance   = 2;
+  sigValue.segmentWidth    = 1;
+  sigValue.segmentDistance = 0.5;
+  sigValue.segmentCount    = 14;
+  sigValue.colorOn         = segmentOn;
+  sigValue.colorOff        = segmentOff;
 
   tempoDisplay = new SegmentDisplay("metronome-canvas", 200, 50, 0.2);
 
@@ -177,7 +179,7 @@ function init() {
   tempoLabel.digitHeight     = 20;
   tempoLabel.digitWidth      = 12;
   tempoLabel.digitDistance   = 2;
-  tempoLabel.segmentWidth    = 3;
+  tempoLabel.segmentWidth    = 1;
   tempoLabel.segmentDistance = 0.5;
   tempoLabel.segmentCount    = 14;
   tempoLabel.colorOn         = segmentOn;
@@ -192,7 +194,7 @@ function init() {
   countLabel.digitHeight     = 20;
   countLabel.digitWidth      = 12;
   countLabel.digitDistance   = 2;
-  countLabel.segmentWidth    = 3;
+  countLabel.segmentWidth    = 1;
   countLabel.segmentDistance = 0.5;
   countLabel.segmentCount    = 14;
   countLabel.colorOn         = segmentOn;
@@ -209,9 +211,39 @@ function init() {
   countValue.digitDistance   = 2;
   countValue.segmentWidth    = 3;
   countValue.segmentDistance = 0.5;
-  countValue.segmentCount    = 14;
+  countValue.segmentCount    = 7;
   countValue.colorOn         = segmentOn;
   countValue.colorOff        = segmentOff;
+
+  sectionLabel = new SegmentDisplay("metronome-canvas", 0, 200, 0.8);
+
+  sectionLabel.pattern         = "##################";
+  sectionLabel.cornerType      = 2;
+  sectionLabel.displayType     = 7;
+  sectionLabel.displayAngle    = 9;
+  sectionLabel.digitHeight     = 20;
+  sectionLabel.digitWidth      = 12;
+  sectionLabel.digitDistance   = 2;
+  sectionLabel.segmentWidth    = 1;
+  sectionLabel.segmentDistance = 0.5;
+  sectionLabel.segmentCount    = 14;
+  sectionLabel.colorOn         = segmentOn;
+  sectionLabel.colorOff        = segmentOff;
+
+  sectionValue = new SegmentDisplay("metronome-canvas", 0, 270, 0.8);
+
+  sectionValue.pattern         = "##################";
+  sectionValue.cornerType      = 2;
+  sectionValue.displayType     = 7;
+  sectionValue.displayAngle    = 9;
+  sectionValue.digitHeight     = 20;
+  sectionValue.digitWidth      = 12;
+  sectionValue.digitDistance   = 2;
+  sectionValue.segmentWidth    = 1;
+  sectionValue.segmentDistance = 0.5;
+  sectionValue.segmentCount    = 14;
+  sectionValue.colorOn         = segmentOn;
+  sectionValue.colorOff        = segmentOff;
 
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
