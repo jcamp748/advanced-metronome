@@ -50,6 +50,16 @@ function play() {
     }
 }
 
+function reset() {
+  measureCount = 4;
+  currentBeat = 0;
+}
+
+function newMetronome() {
+  // display a form
+}
+
+
 function nextNote() {
     // Advance current note and time by a 16th note...
     var secondsPerBeat = 60.0 / tempo;    // Notice this picks up the CURRENT 
@@ -261,6 +271,25 @@ function init() {
   sectionValue.segmentCount    = 14;
   sectionValue.colorOn         = segmentOn;
   sectionValue.colorOff        = segmentOff;
+
+  // addControls
+  var playButton = document.createElement("button");
+  playButton.setAttribute("onclick", "this.innerText = play()");
+  playButton.textContent = "play";
+  playButton.className = "metronome-control";
+  wrapper.appendChild(playButton);
+
+  var resetButton = document.createElement("button");
+  resetButton.setAttribute("onclick", "reset()");
+  resetButton.textContent = "reset";
+  resetButton.className = "metronome-control";
+  wrapper.appendChild(resetButton);
+
+  var newButton = document.createElement("button");
+  newButton.setAttribute("onclick", "newMetronome()");
+  newButton.textContent = "new";
+  newButton.className = "metronome-control";
+  wrapper.appendChild(newButton);
 
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
