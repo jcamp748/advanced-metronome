@@ -23,14 +23,6 @@ var countValue = null;          // how many measures left in current time sig an
 var sectionLabel = null;        // label for section
 var sectionValue = null;        // name of the current section
 
-
-// colorscheme for metronome screen
-var backgroundColor = "rgba(196, 226, 196, 1)";
-var segmentOn = "rgba(9, 9, 9, 1)";
-var segmentOff = "rgba(175, 203, 175, 1)";
-
-
-
 // colorscheme for metronome screen
 var backgroundColor = "rgba(196, 226, 196, 1)";
 var segmentOn = "rgba(9, 9, 9, 1)";
@@ -53,6 +45,10 @@ function play() {
 function reset() {
   measureCount = 4;
   currentBeat = 0;
+}
+
+function addSection() {
+  console.log("add section");
 }
 
 function newMetronome() {
