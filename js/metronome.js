@@ -129,14 +129,23 @@ function drawDisplay() {
 }
 
 
-// create <canvas> element and add it to document
 function init() {
+
+  // create a div to put the metronome display in
+  var displayWrapper = document.createElement("div");
+  displayWrapper.setAttribute("id", "display-wrapper");
+
+  // create canvas element to draw metronome display on
   var canvas = document.createElement("canvas");
   canvas.id = "metronome-canvas";
   canvas.setAttribute("height", 400);
   canvas.setAttribute("width", 600);
+  // add <canvas> to display div
+  displayWrapper.appendChild(canvas);
+
+  // add display div to root div
   var wrapper = document.getElementById("metronome-wrapper");
-  wrapper.appendChild(canvas);
+  wrapper.appendChild(displayWrapper);
 
   // initialize digital number display
   beatValue = new SegmentDisplay("metronome-canvas", 0, 0, 0.2);
@@ -273,23 +282,26 @@ function init() {
   sectionValue.colorOff        = segmentOff;
 
   // addControls
+  var controls = document.createElement("div");
+  controls.setAttribute("id", "metronome-controls");
   var playButton = document.createElement("button");
   playButton.setAttribute("onclick", "this.innerText = play()");
   playButton.textContent = "play";
   playButton.className = "metronome-control";
-  wrapper.appendChild(playButton);
+  controls.appendChild(playButton);
 
   var resetButton = document.createElement("button");
   resetButton.setAttribute("onclick", "reset()");
   resetButton.textContent = "reset";
   resetButton.className = "metronome-control";
-  wrapper.appendChild(resetButton);
+  controls.appendChild(resetButton);
 
   var newButton = document.createElement("button");
   newButton.setAttribute("onclick", "newMetronome()");
   newButton.textContent = "new";
   newButton.className = "metronome-control";
-  wrapper.appendChild(newButton);
+  controls.appendChild(newButton);
+  wrapper.appendChild(controls);
 
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
@@ -329,6 +341,6 @@ function roundedRect(ctx,x,y,width,height,radius, color){
   ctx.restore();
 }
 
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function(event) {
   init();
-};
+});
