@@ -15,13 +15,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var timeField = document.createElement("fieldset");
   timeField.className = "form-group";
   var timeLabel = document.createElement("label");
-  timeLabel.setAttribute("for", "timeSigInput");
+  timeLabel.setAttribute("for", "timeInput");
   timeLabel.textContent = "Time Signature";
   timeField.appendChild(timeLabel);
   var timeInput = document.createElement("input");
   timeInput.setAttribute("type", "text");
   timeInput.setAttribute("value", "timesig");
-  timeInput.setAttribute("id", "timeSigInput");
+  timeInput.setAttribute("id", "timeInput");
   timeInput.className = "form-control";
   timeField.appendChild(timeInput);
   form.appendChild(timeField);
@@ -30,13 +30,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var tempoField = document.createElement("fieldset");
   tempoField.className = "form-group";
   var tempoLabel = document.createElement("label");
-  tempoLabel.setAttribute("for", "tempoSigInput");
+  tempoLabel.setAttribute("for", "tempoInput");
   tempoLabel.textContent = "Tempo";
   tempoField.appendChild(tempoLabel);
   var tempoInput = document.createElement("input");
   tempoInput.setAttribute("type", "text");
   tempoInput.setAttribute("value", "tempo");
-  tempoInput.setAttribute("id", "tempoSigInput");
+  tempoInput.setAttribute("id", "tempoInput");
   tempoInput.className = "form-control";
   tempoField.appendChild(tempoInput);
   form.appendChild(tempoField);
@@ -45,21 +45,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var countField = document.createElement("fieldset");
   countField.className = "form-group";
   var countLabel = document.createElement("label");
-  countLabel.setAttribute("for", "countSigInput");
+  countLabel.setAttribute("for", "countInput");
   countLabel.textContent = "Number of measures";
   countField.appendChild(countLabel);
   var countInput = document.createElement("input");
   countInput.setAttribute("type", "text");
   countInput.setAttribute("value", "count");
-  countInput.setAttribute("id", "countSigInput");
+  countInput.setAttribute("id", "countInput");
   countInput.className = "form-control";
   countField.appendChild(countInput);
   form.appendChild(countField);
 
+  // section name fieldset
+  var sectionField = document.createElement("fieldset");
+  sectionField.className = "form-group";
+  var sectionLabel = document.createElement("label");
+  sectionLabel.setAttribute("for", "sectionInput");
+  sectionLabel.textContent = "section name";
+  sectionField.appendChild(sectionLabel);
+  var sectionInput = document.createElement("input");
+  sectionInput.setAttribute("type", "text");
+  sectionInput.setAttribute("value", "section");
+  sectionInput.setAttribute("id", "sectionInput");
+  sectionInput.className = "form-control";
+  sectionField.appendChild(sectionInput);
+  form.appendChild(sectionField);
+
   // create a add button
-  var addButton = document.createElement("button");
+  var addButton = document.createElement("input");
+  addButton.setAttribute("type", "button");
+  addButton.setAttribute("value", "add section");
   addButton.setAttribute("onclick", "addSection()");
-  addButton.innerHTML = "add section";
   form.appendChild(addButton);
   
   // create a submit button

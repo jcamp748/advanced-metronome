@@ -23,6 +23,8 @@ var countValue = null;          // how many measures left in current time sig an
 var sectionLabel = null;        // label for section
 var sectionValue = null;        // name of the current section
 
+var metronomeData = {};         // empty object to hold all the sections of the metronome
+
 // colorscheme for metronome screen
 var backgroundColor = "rgba(196, 226, 196, 1)";
 var segmentOn = "rgba(9, 9, 9, 1)";
@@ -48,7 +50,24 @@ function reset() {
 }
 
 function addSection() {
-  console.log("add section");
+  var text = "";
+  //id = timeInput 
+  text = document.getElementById("timeInput").value;
+  metronomeData.timesig = text;
+
+  //id = tempoInput
+  text = document.getElementById("tempoInput").value;
+  metronomeData.tempo = text;
+
+  //id = countInput
+  text = document.getElementById("countInput").value;
+  metronomeData.count = text;
+
+  //id = sectionInput 
+  text = document.getElementById("sectionInput").value;
+  metronomeData.section = text;
+  console.log(metronomeData);
+
 }
 
 function newMetronome() {
