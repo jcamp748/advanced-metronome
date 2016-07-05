@@ -24,6 +24,7 @@ var sectionLabel = null;        // label for section
 var sectionValue = null;        // name of the current section
 
 var metronomeData = {};         // empty object to hold all the sections of the metronome
+var sectionNumber = 0;          // section of the metronome hash we are on
 
 // colorscheme for metronome screen
 var backgroundColor = "rgba(196, 226, 196, 1)";
@@ -51,22 +52,26 @@ function reset() {
 
 function addSection() {
   var text = "";
+  metronomeData[sectionNumber.toString()] = {};
+  
   //id = timeInput 
   text = document.getElementById("timeInput").value;
-  metronomeData.timesig = text;
+  metronomeData[sectionNumber.toString()]["timesig"] = text;
 
   //id = tempoInput
   text = document.getElementById("tempoInput").value;
-  metronomeData.tempo = text;
+  metronomeData[sectionNumber.toString()]["tempo"] = text;
 
   //id = countInput
   text = document.getElementById("countInput").value;
-  metronomeData.count = text;
+  metronomeData[sectionNumber.toString()]["count"] = text;
 
   //id = sectionInput 
   text = document.getElementById("sectionInput").value;
-  metronomeData.section = text;
-  console.log(metronomeData);
+  metronomeData[sectionNumber.toString()]["section"] = text;
+  console.log(metronomeData[sectionNumber.toString()]);
+
+  sectionNumber++;
 
 }
 
