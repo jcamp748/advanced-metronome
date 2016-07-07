@@ -57,6 +57,7 @@ function addSection() {
   //id = timeInput 
   text = document.getElementById("timeInput").value;
   metronomeData[sectionNumber.toString()]["timesig"] = text;
+  checkTimeSig( text );
 
   //id = tempoInput
   text = document.getElementById("tempoInput").value;
@@ -69,10 +70,18 @@ function addSection() {
   //id = sectionInput 
   text = document.getElementById("sectionInput").value;
   metronomeData[sectionNumber.toString()]["section"] = text;
-  console.log(metronomeData[sectionNumber.toString()]);
+  //console.log(metronomeData[sectionNumber.toString()]);
 
   sectionNumber++;
 
+}
+
+function checkTimeSig( userInput ) {
+  // verify time sig is of the form N/M where 
+  // 1 <= N <= 9 and M == 2 || 4 || 8
+  var validSig = /[1-9]\/[248]/;
+  var valid = validSig.test(userInput);
+  console.log(valid);
 }
 
 function newMetronome() {
