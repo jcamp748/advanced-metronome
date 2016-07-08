@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // attributes to connect submit to the server
   var form = document.createElement("form");
   form.setAttribute("id", "metronome-form");
+  form.setAttribute("role", "form");
+  form.setAttribute("data-toggle", "validator");
   form.setAttribute("action", "#");
   form.setAttribute("method", "#");
 

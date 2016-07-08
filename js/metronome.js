@@ -52,28 +52,79 @@ function reset() {
 
 function addSection() {
   var text = "";
-  metronomeData[sectionNumber.toString()] = {};
+  var tempData = {};
+  //metronomeData[sectionNumber.toString()] = {};
+  tempData[sectionNumber.toString()] = {};
   
   //id = timeInput 
   text = document.getElementById("timeInput").value;
-  metronomeData[sectionNumber.toString()]["timesig"] = text;
-  checkTimeSig( text );
+  if( checkTimeSig(text) ) {
+    tempData[sectionNumber.toString()]["timesig"] = text;
+  } else {
+    tempData = {};
+    return false;
+  }
 
   //id = tempoInput
   text = document.getElementById("tempoInput").value;
-  metronomeData[sectionNumber.toString()]["tempo"] = text;
+  if( checkTempo(text) ) {
+    tempData[sectionNumber.toString()]["tempo"] = text;
+  } else {
+    tempData = {};
+    return false;
+  }
 
   //id = countInput
   text = document.getElementById("countInput").value;
-  metronomeData[sectionNumber.toString()]["count"] = text;
+  if( checkCount(text) ) {
+    tempData[sectionNumber.toString()]["count"] = text;
+  } else {
+    tempData = {};
+    return false;
+  }
 
   //id = sectionInput 
   text = document.getElementById("sectionInput").value;
-  metronomeData[sectionNumber.toString()]["section"] = text;
-  //console.log(metronomeData[sectionNumber.toString()]);
+  if( checkSection(text) ) {
+    tempData[sectionNumber.toString()]["section"] = text;
+  } else {
+    tempData = {};
+    return false;
+  }
+  metronomeData = tempData;
+  tempData = {};
+  console.log(metronomeData[sectionNumber.toString()]);
 
   sectionNumber++;
 
+}
+
+function checkSection( userInput ) {
+  // verify 1 <= section <= 18
+  var strlen = userInput.length;
+  if( strlen < 1 || strlen > 18 )
+    return false;
+  return true;
+}
+
+function checkCount( userInput ) {
+  // verify 1 <= count <= 9999
+  var number = parseInt(userInput);
+  if( isNanN(number) )
+    return false;
+  if( number < 1 || number > 9999 )
+    return false;
+  return true;
+}
+
+function checkTempo( userInput ) {
+  // verify 1 <= tempo <= 400
+  var number = parseInt(userInput);
+  if( isNaN(number) )
+    return false;
+  if( number < 1 || number > 400 )
+    return false;
+  return true;
 }
 
 function checkTimeSig( userInput ) {
@@ -81,7 +132,8 @@ function checkTimeSig( userInput ) {
   // 1 <= N <= 9 and M == 2 || 4 || 8
   var validSig = /[1-9]\/[248]/;
   var valid = validSig.test(userInput);
-  console.log(valid);
+  //console.log(valid);
+  return valid;
 }
 
 function newMetronome() {
