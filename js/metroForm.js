@@ -14,63 +14,72 @@ document.addEventListener("DOMContentLoaded", function(event) {
   form.setAttribute("method", "#");
 
   // time sig fieldset 
-  var timeField = document.createElement("fieldset");
+  var timeField = document.createElement("div");
   timeField.className = "form-group";
   var timeLabel = document.createElement("label");
   timeLabel.setAttribute("for", "timeInput");
+  timeLabel.className = "control-label";
   timeLabel.textContent = "Time Signature";
   timeField.appendChild(timeLabel);
   var timeInput = document.createElement("input");
   timeInput.setAttribute("type", "text");
-  timeInput.setAttribute("value", "timesig");
   timeInput.setAttribute("id", "timeInput");
   timeInput.className = "form-control";
+  timeInput.required = true;
   timeField.appendChild(timeInput);
+  var timeHelp = helpBlock();
+  timeField.appendChild(timeHelp);
   form.appendChild(timeField);
 
   // tempo fieldset
-  var tempoField = document.createElement("fieldset");
+  var tempoField = document.createElement("div");
   tempoField.className = "form-group";
   var tempoLabel = document.createElement("label");
   tempoLabel.setAttribute("for", "tempoInput");
+  tempoLabel.className = "control-label";
   tempoLabel.textContent = "Tempo";
   tempoField.appendChild(tempoLabel);
   var tempoInput = document.createElement("input");
   tempoInput.setAttribute("type", "text");
-  tempoInput.setAttribute("value", "tempo");
   tempoInput.setAttribute("id", "tempoInput");
   tempoInput.className = "form-control";
   tempoField.appendChild(tempoInput);
+  var tempoHelp = helpBlock();
+  tempoField.appendChild(tempoHelp);
   form.appendChild(tempoField);
 
   // measure count fieldset
-  var countField = document.createElement("fieldset");
+  var countField = document.createElement("div");
   countField.className = "form-group";
   var countLabel = document.createElement("label");
   countLabel.setAttribute("for", "countInput");
+  countLabel.className = "control-label";
   countLabel.textContent = "Number of measures";
   countField.appendChild(countLabel);
   var countInput = document.createElement("input");
   countInput.setAttribute("type", "text");
-  countInput.setAttribute("value", "count");
   countInput.setAttribute("id", "countInput");
   countInput.className = "form-control";
   countField.appendChild(countInput);
+  var countHelp = helpBlock();
+  countField.appendChild(countHelp);
   form.appendChild(countField);
 
   // section name fieldset
-  var sectionField = document.createElement("fieldset");
+  var sectionField = document.createElement("div");
   sectionField.className = "form-group";
   var sectionLabel = document.createElement("label");
   sectionLabel.setAttribute("for", "sectionInput");
+  sectionLabel.className = "control-label";
   sectionLabel.textContent = "section name";
   sectionField.appendChild(sectionLabel);
   var sectionInput = document.createElement("input");
   sectionInput.setAttribute("type", "text");
-  sectionInput.setAttribute("value", "section");
   sectionInput.setAttribute("id", "sectionInput");
   sectionInput.className = "form-control";
   sectionField.appendChild(sectionInput);
+  var nameHelp = helpBlock();
+  sectionField.appendChild(nameHelp);
   form.appendChild(sectionField);
 
   // create a add button
@@ -96,5 +105,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // add the form div to the outer div
   var wrapper = document.getElementById("metronome-wrapper");
   wrapper.appendChild(formDiv);
+
+  function helpBlock() {
+    var helpDiv = document.createElement("div");
+    helpDiv.className = "help-block with-errors";
+    return helpDiv;
+  }
 
 });
