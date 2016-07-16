@@ -51,54 +51,62 @@ function reset() {
 }
 
 function addSection() {
-  $("form").validator();
-  //var text = "";
-  //var tempData = {};
-  ////metronomeData[sectionNumber.toString()] = {};
-  //tempData[sectionNumber.toString()] = {};
+  //$("form").validator();
+  var text = "";
+  var tempData = {};
+  var validForm = true;
+  //metronomeData[sectionNumber.toString()] = {};
+  tempData[sectionNumber.toString()] = {};
   
-  ////id = timeInput 
-  //text = document.getElementById("timeInput").value;
-  //if( checkTimeSig(text) ) {
-    //tempData[sectionNumber.toString()]["timesig"] = text;
-  //} else {
-    //tempData = {};
-    //$("#timeInput").parent().toggleClass("has-error");
-    //$("#timeInput").next().text("time sig cant be blank");
-    //return false;
-  //}
+  //id = timeInput 
+  text = document.getElementById("timeInput").value;
+  if( checkTimeSig(text) ) {
+    tempData[sectionNumber.toString()]["timesig"] = text;
+  } else {
+    tempData = {};
+    $("#timeInput").parent().toggleClass("has-error");
+    $("#timeInput").next().text("time sig cant be blank");
+    validForm = false;
+  }
 
-  ////id = tempoInput
-  //text = document.getElementById("tempoInput").value;
-  //if( checkTempo(text) ) {
-    //tempData[sectionNumber.toString()]["tempo"] = text;
-  //} else {
-    //tempData = {};
-    //return false;
-  //}
+  //id = tempoInput
+  console.log("next item");
+  text = document.getElementById("tempoInput").value;
+  if( checkTempo(text) ) {
+    tempData[sectionNumber.toString()]["tempo"] = text;
+  } else {
+    tempData = {};
+    $("#tempoInput").parent().toggleClass("has-error");
+    $("#tempoInput").next().text("tempo must be between 1 and 400");
+    validForm = false;
+  }
 
-  ////id = countInput
-  //text = document.getElementById("countInput").value;
-  //if( checkCount(text) ) {
-    //tempData[sectionNumber.toString()]["count"] = text;
-  //} else {
-    //tempData = {};
-    //return false;
-  //}
+  //id = countInput
+  text = document.getElementById("countInput").value;
+  if( checkCount(text) ) {
+    tempData[sectionNumber.toString()]["count"] = text;
+  } else {
+    tempData = {};
+    $("countInput").parent().toggleClass("has-error");
+    $("countInput").next().text("enter a number between 1 and 9999");
+    validForm = false;
+  }
 
-  ////id = sectionInput 
-  //text = document.getElementById("sectionInput").value;
-  //if( checkSection(text) ) {
-    //tempData[sectionNumber.toString()]["section"] = text;
-  //} else {
-    //tempData = {};
-    //return false;
-  //}
-  //metronomeData = tempData;
-  //tempData = {};
-  //console.log(metronomeData[sectionNumber.toString()]);
+  //id = sectionInput 
+  text = document.getElementById("sectionInput").value;
+  if( checkSection(text) ) {
+    tempData[sectionNumber.toString()]["section"] = text;
+  } else {
+    tempData = {};
+    $("sectionInput").parent().toggleClass("has-error");
+    $("sectionInput").next().text("section must have a name");
+    validForm = false;
+  }
+  metronomeData = tempData;
+  tempData = {};
+  console.log(metronomeData[sectionNumber.toString()]);
 
-  //sectionNumber++;
+  sectionNumber++;
 
 }
 

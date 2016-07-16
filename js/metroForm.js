@@ -24,8 +24,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var timeInput = document.createElement("input");
   timeInput.setAttribute("type", "text");
   timeInput.setAttribute("id", "timeInput");
+  timeInput.setAttribute("value", "4/4");
   timeInput.className = "form-control";
-  timeInput.required = true;
+  //timeInput.required = true;
   timeField.appendChild(timeInput);
   var timeHelp = helpBlock();
   timeField.appendChild(timeHelp);
@@ -42,7 +43,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var tempoInput = document.createElement("input");
   tempoInput.setAttribute("type", "text");
   tempoInput.setAttribute("id", "tempoInput");
+  tempoInput.setAttribute("value", "100");
   tempoInput.className = "form-control";
+  //tempoInput.required = true;
   tempoField.appendChild(tempoInput);
   var tempoHelp = helpBlock();
   tempoField.appendChild(tempoHelp);
@@ -59,7 +62,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var countInput = document.createElement("input");
   countInput.setAttribute("type", "text");
   countInput.setAttribute("id", "countInput");
+  countInput.setAttribute("value", "100");
   countInput.className = "form-control";
+  //countInput.required = true;
   countField.appendChild(countInput);
   var countHelp = helpBlock();
   countField.appendChild(countHelp);
@@ -76,7 +81,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var sectionInput = document.createElement("input");
   sectionInput.setAttribute("type", "text");
   sectionInput.setAttribute("id", "sectionInput");
+  sectionInput.setAttribute("value", "Riff a");
   sectionInput.className = "form-control";
+  //sectionInput.required = true;
   sectionField.appendChild(sectionInput);
   var nameHelp = helpBlock();
   sectionField.appendChild(nameHelp);
