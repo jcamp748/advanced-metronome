@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var addButton = document.createElement("input");
   addButton.setAttribute("type", "button");
   addButton.setAttribute("value", "add section");
-  addButton.setAttribute("onclick", "addSection()");
+  addButton.setAttribute("onclick", "validate()");
   form.appendChild(addButton);
   
   // create a submit button

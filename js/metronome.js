@@ -50,18 +50,17 @@ function reset() {
   currentBeat = 0;
 }
 
-function addSection() {
+function validate() {
   //$("form").validator();
   var text = "";
   var tempData = {};
   var validForm = true;
   //metronomeData[sectionNumber.toString()] = {};
-  tempData[sectionNumber.toString()] = {};
   
   //id = timeInput 
   text = document.getElementById("timeInput").value;
   if( checkTimeSig(text) ) {
-    tempData[sectionNumber.toString()]["timesig"] = text;
+    tempData["timesig"] = text;
   } else {
     tempData = {};
     $("#timeInput").parent().toggleClass("has-error");
@@ -70,10 +69,9 @@ function addSection() {
   }
 
   //id = tempoInput
-  console.log("next item");
   text = document.getElementById("tempoInput").value;
   if( checkTempo(text) ) {
-    tempData[sectionNumber.toString()]["tempo"] = text;
+    tempData["tempo"] = text;
   } else {
     tempData = {};
     $("#tempoInput").parent().toggleClass("has-error");
@@ -84,7 +82,7 @@ function addSection() {
   //id = countInput
   text = document.getElementById("countInput").value;
   if( checkCount(text) ) {
-    tempData[sectionNumber.toString()]["count"] = text;
+    tempData["count"] = text;
   } else {
     tempData = {};
     $("countInput").parent().toggleClass("has-error");
@@ -95,18 +93,21 @@ function addSection() {
   //id = sectionInput 
   text = document.getElementById("sectionInput").value;
   if( checkSection(text) ) {
-    tempData[sectionNumber.toString()]["section"] = text;
+    tempData["section"] = text;
   } else {
     tempData = {};
     $("sectionInput").parent().toggleClass("has-error");
     $("sectionInput").next().text("section must have a name");
     validForm = false;
   }
-  metronomeData = tempData;
+  if( validForm ) {
+    metronomeData[sectionNumber.toString()] = tempData;
+    //console.log(JSON.stringify(metronomeData[sectionNumber.toString()], null, 4));
+    console.log(JSON.stringify(metronomeData, null, 4));
+    sectionNumber++;
+  }
   tempData = {};
-  console.log(metronomeData[sectionNumber.toString()]);
 
-  sectionNumber++;
 
 }
 
@@ -121,7 +122,7 @@ function checkSection( userInput ) {
 function checkCount( userInput ) {
   // verify 1 <= count <= 9999
   var number = parseInt(userInput);
-  if( isNanN(number) )
+  if( isNaN(number) )
     return false;
   if( number < 1 || number > 9999 )
     return false;
