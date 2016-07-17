@@ -148,6 +148,7 @@ function checkTimeSig( userInput ) {
 
 function newMetronome() {
   // display a form
+  $("#form-wrapper").toggle();
 }
 
 
