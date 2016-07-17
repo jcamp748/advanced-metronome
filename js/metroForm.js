@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // create a div to contain the form
   var formDiv = document.createElement("div");
   formDiv.setAttribute("id", "form-wrapper");
+  formDiv.setAttribute("style", "display:none");
+  formDiv.className = "col-md-4";
 
   // create <form> element, change the action and method
   // attributes to connect submit to the server
