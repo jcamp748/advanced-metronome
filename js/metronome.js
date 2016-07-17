@@ -51,11 +51,9 @@ function reset() {
 }
 
 function validate() {
-  //$("form").validator();
   var text = "";
   var tempData = {};
   var validForm = true;
-  //metronomeData[sectionNumber.toString()] = {};
   
   //id = timeInput 
   text = document.getElementById("timeInput").value;
