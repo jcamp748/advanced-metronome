@@ -4,7 +4,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var formDiv = document.createElement("div");
   formDiv.setAttribute("id", "form-wrapper");
   formDiv.setAttribute("style", "display:none");
-  formDiv.className = "col-md-4";
+  formDiv.className = "container";
+
+  //create div for row
+  var row = document.createElement("div");
+  row.className = "row";
+
+  //create div column
+  var column = document.createElement("div");
+  column.className = "col-md-4";
 
   // create <form> element, change the action and method
   // attributes to connect submit to the server
@@ -107,9 +115,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
   submitButton.innerHTML = "save";
   form.appendChild(submitButton);
 
+  // add the form to the column
+  column.appendChild(form);
 
-  // add the form to the form div
-  formDiv.appendChild(form);
+  // add the column to the row
+  row.appendChild(column);
+
+  // add the row to the form div
+  formDiv.appendChild(row);
 
   // add the form div to the outer div
   var wrapper = document.getElementById("metronome-wrapper");
