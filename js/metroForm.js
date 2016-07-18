@@ -115,6 +115,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var wrapper = document.getElementById("metronome-wrapper");
   wrapper.appendChild(formDiv);
 
+  var ev = new Event('form complete');
+  document.dispatchEvent(ev);
+
   function helpBlock() {
     var helpDiv = document.createElement("div");
     helpDiv.className = "help-block with-errors";
