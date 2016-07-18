@@ -8,7 +8,8 @@ document.addEventListener('form complete', function(event) {
       $('<div></div>').addClass("col-md-8").append(
         $('<table></table>')
           .attr("id", "metro-table")
-          .addClass("table table-striped").append(
+          .addClass("table table-striped")
+          .append(
             $('<thead></thead>').append(
               $('<tr></tr>')
                 .append(
@@ -18,7 +19,19 @@ document.addEventListener('form complete', function(event) {
                 .append(
                   $('<th></th>').text("measures").addClass("col-xs-3"))
                 .append(
-                  $('<th></th>').text("name").addClass("col-xs-3"))))));
+                  $('<th></th>').text("name").addClass("col-xs-3"))))
+          .append(
+            $('<tbody></tbody>'))));
 
-  // utility function to add elements to table
 });
+
+// utility function to add elements to table
+function addRow(data) {
+  var row = $('<tr></tr>');
+  for(var prop in data) {
+    // create td with class col-xs-3
+    row.append( $('<td></td>').text(data[prop]).addClass("col-xs-3"));
+  }
+  // add row to tbody
+  $("tbody").append(row);
+}

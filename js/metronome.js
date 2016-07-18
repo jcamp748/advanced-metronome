@@ -104,9 +104,9 @@ function validate() {
     console.log(JSON.stringify(metronomeData, null, 4));
     sectionNumber++;
   }
+
+  if(validForm) addRow(tempData);
   tempData = {};
-
-
 }
 
 function checkSection( userInput ) {
