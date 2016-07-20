@@ -223,6 +223,15 @@ function drawDisplay() {
 
 function init() {
 
+  // create QUnit fixture
+  var qu = document.createElement("div");
+  qu.setAttribute("id", "qunit");
+  $("body").append(qu);
+
+  var qfix = document.createElement("div");
+  qfix.setAttribute("id", "qunit-fixture");
+  $("body").append(qfix);
+
   // create a div to put the metronome display in
   var displayWrapper = document.createElement("div");
   displayWrapper.setAttribute("id", "display-wrapper");
