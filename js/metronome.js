@@ -55,8 +55,7 @@ function validate() {
   var tempData = {};
   var validForm = true;
   
-  //id = timeInput 
-  text = document.getElementById("timeInput").value;
+  text = $("#timeInput").val();
   if( checkTimeSig(text) ) {
     tempData["timesig"] = text;
   } else {
@@ -66,8 +65,7 @@ function validate() {
     validForm = false;
   }
 
-  //id = tempoInput
-  text = document.getElementById("tempoInput").value;
+  text = $("tempoInput").val();
   if( checkTempo(text) ) {
     tempData["tempo"] = text;
   } else {
@@ -77,8 +75,7 @@ function validate() {
     validForm = false;
   }
 
-  //id = countInput
-  text = document.getElementById("countInput").value;
+  text = $("#countInput").val();
   if( checkCount(text) ) {
     tempData["count"] = text;
   } else {
@@ -88,8 +85,7 @@ function validate() {
     validForm = false;
   }
 
-  //id = sectionInput 
-  text = document.getElementById("sectionInput").value;
+  text = $("#sectionInput").val();
   if( checkSection(text) ) {
     tempData["section"] = text;
   } else {
@@ -224,29 +220,25 @@ function drawDisplay() {
 function init() {
 
   // create QUnit fixture
-  var qu = document.createElement("div");
-  qu.setAttribute("id", "qunit");
+  var qu = $('<div></div>').attr("id", "qunit");
   $("body").append(qu);
 
-  var qfix = document.createElement("div");
-  qfix.setAttribute("id", "qunit-fixture");
+  var qfix = $('<div></div>').attr("id", "qunit-fixture");
   $("body").append(qfix);
 
   // create a div to put the metronome display in
-  var displayWrapper = document.createElement("div");
-  displayWrapper.setAttribute("id", "display-wrapper");
+  var displayWrapper = $('<div></div>').attr("id", "display-wrapper");
 
   // create canvas element to draw metronome display on
-  var canvas = document.createElement("canvas");
-  canvas.id = "metronome-canvas";
-  canvas.setAttribute("height", 400);
-  canvas.setAttribute("width", 600);
+  var canvas = $('<canvas></canvas>')
+    .attr("id", "metronome-canvas")
+    .attr("height", 400)
+    .attr("width", 600);
   // add <canvas> to display div
-  displayWrapper.appendChild(canvas);
+  displayWrapper.append(canvas);
 
   // add display div to root div
-  var wrapper = document.getElementById("metronome-wrapper");
-  wrapper.appendChild(displayWrapper);
+  var wrapper = $("#metronome-wrapper").append(displayWrapper);
 
   // initialize digital number display
   beatValue = new SegmentDisplay("metronome-canvas", 0, 0, 0.2);
@@ -383,26 +375,27 @@ function init() {
   sectionValue.colorOff        = segmentOff;
 
   // addControls
-  var controls = document.createElement("div");
-  controls.setAttribute("id", "metronome-controls");
-  var playButton = document.createElement("button");
-  playButton.setAttribute("onclick", "this.innerText = play()");
-  playButton.textContent = "play";
-  playButton.className = "metronome-control";
-  controls.appendChild(playButton);
+  var controls = $('<div></div>').attr("id", "metronome-controls");
+  var playButton = $('<button></button>')
+    .attr("onclick", "this.innerText = play()")
+    .text("play")
+    .addClass("metronome-control");
+  controls.append(playButton);
 
-  var resetButton = document.createElement("button");
-  resetButton.setAttribute("onclick", "reset()");
-  resetButton.textContent = "reset";
-  resetButton.className = "metronome-control";
-  controls.appendChild(resetButton);
+  //var resetButton = document.createElement("button");
+  var resetButton = $('<button></button>')
+    .attr("onclick", "reset()")
+    .text("reset")
+    .addClass("metronome-control");
+  controls.append(resetButton);
 
-  var newButton = document.createElement("button");
-  newButton.setAttribute("onclick", "newMetronome()");
-  newButton.textContent = "new";
-  newButton.className = "metronome-control";
-  controls.appendChild(newButton);
-  wrapper.appendChild(controls);
+  //var newButton = document.createElement("button");
+  var newButton = $('<button></button>')
+    .attr("onclick", "newMetronome()")
+    .text("new")
+    .addClass("metronome-control");
+  controls.append(newButton);
+  wrapper.append(controls);
 
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
