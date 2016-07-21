@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("metronome loaded", function(event) {
 
   // create a div to contain the form
   var formDiv = $('<div></div>')

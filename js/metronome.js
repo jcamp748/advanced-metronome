@@ -24,6 +24,7 @@ var sectionLabel = null;        // label for section
 var sectionValue = null;        // name of the current section
 
 var metronomeData = {};         // empty object to hold all the sections of the metronome
+var sectionData = {};           // empty object to hold current section of the metronome
 var sectionNumber = 0;          // section of the metronome hash we are on
 
 // colorscheme for metronome screen
@@ -46,30 +47,31 @@ function play() {
 }
 
 function reset() {
+  // get data from first table entry and set
+  // measureCount, currentBeat, beatUnit, beatsPerMeasure, tempo, measureCount
   measureCount = 4;
   currentBeat = 0;
 }
 
 function validate() {
   var text = "";
-  var tempData = {};
   var validForm = true;
   
   text = $("#timeInput").val();
   if( checkTimeSig(text) ) {
-    tempData["timesig"] = text;
+    sectionData["timesig"] = text;
   } else {
-    tempData = {};
+    sectionData = {};
     $("#timeInput").parent().toggleClass("has-error");
     $("#timeInput").next().text("time sig cant be blank");
     validForm = false;
   }
 
-  text = $("tempoInput").val();
+  text = $("#tempoInput").val();
   if( checkTempo(text) ) {
-    tempData["tempo"] = text;
+    sectionData["tempo"] = text;
   } else {
-    tempData = {};
+    sectionData = {};
     $("#tempoInput").parent().toggleClass("has-error");
     $("#tempoInput").next().text("tempo must be between 1 and 400");
     validForm = false;
@@ -77,9 +79,9 @@ function validate() {
 
   text = $("#countInput").val();
   if( checkCount(text) ) {
-    tempData["count"] = text;
+    sectionData["count"] = text;
   } else {
-    tempData = {};
+    sectionData = {};
     $("countInput").parent().toggleClass("has-error");
     $("countInput").next().text("enter a number between 1 and 9999");
     validForm = false;
@@ -87,22 +89,22 @@ function validate() {
 
   text = $("#sectionInput").val();
   if( checkSection(text) ) {
-    tempData["section"] = text;
+    sectionData["section"] = text;
   } else {
-    tempData = {};
+    sectionData = {};
     $("sectionInput").parent().toggleClass("has-error");
     $("sectionInput").next().text("section must have a name");
     validForm = false;
   }
   if( validForm ) {
-    metronomeData[sectionNumber.toString()] = tempData;
+    metronomeData[sectionNumber.toString()] = sectionData;
     //console.log(JSON.stringify(metronomeData[sectionNumber.toString()], null, 4));
     console.log(JSON.stringify(metronomeData, null, 4));
     sectionNumber++;
   }
 
-  if(validForm) addRow(tempData);
-  tempData = {};
+  if(validForm) addRow(sectionData);
+  sectionData = {};
 }
 
 function checkSection( userInput ) {
@@ -397,6 +399,14 @@ function init() {
   controls.append(newButton);
   wrapper.append(controls);
 
+  // fire event to load form
+  var ev = new Event('metronome loaded');
+  document.dispatchEvent(ev);
+
+  // now all the html for the whole page has been rendered
+  // go ahead and load metronome data
+  loadData();
+
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
   audioContext = new AudioContext();
@@ -414,6 +424,11 @@ function init() {
   };
   timerWorker.postMessage({"interval":lookahead});
 
+}
+
+function loadData() {
+  // load data from the table into metronomeData var
+  console.log("data loaded");
 }
 
 // utility function for drawing rectangles with rounded corners
