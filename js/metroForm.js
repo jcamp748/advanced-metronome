@@ -1,35 +1,19 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
   // create a div to contain the form
-  //var formDiv = document.createElement("div");
-  //formDiv.setAttribute("id", "form-wrapper");
-  //formDiv.setAttribute("style", "display:none");
-  //formDiv.className = "container";
   var formDiv = $('<div></div>')
     .attr("id", "form-wrapper")
     .attr("style", "display:none")
     .addClass("container");
   
-
   //create div for row
-  //var row = document.createElement("div");
-  //row.className = "row";
   var row = $('<div></div>').addClass("row");
 
   //create div column
-  //var column = document.createElement("div");
-  //column.className = "col-md-4";
   var column = $('<div></div>').addClass("col-md-4");
 
   // create <form> element, change the action and method
   // attributes to connect submit to the server
-  //var form = document.createElement("form");
-  //form.setAttribute("id", "metronome-form");
-  //form.setAttribute("role", "form");
-  //form.setAttribute("data-toggle", "validator");
-  //form.setAttribute("action", "#");
-  //form.setAttribute("method", "#");
-
   var form = $('<form></form>')
     .attr("id", "metronome-form")
     .attr("role", "form")
@@ -38,25 +22,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     .attr("method", "#");
 
   // time sig fieldset 
-  //var timeField = document.createElement("div");
-  //timeField.className = "form-group";
-  //var timeLabel = document.createElement("label");
-  //timeLabel.setAttribute("for", "timeInput");
-  //timeLabel.className = "control-label";
-  //timeLabel.textContent = "Time Signature";
-  //timeField.appendChild(timeLabel);
-  //var timeInput = document.createElement("input");
-  //timeInput.setAttribute("type", "text");
-  //timeInput.setAttribute("id", "timeInput");
-  //timeInput.setAttribute("value", "4/4");
-  //timeInput.className = "form-control";
-  ////timeInput.required = true;
-  //timeField.appendChild(timeInput);
-  //var timeHelp = helpBlock();
-  //timeField.appendChild(timeHelp);
-  //form.appendChild(timeField);
-
-  var timeField = $('<div></div>').addclass("form-group");
+  var timeField = $('<div></div>').addClass("form-group");
   var timeLabel = $('<lable></label>')
     .attr("for", "timeInput")
     .addClass("control-label")
@@ -73,98 +39,91 @@ document.addEventListener("DOMContentLoaded", function(event) {
   form.append(timeField);
 
   // tempo fieldset
-  var tempoField = document.createElement("div");
-  tempoField.className = "form-group";
-  var tempoLabel = document.createElement("label");
-  tempoLabel.setAttribute("for", "tempoInput");
-  tempoLabel.className = "control-label";
-  tempoLabel.textContent = "Tempo";
-  tempoField.appendChild(tempoLabel);
-  var tempoInput = document.createElement("input");
-  tempoInput.setAttribute("type", "text");
-  tempoInput.setAttribute("id", "tempoInput");
-  tempoInput.setAttribute("value", "100");
-  tempoInput.className = "form-control";
-  //tempoInput.required = true;
-  tempoField.appendChild(tempoInput);
+  var tempoField = $('<div></div>')
+    .addClass("form-group");
+  var tempoLabel = $('<label></label>')
+    .attr("for", "tempoInput")
+    .addClass("control-label")
+    .text("Tempo");
+  tempoField.append(tempoLabel);
+  var tempoInput = $('<input></input>')
+    .attr("type", "text")
+    .attr("id", "tempoInput")
+    .attr("value", "100")
+    .addClass("form-control");
+  tempoField.append(tempoInput);
   var tempoHelp = helpBlock();
-  tempoField.appendChild(tempoHelp);
-  form.appendChild(tempoField);
+  tempoField.append(tempoHelp);
+  form.append(tempoField);
 
   // measure count fieldset
-  var countField = document.createElement("div");
-  countField.className = "form-group";
-  var countLabel = document.createElement("label");
-  countLabel.setAttribute("for", "countInput");
-  countLabel.className = "control-label";
-  countLabel.textContent = "Number of measures";
-  countField.appendChild(countLabel);
-  var countInput = document.createElement("input");
-  countInput.setAttribute("type", "text");
-  countInput.setAttribute("id", "countInput");
-  countInput.setAttribute("value", "100");
-  countInput.className = "form-control";
-  //countInput.required = true;
-  countField.appendChild(countInput);
+  var countField = $('<div></div>')
+    .addClass("form-group");
+  var countLabel = $('<label></label>')
+    .attr("for", "countInput")
+    .addClass("control-label")
+    .text("Number of measures");
+  countField.append(countLabel);
+  var countInput = $('<input></input>')
+    .attr("type", "text")
+    .attr("id", "countInput")
+    .attr("value", "100")
+    .addClass("form-control");
+  countField.append(countInput);
   var countHelp = helpBlock();
-  countField.appendChild(countHelp);
-  form.appendChild(countField);
+  countField.append(countHelp);
+  form.append(countField);
 
   // section name fieldset
-  var sectionField = document.createElement("div");
-  sectionField.className = "form-group";
-  var sectionLabel = document.createElement("label");
-  sectionLabel.setAttribute("for", "sectionInput");
-  sectionLabel.className = "control-label";
-  sectionLabel.textContent = "section name";
-  sectionField.appendChild(sectionLabel);
-  var sectionInput = document.createElement("input");
-  sectionInput.setAttribute("type", "text");
-  sectionInput.setAttribute("id", "sectionInput");
-  sectionInput.setAttribute("value", "Riff a");
-  sectionInput.className = "form-control";
-  //sectionInput.required = true;
-  sectionField.appendChild(sectionInput);
+  var sectionField = $('<div></div>')
+    .addClass("form-group");
+  var sectionLabel = $('<label></label>')
+    .attr("for", "sectionInput")
+    .addClass("control-label")
+    .text("section name");
+  sectionField.append(sectionLabel);
+  var sectionInput = $('<input></input>')
+    .attr("type", "text")
+    .attr("id", "sectionInput")
+    .attr("value", "Riff a")
+    .addClass("form-control");
+  sectionField.append(sectionInput);
   var nameHelp = helpBlock();
-  sectionField.appendChild(nameHelp);
-  form.appendChild(sectionField);
+  sectionField.append(nameHelp);
+  form.append(sectionField);
+
 
   // create a add button
-  var addButton = document.createElement("input");
-  addButton.setAttribute("type", "button");
-  addButton.setAttribute("value", "add section");
-  addButton.setAttribute("onclick", "validate()");
-  form.appendChild(addButton);
-  
+  var addButton = $('<input></input>')
+    .attr("type", "button")
+    .attr("value", "add section")
+    .attr("onclick", "validate()");
+  form.append(addButton);
+
   // create a submit button
-  // change formaction and formmethod to save changes to server
-  var submitButton = document.createElement("button");
-  submitButton.setAttribute("form", "metronome-form");
-  submitButton.setAttribute("formaction", "#");
-  submitButton.setAttribute("formmethod", "#");
-  submitButton.innerHTML = "save";
-  form.appendChild(submitButton);
+  var submitButton = $('<button></button>')
+    .attr("form", "metronome-form")
+    .attr("formaction", "#")
+    .attr("formmethod", "#")
+    .text("save");
+  form.append(submitButton);
 
   // add the form to the column
-  column.appendChild(form);
+  column.append(form);
 
   // add the column to the row
-  row.appendChild(column);
+  row.append(column);
 
   // add the row to the form div
-  formDiv.appendChild(row);
+  formDiv.append(row);
 
   // add the form div to the outer div
-  var wrapper = document.getElementById("metronome-wrapper");
-  wrapper.appendChild(formDiv);
+  $('#metronome-wrapper').append(formDiv);
 
   var ev = new Event('form complete');
   document.dispatchEvent(ev);
 
   function helpBlock() {
-    //var helpDiv = document.createElement("div");
-    //helpDiv.className = "help-block with-errors";
-    //return helpDiv;
     var helpDiv = $('<div></div>').addClass("help-block with-errors");
     return helpDiv;
   }
