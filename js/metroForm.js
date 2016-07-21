@@ -100,6 +100,13 @@ document.addEventListener("metronome loaded", function(event) {
     .attr("onclick", "validate()");
   form.append(addButton);
 
+  // create a clear button
+  var clearButton = $('<input></input>')
+    .attr("type", "button")
+    .attr("value", "clear table")
+    .attr("onclick", "clearTable()");
+  form.append(clearButton);
+    
   // create a submit button
   var submitButton = $('<button></button>')
     .attr("form", "metronome-form")

@@ -35,3 +35,9 @@ function addRow(data) {
   // add row to tbody
   $("tbody").append(row);
 }
+
+// utility function to clear table
+function clearTable() {
+  // delete all elements under tbody
+  $("#metro-table tbody").empty();
+}
