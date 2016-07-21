@@ -1,46 +1,76 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
   // create a div to contain the form
-  var formDiv = document.createElement("div");
-  formDiv.setAttribute("id", "form-wrapper");
-  formDiv.setAttribute("style", "display:none");
-  formDiv.className = "container";
+  //var formDiv = document.createElement("div");
+  //formDiv.setAttribute("id", "form-wrapper");
+  //formDiv.setAttribute("style", "display:none");
+  //formDiv.className = "container";
+  var formDiv = $('<div></div>')
+    .attr("id", "form-wrapper")
+    .attr("style", "display:none")
+    .addClass("container");
+  
 
   //create div for row
-  var row = document.createElement("div");
-  row.className = "row";
+  //var row = document.createElement("div");
+  //row.className = "row";
+  var row = $('<div></div>').addClass("row");
 
   //create div column
-  var column = document.createElement("div");
-  column.className = "col-md-4";
+  //var column = document.createElement("div");
+  //column.className = "col-md-4";
+  var column = $('<div></div>').addClass("col-md-4");
 
   // create <form> element, change the action and method
   // attributes to connect submit to the server
-  var form = document.createElement("form");
-  form.setAttribute("id", "metronome-form");
-  form.setAttribute("role", "form");
-  form.setAttribute("data-toggle", "validator");
-  form.setAttribute("action", "#");
-  form.setAttribute("method", "#");
+  //var form = document.createElement("form");
+  //form.setAttribute("id", "metronome-form");
+  //form.setAttribute("role", "form");
+  //form.setAttribute("data-toggle", "validator");
+  //form.setAttribute("action", "#");
+  //form.setAttribute("method", "#");
+
+  var form = $('<form></form>')
+    .attr("id", "metronome-form")
+    .attr("role", "form")
+    .attr("data-toggle", "validator")
+    .attr("action", "#")
+    .attr("method", "#");
 
   // time sig fieldset 
-  var timeField = document.createElement("div");
-  timeField.className = "form-group";
-  var timeLabel = document.createElement("label");
-  timeLabel.setAttribute("for", "timeInput");
-  timeLabel.className = "control-label";
-  timeLabel.textContent = "Time Signature";
-  timeField.appendChild(timeLabel);
-  var timeInput = document.createElement("input");
-  timeInput.setAttribute("type", "text");
-  timeInput.setAttribute("id", "timeInput");
-  timeInput.setAttribute("value", "4/4");
-  timeInput.className = "form-control";
-  //timeInput.required = true;
-  timeField.appendChild(timeInput);
+  //var timeField = document.createElement("div");
+  //timeField.className = "form-group";
+  //var timeLabel = document.createElement("label");
+  //timeLabel.setAttribute("for", "timeInput");
+  //timeLabel.className = "control-label";
+  //timeLabel.textContent = "Time Signature";
+  //timeField.appendChild(timeLabel);
+  //var timeInput = document.createElement("input");
+  //timeInput.setAttribute("type", "text");
+  //timeInput.setAttribute("id", "timeInput");
+  //timeInput.setAttribute("value", "4/4");
+  //timeInput.className = "form-control";
+  ////timeInput.required = true;
+  //timeField.appendChild(timeInput);
+  //var timeHelp = helpBlock();
+  //timeField.appendChild(timeHelp);
+  //form.appendChild(timeField);
+
+  var timeField = $('<div></div>').addclass("form-group");
+  var timeLabel = $('<lable></label>')
+    .attr("for", "timeInput")
+    .addClass("control-label")
+    .text("Time Signature");
+  timeField.append(timeLabel);
+  var timeInput = $('<input></input>')
+    .attr("type", "text")
+    .attr("id", "timeInput")
+    .attr("value", "4/4")
+    .addClass("form-control");
+  timeField.append(timeInput);
   var timeHelp = helpBlock();
-  timeField.appendChild(timeHelp);
-  form.appendChild(timeField);
+  timeField.append(timeHelp);
+  form.append(timeField);
 
   // tempo fieldset
   var tempoField = document.createElement("div");
@@ -132,8 +162,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   document.dispatchEvent(ev);
 
   function helpBlock() {
-    var helpDiv = document.createElement("div");
-    helpDiv.className = "help-block with-errors";
+    //var helpDiv = document.createElement("div");
+    //helpDiv.className = "help-block with-errors";
+    //return helpDiv;
+    var helpDiv = $('<div></div>').addClass("help-block with-errors");
     return helpDiv;
   }
 
