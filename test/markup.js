@@ -5,15 +5,29 @@
 
 QUnit.test( "verify page markup", function( assert ) {
   var $outerWrapper = $("#metronome-wrapper");
-  assert.equal( true, $outerWrapper.is("div"), "verify outer wrapper is a div");
-  assert.equal( 1, $outerWrapper.length, "should be only one metronome-wrapper id");
+  assert.equal( $outerWrapper.is("div"), true, "verify outer wrapper is a div");
+  assert.equal( $outerWrapper.length, 1, "should be only one metronome-wrapper id");
 
-  assert.equal( true, $outerWrapper.children(":nth-child(1)").is("div"), "verify  display-wrapper div");
-  assert.equal( 1, $("#display-wrapper").length, "should be only one display-wrapper id");
+  assert.equal( $outerWrapper.children(":nth-child(1)").is("div"), true, "verify  display-wrapper div");
+  assert.equal( $("#display-wrapper").length, 1, "should be only one display-wrapper id");
 
-  assert.equal( true, $outerWrapper.children(":nth-child(2)").is("div"), "verify  metronome-controls div");
-  assert.equal( 1, $("#metronome-controls").length, "should be only one metronome-controls id");
+  assert.equal( $outerWrapper.children(":nth-child(2)").is("div"), true, "verify  metronome-controls div");
+  assert.equal( $("#metronome-controls").length, 1, "should be only one metronome-controls id");
 
-  assert.equal( true, $outerWrapper.children(":nth-child(3)").is("div"), "verify  form-wrapper div");
-  assert.equal( 1, $("#form-wrapper ").length, "should be only one form-wrapper id");
+  assert.equal( $outerWrapper.children(":nth-child(3)").is("div"), true, "verify  form-wrapper div");
+  assert.equal( $("#form-wrapper ").length, 1, "should be only one form-wrapper id");
+
+  assert.equal( $("#metronome-controls button").length, 3, "should be 3 control buttons");
+
+  assert.equal( $("#metronome-form").is("form"), true, "should be metronome-form");
+
+  var $formInputs = $("#metronome-form .form-group");
+  assert.equal( $formInputs.length, 4, "should be 4 form groups");
+
+  $.each($formInputs, function(key, value){
+    //console.log(value); 
+    assert.equal( $(value).children().length, 3, "each form group should have 3 children");
+  });
+
+
 });
