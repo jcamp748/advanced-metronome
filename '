@@ -13,7 +13,7 @@ var beatsPerMeasure = 0;        //the top number of a time signature
 var notesInQueue = [];          // the notes that have been put into the web audio,
 var noteLength = 0.05;          // length of "beep" (in seconds)
 var measureCount = 0;           // number of measures left to play at current tempo
-var sectionName = "";           // name of the current section
+var sectionName = "riff a";           // name of the current section
 
 var beatValue = null;           // display beat number 
 var sigLabel = null;            // label for time signature
@@ -39,7 +39,6 @@ function play() {
     isPlaying = !isPlaying;
 
     if (isPlaying) { // start playing
-        loadFirstSection();
         nextNoteTime = audioContext.currentTime;
         timerWorker.postMessage("start");
         return "stop";
@@ -56,28 +55,17 @@ function clearTable() {
   metronomeData = {};
 }
 
-function loadFirstSection() {
+function reset() {
   // get data from first table entry and set
   // measureCount, currentBeat, beatUnit, beatsPerMeasure, tempo, measureCount
   var firstSection = metronomeData["0"];
   if( firstSection ) {
-    timesig = firstSection["timesig"];
+    timeSig = firstSection["timesig"];
     // break up the first and second numbers
-    beatsPerMeasure = timesig.split("/")[0];
-    beatUnit = timesig.split("/")[1];
-
     
     tempo = firstSection["tempo"];
     measureCount = firstSection["count"];
     sectionName = firstSection["section"];
-  } else {
-    // create a generic filler section
-    timesig = "4/4";
-    beatsPerMeasure = 4;
-    beatUnit = 4;
-    tempo = 120;
-    measureCount = 9999;
-    sectionName = "standard";
   }
 }
 
@@ -415,7 +403,7 @@ function init() {
 
   //var resetButton = document.createElement("button");
   var resetButton = $('<button></button>')
-    .attr("onclick", "loadFirstSection()")
+    .attr("onclick", "reset()")
     .text("reset")
     .addClass("metronome-control");
   controls.append(resetButton);
