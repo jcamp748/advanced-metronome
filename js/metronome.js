@@ -14,6 +14,7 @@ var notesInQueue = [];          // the notes that have been put into the web aud
 var noteLength = 0.05;          // length of "beep" (in seconds)
 var measureCount = 0;           // number of measures left to play at current tempo
 var sectionName = "";           // name of the current section
+var sectionNumber = 0;         // section number we are currently playing
 
 var beatValue = null;           // display beat number 
 var sigLabel = null;            // label for time signature
@@ -39,7 +40,7 @@ function play() {
     isPlaying = !isPlaying;
 
     if (isPlaying) { // start playing
-        loadFirstSection();
+        //loadSection(sectionNumber);
         nextNoteTime = audioContext.currentTime;
         timerWorker.postMessage("start");
         return "stop";
@@ -56,29 +57,32 @@ function clearTable() {
   metronomeData = {};
 }
 
-function loadFirstSection() {
+function loadSection(sec) {
   // get data from first table entry and set
   // measureCount, currentBeat, beatUnit, beatsPerMeasure, tempo, measureCount
-  var firstSection = metronomeData["0"];
-  if( firstSection ) {
-    timesig = firstSection["timesig"];
+  console.log("load section " + sec);
+  sectionNumber = sec;
+  var currentSection = metronomeData[sec.toString()];
+  if( currentSection ) {
+    timesig = currentSection["timesig"];
     // break up the first and second numbers
     beatsPerMeasure = timesig.split("/")[0];
     beatUnit = timesig.split("/")[1];
 
     
-    tempo = firstSection["tempo"];
-    measureCount = firstSection["count"];
-    sectionName = firstSection["section"];
+    tempo = currentSection["tempo"];
+    measureCount = currentSection["count"];
+    sectionName = currentSection["section"];
   } else {
-    // create a generic filler section
-    timesig = "4/4";
-    beatsPerMeasure = 4;
-    beatUnit = 4;
-    tempo = 120;
-    measureCount = 9999;
-    sectionName = "standard";
+    // stop the metronome
+    $("#metronome-controls").children(":nth-child(1)").click();
   }
+}
+
+function reset() {
+  // reset all variables to zero and loadSection(0)
+  currentBeat = 0;
+  loadSection(0);
 }
 
 
@@ -190,8 +194,14 @@ function nextNote() {
 
     currentBeat++;    // Advance the beat number, wrap to zero
     if (currentBeat == beatsPerMeasure) {
+      if (measureCount === 0) {
+        sectionNumber++;
         currentBeat = 0;
+        loadSection(sectionNumber);
+      }
+      currentBeat = 0;
     }
+
 }
 
 function scheduleNote( beatNumber, time ) {
@@ -415,7 +425,7 @@ function init() {
 
   //var resetButton = document.createElement("button");
   var resetButton = $('<button></button>')
-    .attr("onclick", "loadFirstSection()")
+    .attr("onclick", "reset()")
     .text("reset")
     .addClass("metronome-control");
   controls.append(resetButton);
@@ -432,9 +442,6 @@ function init() {
   var ev = new Event('metronome loaded');
   document.dispatchEvent(ev);
 
-  // now all the html for the whole page has been rendered
-  // go ahead and load metronome data
-  loadData();
 
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
@@ -455,10 +462,6 @@ function init() {
 
 }
 
-function loadData() {
-  // load data from the table into metronomeData var
-  console.log("data loaded");
-}
 
 // utility function for drawing rectangles with rounded corners
 function roundedRect(ctx,x,y,width,height,radius, color){
