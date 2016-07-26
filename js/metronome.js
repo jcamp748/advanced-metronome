@@ -89,6 +89,7 @@ function reset() {
 function validate() {
   var text = "";
   var validForm = true;
+  sectionData = {};
   
   text = $("#timeInput").val();
   if( checkTimeSig(text) ) {
@@ -137,7 +138,6 @@ function validate() {
   }
 
   if(validForm) addRow(sectionData);
-  sectionData = {};
 }
 
 function checkSection( userInput ) {
