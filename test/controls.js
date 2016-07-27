@@ -8,7 +8,6 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#metronome-controls").children(":nth-child(3)").trigger("click");
   assert.equal( $("#form-wrapper").is(":visible"), true, "form should be visible");
 
-  // verify reset button behavior
 
   // verify play button behavior
   // clicking play should change text of play button to stop
@@ -52,20 +51,23 @@ QUnit.test( "verify control functionality", function( assert ) {
   };
 
   $("#timeInput").val("4/4");
-  $("tempoInput").val("100");
-  $("countInput").val("2");
-  $("sectionInput").val("riff a");
+  $("#tempoInput").val("100");
+  $("#countInput").val("2");
+  $("#sectionInput").val("riff a");
   $("input[value='add section']").click();
   // verify sectionData object
   assert.deepEqual(sectionData, testSection1);
 
   $("#timeInput").val("3/4");
-  $("tempoInput").val("200");
-  $("countInput").val("3");
-  $("sectionInput").val("riff b");
+  $("#tempoInput").val("200");
+  $("#countInput").val("3");
+  $("#sectionInput").val("riff b");
   $("input[value='add section']").click();
   // verify sectionData object
+  assert.deepEqual(sectionData, testSection2);
 
+  // verify reset button behavior
   // verify metronomeData object
   $("#metronome-controls").children(":nth-child(2)").click();
+  assert.deepEqual(metronomeData, testObj);
 });
