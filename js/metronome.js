@@ -195,8 +195,12 @@ function nextNote() {
     currentBeat++;    // Advance the beat number, wrap to zero
     if (currentBeat == beatsPerMeasure) {
       if (measureCount === 0) {
+        // remove background color of current section
+        highlightRow(sectionNumber);
         sectionNumber++;
         currentBeat = 0;
+        // change background color of current section
+        highlightRow(sectionNumber);
         loadSection(sectionNumber);
       }
       currentBeat = 0;

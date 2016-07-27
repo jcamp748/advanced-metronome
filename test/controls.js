@@ -70,4 +70,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   // verify metronomeData object
   $("#metronome-controls").children(":nth-child(2)").click();
   assert.deepEqual(metronomeData, testObj);
+
+  // test clearTable()
+  // test highlightRow(row)
 });

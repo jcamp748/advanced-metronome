@@ -41,3 +41,8 @@ function clearTable() {
   // delete all elements under tbody
   $("#metro-table tbody").empty();
 }
+
+// utility function to highlight a row
+function highlightRow(row) {
+  $("#metro-table tbody").children(":nth-child(" + row.toString() + ")").toggleClass("highlight");
+}
