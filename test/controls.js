@@ -56,7 +56,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#sectionInput").val("riff a");
   $("input[value='add section']").click();
   // verify sectionData object
-  assert.deepEqual(sectionData, testSection1);
+  assert.deepEqual(sectionData, testSection1, "sectionData shouldn't be null");
 
   $("#timeInput").val("3/4");
   $("#tempoInput").val("200");
@@ -64,13 +64,41 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#sectionInput").val("riff b");
   $("input[value='add section']").click();
   // verify sectionData object
-  assert.deepEqual(sectionData, testSection2);
+  assert.deepEqual(sectionData, testSection2, "sectionData shouldn't be null");
 
   // verify reset button behavior
   // verify metronomeData object
   $("#metronome-controls").children(":nth-child(2)").click();
-  assert.deepEqual(metronomeData, testObj);
+  assert.deepEqual(metronomeData, testObj, "metronomeData shouldn't be null");
+
+  // test addRow
+  $("#metro-table tbody").empty();
+  assert.equal($("metro-table tbody").children().length, 0, "#metro-table should have 0 elements");
+  var testRow = {
+    "timesig" : "3/8",
+    "tempo"   : "134",
+    "count"   : "34",
+    "section" : "cool stuff"
+  };
+
+  addRow(testRow);
+  assert.equal($("#metro-table tbody").children().length, 1, "#metro-table should have 1 element");
 
   // test clearTable()
+  clearTable();
+  assert.equal($("metro-table tbody").children().length, 0, "#metro-table should have 0 elements");
+
+  // populate table with sample data
+  $("#metro-table tbody").empty();
+  assert.equal(0, $("#metronome-table tbody").length, "#metro-table should have 0 elements");
+  addRow(testRow);
+  assert.equal($("#metro-table tbody").children().length, 1, "#metro-table should have 1 element");
+
+  // press clear table button
+  // verify table is empty
+  $("#metronome-form input[value='clear table']").click();
+  assert.equal($("#metro-table tbody").children().length, 0, "#metro-table should have 0 element");
+  
+  // test loadSection(sec)
   // test highlightRow(row)
 });

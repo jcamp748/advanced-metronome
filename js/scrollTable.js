@@ -26,6 +26,10 @@ document.addEventListener('form complete', function(event) {
 });
 
 // utility function to add elements to table
+// 
+// arguments: data
+// Type: javascript object
+// object with 4 properties, "timesig", "tempo", "count", "section"
 function addRow(data) {
   var row = $('<tr></tr>');
   for(var prop in data) {
@@ -33,7 +37,7 @@ function addRow(data) {
     row.append( $('<td></td>').text(data[prop]).addClass("col-xs-3"));
   }
   // add row to tbody
-  $("tbody").append(row);
+  $("#metro-table tbody").append(row);
 }
 
 // utility function to clear table

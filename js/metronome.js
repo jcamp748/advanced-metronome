@@ -62,6 +62,10 @@ function loadSection(sec) {
   // measureCount, currentBeat, beatUnit, beatsPerMeasure, tempo, measureCount
   console.log("load section " + sec);
   sectionNumber = sec;
+  // highlight current row
+  highlightRow(sec + 1);
+  // unhighlight previous row
+  if ( sec > 0 ) highlightRow(sec);
   var currentSection = metronomeData[sec.toString()];
   if( currentSection ) {
     timesig = currentSection["timesig"];
@@ -82,6 +86,9 @@ function loadSection(sec) {
 function reset() {
   // reset all variables to zero and loadSection(0)
   currentBeat = 0;
+
+  // remove all highlighting
+  $("#metro-table tbody tr").removeClass("highlight");
   loadSection(0);
 }
 
@@ -195,12 +202,8 @@ function nextNote() {
     currentBeat++;    // Advance the beat number, wrap to zero
     if (currentBeat == beatsPerMeasure) {
       if (measureCount === 0) {
-        // remove background color of current section
-        highlightRow(sectionNumber);
         sectionNumber++;
         currentBeat = 0;
-        // change background color of current section
-        highlightRow(sectionNumber);
         loadSection(sectionNumber);
       }
       currentBeat = 0;
