@@ -40,6 +40,13 @@ function addRow(data) {
   $("#metro-table tbody").append(row);
 }
 
+// utility function to fill table with sample data
+function genTable(obj) {
+  for(var sec in obj) {
+    addRow(obj[sec]);
+  }
+}
+
 // utility function to clear table
 function clearTable() {
   // delete all elements under tbody

@@ -112,6 +112,8 @@ QUnit.test( "verify control functionality", function( assert ) {
   assert.equal(sectionName, "riff a", "section name should be 'riff a'");
   // test highlightRow(row)
   // with section loaded first section should be highlighted
+  genTable(testObj);
+  loadSection(0);
   var $firstSection = $("#metro-table tbody").children(":nth-child(1)");
   assert.equal( $firstSection.hasClass("highlight"), true, "first row should be highlighted");
 
