@@ -99,6 +99,20 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#metronome-form input[value='clear table']").click();
   assert.equal($("#metro-table tbody").children().length, 0, "#metro-table should have 0 element");
   
+  // set global metronomeData object
+  metronomeData = testObj;
   // test loadSection(sec)
+  loadSection(0); 
+  // verify timesig, beatsPerMeasure, beatUnit, tempo, measureCount, sectionName
+  assert.equal(timesig, "4/4", "timesig should be 4/4");
+  assert.equal(tempo, "100", "tempo should be 100");
+  assert.equal(beatsPerMeasure, "4", "beatsPerMeasure should be 4");
+  assert.equal(beatUnit, "4", "beatUnit should be 4");
+  assert.equal(measureCount, "2", "measureCount should be 2");
+  assert.equal(sectionName, "riff a", "section name should be 'riff a'");
   // test highlightRow(row)
+  // with section loaded first section should be highlighted
+  var $firstSection = $("#metro-table tbody").children(":nth-child(1)");
+  assert.equal( $firstSection.hasClass("highlight"), true, "first row should be highlighted");
+
 });
