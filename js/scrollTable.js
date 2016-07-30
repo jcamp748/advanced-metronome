@@ -22,6 +22,15 @@ document.addEventListener('form complete', function(event) {
                   $('<th></th>').text("name").addClass("col-xs-3"))))
           .append(
             $('<tbody></tbody>'))));
+  // add bootstrap checkbox for looping
+  $("#form-wrapper div[class='col-md-8']").append(
+    $('<div></div>').addClass("checkbox").append(
+      $('<label></label>')
+        .append(
+          $("<input>")
+            .attr("type", "checkbox")
+            .attr("id", "loop-checkbox"))));
+  $("#form-wrapper div[class='col-md-8'] label").append("Loop");
 
 });
 

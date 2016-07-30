@@ -78,8 +78,11 @@ function loadSection(sec) {
     measureCount = currentSection["count"];
     sectionName = currentSection["section"];
   } else {
-    // stop the metronome
-    $("#metronome-controls").children(":nth-child(1)").click();
+    // check for loop
+    if( !$("#loop-checkbox").prop("checked") )
+      $("#metronome-controls").children(":nth-child(1)").click();
+    else 
+      reset();
   }
 }
 
@@ -287,6 +290,7 @@ function init() {
 
   // add display div to root div
   var wrapper = $("#metronome-wrapper").append(displayWrapper);
+  wrapper.addClass("container");
 
   // initialize digital number display
   beatValue = new SegmentDisplay("metronome-canvas", 0, 0, 0.2);
