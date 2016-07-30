@@ -19,7 +19,9 @@ document.addEventListener('form complete', function(event) {
                 .append(
                   $('<th></th>').text("measures").addClass("col-xs-3"))
                 .append(
-                  $('<th></th>').text("name").addClass("col-xs-3"))))
+                  $('<th></th>').text("name").addClass("col-xs-3"))
+                .append(
+                  $('<th></th>').text("loop").addClass("col-xs-3"))))
           .append(
             $('<tbody></tbody>'))));
   // add bootstrap checkbox for looping
@@ -45,6 +47,12 @@ function addRow(data) {
     // create td with class col-xs-3
     row.append( $('<td></td>').text(data[prop]).addClass("col-xs-3"));
   }
+  // add include button
+  row.append( $('<td></td>').append(
+    $('<button></button>').attr("type", "button")
+      .addClass("btn btn-secondary")
+      .attr("onclick", "addLoop()")
+      .text("include")));
   // add row to tbody
   $("#metro-table tbody").append(row);
 }

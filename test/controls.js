@@ -117,4 +117,5 @@ QUnit.test( "verify control functionality", function( assert ) {
   var $firstSection = $("#metro-table tbody").children(":nth-child(1)");
   assert.equal( $firstSection.hasClass("highlight"), true, "first row should be highlighted");
 
+
 });

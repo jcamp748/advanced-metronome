@@ -95,6 +95,9 @@ function reset() {
   loadSection(0);
 }
 
+function addLoop() {
+  console.log("add section to loop");
+}
 
 function validate() {
   var text = "";
