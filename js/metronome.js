@@ -28,7 +28,10 @@ var sectionValue = null;        // name of the current section
 
 var metronomeData = {};         // empty object to hold all the sections of the metronome
 var sectionData = {};           // empty object to hold current section of the metronome
-var sectionNumber = 0;          // section of the metronome hash we are on
+var playData = {};              // empty object to hold which section will be played
+var subset = false;             // should we play a subset of the metronomeData?
+var sectionNumber = 0;          // section of the metronomeData hash we are on
+var playNumber = 0;             // current index of the playData hash we are on
 
 // colorscheme for metronome screen
 var backgroundColor = "rgba(196, 226, 196, 1)";
@@ -87,16 +90,36 @@ function loadSection(sec) {
 }
 
 function reset() {
+  playData = metronomeData;
   // reset all variables to zero and loadSection(0)
   currentBeat = 0;
+  playNumber = 0;
+  subset = false;
 
   // remove all highlighting
   $("#metro-table tbody tr").removeClass("highlight");
-  loadSection(0);
+  var first = Object.keys(playData)[0];
+  console.log(first.toString());
+  //loadSection(0);
+  loadSection(first);
 }
 
-function addLoop() {
-  console.log("add section to loop");
+// called when user clicks button to add section
+function addSection(button) {
+  subset = true;
+  var $button = $(button);
+  var index = getIndex( $button.parent().parent() );
+  delete playData[index.toString()];
+  //console.log(JSON.stringify(playData, null, 4));
+  if( $button.hasClass("add-section") ) {
+    // remove the section from playData
+    $button.text("include").toggleClass("add-section");
+  } else {
+    // add section to playData
+    $button.text("remove").toggleClass("add-section");
+    playData[index.toString()] = genSection($button);
+    //console.log(JSON.stringify(playData, null, 4));
+  }
 }
 
 function validate() {
@@ -146,11 +169,11 @@ function validate() {
   if( validForm ) {
     metronomeData[sectionNumber.toString()] = sectionData;
     //console.log(JSON.stringify(metronomeData[sectionNumber.toString()], null, 4));
-    console.log(JSON.stringify(metronomeData, null, 4));
+    //console.log(JSON.stringify(metronomeData, null, 4));
     sectionNumber++;
   }
 
-  if(validForm) addRow(sectionData);
+  if(validForm) addRow(genRow(sectionData));
 }
 
 function checkSection( userInput ) {
@@ -190,12 +213,6 @@ function checkTimeSig( userInput ) {
   return valid;
 }
 
-function newMetronome() {
-  // display a form
-  $("#form-wrapper").toggle();
-}
-
-
 function nextNote() {
     // Advance current note and time by a 16th note...
     var secondsPerBeat = 60.0 / tempo;    // Notice this picks up the CURRENT 
@@ -208,7 +225,14 @@ function nextNote() {
     currentBeat++;    // Advance the beat number, wrap to zero
     if (currentBeat == beatsPerMeasure) {
       if (measureCount === 0) {
-        sectionNumber++;
+        if (subset) {
+          // get the next section from playData
+          sectionNumber = playNumber++;
+        } else {
+          // get the next section from metronomeData
+          sectionNumber++;
+        }
+
         currentBeat = 0;
         loadSection(sectionNumber);
       }
@@ -444,9 +468,16 @@ function init() {
     .addClass("metronome-control");
   controls.append(resetButton);
 
+  var editButton = $('<button></button>')
+    .attr("onclick", "$('#form-wrapper').toggle()")
+    .text("edit")
+    .addClass("metronome-control");
+  controls.append(editButton);
+  wrapper.append(controls);
+
   //var newButton = document.createElement("button");
   var newButton = $('<button></button>')
-    .attr("onclick", "newMetronome()")
+    .attr("onclick", "$('#form-wrapper').toggle()")
     .text("new")
     .addClass("metronome-control");
   controls.append(newButton);

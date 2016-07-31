@@ -36,31 +36,58 @@ document.addEventListener('form complete', function(event) {
 
 });
 
-// utility function to add elements to table
-// 
-// arguments: data
-// Type: javascript object
-// object with 4 properties, "timesig", "tempo", "count", "section"
-function addRow(data) {
-  var row = $('<tr></tr>');
+// add jquery row to section table
+function addRow($row) {
+  // add row to tbody
+  $("#metro-table tbody").append($row);
+}
+
+// utility function to create section data from a
+// jquery object
+function genSection($button) {
+  $row = $button.parent();
+  var sec = {};
+  sec.section = $row.prev().text();
+  sec.count = $row.prev().prev().text();
+  sec.tempo = $row.prev().prev().prev().text();
+  sec.timesig = $row.prev().prev().prev().prev().text();
+  return sec;
+}
+
+// generate markup for a table row from a section object
+function genRow(data) {
+  var $row = $('<tr></tr>');
   for(var prop in data) {
     // create td with class col-xs-3
-    row.append( $('<td></td>').text(data[prop]).addClass("col-xs-3"));
+    $row.append( $('<td></td>').text(data[prop]).addClass("col-xs-3"));
   }
   // add include button
-  row.append( $('<td></td>').append(
+  $row.append( $('<td></td>').append(
     $('<button></button>').attr("type", "button")
       .addClass("btn btn-secondary")
-      .attr("onclick", "addLoop()")
+      .attr("onclick", "addSection(this)")
       .text("include")));
-  // add row to tbody
-  $("#metro-table tbody").append(row);
+  return $row;
+}
+
+// utility function to get the index of the current row
+function getIndex($row) {
+  var $table = $("#metro-table tbody");
+  var index = 0;
+  $.each( $table.children(), function(ndx, element) {
+    if( $(this).is($row) ) {
+      index = ndx;
+      // break out of the loop
+      return false;
+    }
+  });
+  return index;
 }
 
 // utility function to fill table with sample data
 function genTable(obj) {
   for(var sec in obj) {
-    addRow(obj[sec]);
+    addRow(genRow(obj[sec]));
   }
 }
 

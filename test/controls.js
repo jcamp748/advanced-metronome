@@ -81,7 +81,7 @@ QUnit.test( "verify control functionality", function( assert ) {
     "section" : "cool stuff"
   };
 
-  addRow(testRow);
+  addRow(genRow(testRow));
   assert.equal($("#metro-table tbody").children().length, 1, "#metro-table should have 1 element");
 
   // test clearTable()
@@ -91,7 +91,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   // populate table with sample data
   $("#metro-table tbody").empty();
   assert.equal(0, $("#metronome-table tbody").length, "#metro-table should have 0 elements");
-  addRow(testRow);
+  addRow(genRow(testRow));
   assert.equal($("#metro-table tbody").children().length, 1, "#metro-table should have 1 element");
 
   // press clear table button

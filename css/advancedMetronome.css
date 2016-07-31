@@ -1,3 +1,7 @@
 .table-striped tbody tr.highlight {
   background-color: #5cbe5c !important;       
 }
+
+button.add-section {
+  background-color: #d9534f;
+}
