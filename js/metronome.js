@@ -19,19 +19,9 @@ var sectionNumber = 0;         // section number we are currently playing
 var beatValue = null;           // display beat number 
 var sigLabel = null;            // label for time signature
 var sigValue = null;            // value of time signature
-var tempoValue = null;          // tempo in bpm
-var tempoLabel = null;          // label for tempo
-var countLabel = null;          // label for how many measures are left
-var countValue = null;          // how many measures left in current time sig and tempo
-var sectionLabel = null;        // label for section
-var sectionValue = null;        // name of the current section
-
-var metronomeData = {};         // empty object to hold all the sections of the metronome
-var sectionData = {};           // empty object to hold current section of the metronome
-var playData = {};              // empty object to hold which section will be played
-var subset = false;             // should we play a subset of the metronomeData?
 var sectionNumber = 0;          // section of the metronomeData hash we are on
-var playNumber = 0;             // current index of the playData hash we are on
+var metronomeData = {};         // object that will hold the data
+var playData = [];              // empty array that will hold sections to be played
 
 // colorscheme for metronome screen
 var backgroundColor = "rgba(196, 226, 196, 1)";
@@ -60,158 +50,117 @@ function clearTable() {
   metronomeData = {};
 }
 
-function loadSection(sec) {
-  // get data from first table entry and set
-  // measureCount, currentBeat, beatUnit, beatsPerMeasure, tempo, measureCount
-  console.log("load section " + sec);
-  sectionNumber = sec;
-  // highlight current row
-  highlightRow(sec + 1);
-  // unhighlight previous row
-  if ( sec > 0 ) highlightRow(sec);
-  var currentSection = metronomeData[sec.toString()];
-  if( currentSection ) {
-    timesig = currentSection["timesig"];
-    // break up the first and second numbers
-    beatsPerMeasure = timesig.split("/")[0];
-    beatUnit = timesig.split("/")[1];
+function nextSection() {
+  var section = playData.shift();
+  if ( section !== undefined) {
+    // unhighlight everything
+    $("#metro-table tbody").children().removeClass("highlight");
+    // hightlight current row
+    if( !$("#metro-table tbody").children(":nth-child(" + (section + 1) + ")").hasClass("highlight")) 
+      highlightRow(section + 1);
 
-    
-    tempo = currentSection["tempo"];
-    measureCount = currentSection["count"];
-    sectionName = currentSection["section"];
+    var secData = metronomeData[section.toString()];
+    if( secData ) {
+      timesig = secData["timesig"];
+      // break up the first and second numbers
+      beatsPerMeasure = timesig.split("/")[0];
+      beatUnit = timesig.split("/")[1];
+      tempo = secData["tempo"];
+      measureCount = secData["count"];
+      sectionName = secData["section"];
+    }
   } else {
     // check for loop
     if( !$("#loop-checkbox").prop("checked") )
       $("#metronome-controls").children(":nth-child(1)").click();
-    else 
-      reset();
+    else {
+      // reset play data
+      updatePlayData();
+      $("#metro-table tbody").children().removeClass("highlight");
+      nextSection();
+    }
   }
 }
 
+// this function is called when the user clicks reset
 function reset() {
-  playData = metronomeData;
-  // reset all variables to zero and loadSection(0)
+  sectionNumber = 0;
+  playData = [];
   currentBeat = 0;
-  playNumber = 0;
-  subset = false;
+  // unhighlight everything
+  $("#metro-table tbody").children().removeClass("highlight");
+  updatePlayData();
+  nextSection();
 
-  // remove all highlighting
-  $("#metro-table tbody tr").removeClass("highlight");
-  var first = Object.keys(playData)[0];
-  console.log(first.toString());
-  //loadSection(0);
-  loadSection(first);
+}
+
+
+function loadData(data) {
+  if( data ) {
+    metronomeData = data;
+  } else {
+    metronomeData = {
+      "0" : {
+        "timesig" : "4/4",
+        "tempo" : "100",
+        "count" : "2",
+        "section" : "riff a"
+      },
+      "1" : {
+        "timesig" : "3/4",
+        "tempo" : "200",
+        "count" : "3",
+        "section" : "riff b"
+      },
+      "2" : {
+        "timesig" : "4/4",
+        "tempo" : "120",
+        "count" : "2",
+        "section" : "riff c"
+      }
+    };
+  }
+  genTable(metronomeData);
+  // generate playData
+  updatePlayData();
+  nextSection(); 
+}
+
+function updatePlayData() {
+  // loop through the table and add all clicked buttons to playData
+  $.each( $("#metro-table tbody").children(), function(index, tr) {
+    if( $(tr).children(":nth-child(5)").children().hasClass("add-section") ) {
+      playData.push(index);
+      //console.log(playData);
+    } else {
+      // make sure play data does not contain the index
+      playData = playData.filter( function(element, ndx, array){
+        if( element === index ) {
+          //console.log(index);
+          return false;
+        } else {
+          return true;
+        }
+      }, index);
+    }
+  });
 }
 
 // called when user clicks button to add section
 function addSection(button) {
-  subset = true;
+  //subset = true;
+  playData = [];
   var $button = $(button);
-  var index = getIndex( $button.parent().parent() );
-  delete playData[index.toString()];
-  //console.log(JSON.stringify(playData, null, 4));
+
   if( $button.hasClass("add-section") ) {
-    // remove the section from playData
     $button.text("include").toggleClass("add-section");
   } else {
-    // add section to playData
     $button.text("remove").toggleClass("add-section");
-    playData[index.toString()] = genSection($button);
-    //console.log(JSON.stringify(playData, null, 4));
-  }
-}
-
-function validate() {
-  var text = "";
-  var validForm = true;
-  sectionData = {};
-  
-  text = $("#timeInput").val();
-  if( checkTimeSig(text) ) {
-    sectionData["timesig"] = text;
-  } else {
-    sectionData = {};
-    $("#timeInput").parent().toggleClass("has-error");
-    $("#timeInput").next().text("time sig cant be blank");
-    validForm = false;
   }
 
-  text = $("#tempoInput").val();
-  if( checkTempo(text) ) {
-    sectionData["tempo"] = text;
-  } else {
-    sectionData = {};
-    $("#tempoInput").parent().toggleClass("has-error");
-    $("#tempoInput").next().text("tempo must be between 1 and 400");
-    validForm = false;
-  }
-
-  text = $("#countInput").val();
-  if( checkCount(text) ) {
-    sectionData["count"] = text;
-  } else {
-    sectionData = {};
-    $("countInput").parent().toggleClass("has-error");
-    $("countInput").next().text("enter a number between 1 and 9999");
-    validForm = false;
-  }
-
-  text = $("#sectionInput").val();
-  if( checkSection(text) ) {
-    sectionData["section"] = text;
-  } else {
-    sectionData = {};
-    $("sectionInput").parent().toggleClass("has-error");
-    $("sectionInput").next().text("section must have a name");
-    validForm = false;
-  }
-  if( validForm ) {
-    metronomeData[sectionNumber.toString()] = sectionData;
-    //console.log(JSON.stringify(metronomeData[sectionNumber.toString()], null, 4));
-    //console.log(JSON.stringify(metronomeData, null, 4));
-    sectionNumber++;
-  }
-
-  if(validForm) addRow(genRow(sectionData));
+  updatePlayData();
 }
 
-function checkSection( userInput ) {
-  // verify 1 <= section <= 18
-  var strlen = userInput.length;
-  if( strlen < 1 || strlen > 18 )
-    return false;
-  return true;
-}
-
-function checkCount( userInput ) {
-  // verify 1 <= count <= 9999
-  var number = parseInt(userInput);
-  if( isNaN(number) )
-    return false;
-  if( number < 1 || number > 9999 )
-    return false;
-  return true;
-}
-
-function checkTempo( userInput ) {
-  // verify 1 <= tempo <= 400
-  var number = parseInt(userInput);
-  if( isNaN(number) )
-    return false;
-  if( number < 1 || number > 400 )
-    return false;
-  return true;
-}
-
-function checkTimeSig( userInput ) {
-  // verify time sig is of the form N/M where 
-  // 1 <= N <= 9 and M == 2 || 4 || 8
-  var validSig = /[1-9]\/[248]/;
-  var valid = validSig.test(userInput);
-  //console.log(valid);
-  return valid;
-}
 
 function nextNote() {
     // Advance current note and time by a 16th note...
@@ -225,16 +174,10 @@ function nextNote() {
     currentBeat++;    // Advance the beat number, wrap to zero
     if (currentBeat == beatsPerMeasure) {
       if (measureCount === 0) {
-        if (subset) {
-          // get the next section from playData
-          sectionNumber = playNumber++;
-        } else {
-          // get the next section from metronomeData
-          sectionNumber++;
-        }
+        // load next section based on playData
 
         currentBeat = 0;
-        loadSection(sectionNumber);
+        nextSection();
       }
       currentBeat = 0;
     }
@@ -487,13 +430,20 @@ function init() {
   var ev = new Event('metronome loaded');
   document.dispatchEvent(ev);
 
+  // create audio context
+  audioContext = new AudioContext();
+
+  // create timer worker
+  timerWorker = new Worker("js/metronomeworker.js");
+
+  // load metronomeData var
+  loadData(null);
+
 
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
-  audioContext = new AudioContext();
   window.requestAnimationFrame(draw);
 
-  timerWorker = new Worker("js/metronomeworker.js");
 
   timerWorker.onmessage = function(e) {
       if (e.data == "tick") {

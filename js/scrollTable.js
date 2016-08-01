@@ -64,9 +64,9 @@ function genRow(data) {
   // add include button
   $row.append( $('<td></td>').append(
     $('<button></button>').attr("type", "button")
-      .addClass("btn btn-secondary")
+      .addClass("btn btn-secondary add-section")
       .attr("onclick", "addSection(this)")
-      .text("include")));
+      .text("remove")));
   return $row;
 }
 
