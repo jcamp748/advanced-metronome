@@ -143,17 +143,27 @@ function updatePlayData() {
       }, index);
     }
   });
+  leadIn();
   // if lead in box is checked load lead in measure
 }
 
 function leadIn() {
   // get tempo from first measure
-  var firstTempo = metronomeData[playData[0]].tempo;
-  console.log(firstTempo);
+  var firstTempo = metronomeData[playData[0]]["tempo"];
   // get timesig from first measure
-  var firstTimesig = metronomeData[playData[0]].timesig;
+  var firstTimesig = metronomeData[playData[0]]["timesig"];
   // count will always be 1
-  // section will be Lead In
+  metronomeData["-1"] = {
+    "tempo" : firstTempo,
+    "timesig" : firstTimesig,
+    "count" : 1,
+    "section" : "lead in"
+  };
+
+  playData.unshift(-1);
+  console.log(JSON.stringify(metronomeData));
+
+
 }
 
 // called when user clicks button to add section
