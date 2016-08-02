@@ -14,7 +14,6 @@ var notesInQueue = [];          // the notes that have been put into the web aud
 var noteLength = 0.05;          // length of "beep" (in seconds)
 var measureCount = 0;           // number of measures left to play at current tempo
 var sectionName = "";           // name of the current section
-var sectionNumber = 0;         // section number we are currently playing
 
 var beatValue = null;           // display beat number 
 var sigLabel = null;            // label for time signature
@@ -85,16 +84,15 @@ function nextSection() {
 // this function is called when the user clicks reset
 function reset() {
   sectionNumber = 0;
-  playData = [];
+  //playData = [];
   currentBeat = 0;
   // unhighlight everything
   $("#metro-table tbody").children().removeClass("highlight");
   updatePlayData();
   nextSection();
-
 }
 
-
+// have the first measure of the song be a lead in tick
 function loadData(data) {
   if( data ) {
     metronomeData = data;
@@ -127,6 +125,7 @@ function loadData(data) {
 }
 
 function updatePlayData() {
+  playData = [];
   // loop through the table and add all clicked buttons to playData
   $.each( $("#metro-table tbody").children(), function(index, tr) {
     if( $(tr).children(":nth-child(5)").children().hasClass("add-section") ) {
@@ -144,12 +143,23 @@ function updatePlayData() {
       }, index);
     }
   });
+  // if lead in box is checked load lead in measure
+}
+
+function leadIn() {
+  // get tempo from first measure
+  var firstTempo = metronomeData[playData[0]].tempo;
+  console.log(firstTempo);
+  // get timesig from first measure
+  var firstTimesig = metronomeData[playData[0]].timesig;
+  // count will always be 1
+  // section will be Lead In
 }
 
 // called when user clicks button to add section
 function addSection(button) {
   //subset = true;
-  playData = [];
+  //playData = [];
   var $button = $(button);
 
   if( $button.hasClass("add-section") ) {

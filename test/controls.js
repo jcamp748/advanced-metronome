@@ -5,11 +5,20 @@ QUnit.test( "verify control functionality", function( assert ) {
   assert.equal( $("#form-wrapper").is(":visible"), false, "form should start invisible");
 
   // clicking new button should show form
+  $("#metronome-controls").children(":nth-child(4)").trigger("click");
+  assert.equal( $("#form-wrapper").is(":visible"), true, "form should be visible");
+  // clicking new button again should hide form
+  $("#metronome-controls").children(":nth-child(4)").trigger("click");
+  assert.equal( $("#form-wrapper").is(":visible"), false, "form should be visible");
+
+  // clicking edit button should show form
   $("#metronome-controls").children(":nth-child(3)").trigger("click");
   assert.equal( $("#form-wrapper").is(":visible"), true, "form should be visible");
-
-
-  // verify play button behavior
+  // clicking edit button again should hide form
+  $("#metronome-controls").children(":nth-child(3)").trigger("click");
+  assert.equal( $("#form-wrapper").is(":visible"), false, "form should be visible");
+  
+  // verify play() button behavior
   // clicking play should change text of play button to stop
   var playButton = $("#metronome-controls").children(":nth-child(1)");
   assert.equal( playButton.text(), "play", "play button should start as play");
@@ -33,6 +42,12 @@ QUnit.test( "verify control functionality", function( assert ) {
       "tempo" : "200",
       "count" : "3",
       "section" : "riff b"
+    },
+    "2" : {
+      "timesig" : "4/4",
+      "tempo" : "150",
+      "count" : "2",
+      "section" : "riff c"
     }
   };
 
@@ -50,6 +65,13 @@ QUnit.test( "verify control functionality", function( assert ) {
     "section" : "riff b"
   };
 
+  var testSection3 = {
+    "timesig" : "4/4",
+    "tempo" : "150",
+    "count" : "2",
+    "section" : "riff c"
+  };
+  // test addSection() button;
   $("#timeInput").val("4/4");
   $("#tempoInput").val("100");
   $("#countInput").val("2");
@@ -65,6 +87,14 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("input[value='add section']").click();
   // verify sectionData object
   assert.deepEqual(sectionData, testSection2, "sectionData shouldn't be null");
+
+  $("#timeInput").val("4/4");
+  $("#tempoInput").val("150");
+  $("#countInput").val("2");
+  $("#sectionInput").val("riff c");
+  $("input[value='add section']").click();
+  // verify sectionData object
+  assert.deepEqual(sectionData, testSection3, "sectionData shouldn't be null");
 
   // verify reset button behavior
   // verify metronomeData object
@@ -84,9 +114,11 @@ QUnit.test( "verify control functionality", function( assert ) {
   addRow(genRow(testRow));
   assert.equal($("#metro-table tbody").children().length, 1, "#metro-table should have 1 element");
 
+
   // test clearTable()
   clearTable();
   assert.equal($("metro-table tbody").children().length, 0, "#metro-table should have 0 elements");
+
 
   // populate table with sample data
   $("#metro-table tbody").empty();
@@ -101,8 +133,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   
   // set global metronomeData object
   metronomeData = testObj;
-  // test loadSection(sec)
-  loadSection(0); 
+
   // verify timesig, beatsPerMeasure, beatUnit, tempo, measureCount, sectionName
   assert.equal(timesig, "4/4", "timesig should be 4/4");
   assert.equal(tempo, "100", "tempo should be 100");
@@ -110,10 +141,11 @@ QUnit.test( "verify control functionality", function( assert ) {
   assert.equal(beatUnit, "4", "beatUnit should be 4");
   assert.equal(measureCount, "2", "measureCount should be 2");
   assert.equal(sectionName, "riff a", "section name should be 'riff a'");
+
   // test highlightRow(row)
   // with section loaded first section should be highlighted
   genTable(testObj);
-  loadSection(0);
+  reset();
   var $firstSection = $("#metro-table tbody").children(":nth-child(1)");
   assert.equal( $firstSection.hasClass("highlight"), true, "first row should be highlighted");
 
