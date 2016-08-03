@@ -143,8 +143,10 @@ function updatePlayData() {
       }, index);
     }
   });
-  leadIn();
   // if lead in box is checked load lead in measure
+  if( $("#lead-checkbox").prop("checked") )
+    leadIn();
+
 }
 
 function leadIn() {
@@ -156,7 +158,7 @@ function leadIn() {
   metronomeData["-1"] = {
     "tempo" : firstTempo,
     "timesig" : firstTimesig,
-    "count" : 1,
+    "count" : "1",
     "section" : "lead in"
   };
 

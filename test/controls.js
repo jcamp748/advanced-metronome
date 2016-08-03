@@ -31,6 +31,12 @@ QUnit.test( "verify control functionality", function( assert ) {
   // simulate a simple user session
   metronomeData = {};
   var testObj = {
+    "-1" : {
+      "timesig" : "4/4",
+      "tempo" : "100",
+      "count" : "1",
+      "section" : "lead in"
+    },
     "0" : {
       "timesig" : "4/4",
       "tempo" : "100",
@@ -133,6 +139,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   
   // set global metronomeData object
   metronomeData = testObj;
+  nextSection();
 
   // verify timesig, beatsPerMeasure, beatUnit, tempo, measureCount, sectionName
   assert.equal(timesig, "4/4", "timesig should be 4/4");
@@ -146,8 +153,22 @@ QUnit.test( "verify control functionality", function( assert ) {
   // with section loaded first section should be highlighted
   genTable(testObj);
   reset();
+  // skip lead in
+  nextSection();
   var $firstSection = $("#metro-table tbody").children(":nth-child(1)");
   assert.equal( $firstSection.hasClass("highlight"), true, "first row should be highlighted");
 
+  // test lead in
+  metronomeData = testObj;
+  $("#lead-checkbox").prop("checked", false);
+  reset();
+  $firstSection = $("#metro-table tbody").children(":nth-child(1)");
+  assert.equal( $firstSection.hasClass("highlight"), true, "first row should be highlighted");
+
+  metronomeData = testObj;
+  $("#lead-checkbox").prop("checked", true);
+  reset();
+  $firstSection = $("#metro-table tbody").children(":nth-child(1)");
+  assert.equal( $firstSection.hasClass("highlight"), false, "first row should not be highlighted");
 
 });

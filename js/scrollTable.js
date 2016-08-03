@@ -34,6 +34,16 @@ document.addEventListener('form complete', function(event) {
             .attr("id", "loop-checkbox"))));
   $("#form-wrapper div[class='col-md-8'] label").append("Loop");
 
+  // add bootstrap checkbox for lead in 
+  $("#form-wrapper div[class='col-md-8']").append(
+    $('<div></div>').addClass("checkbox").append(
+      $('<label></label>')
+        .append(
+          $("<input>")
+            .attr("type", "checkbox")
+            .prop("checked", true)
+            .attr("id", "lead-checkbox"))));
+  $("#form-wrapper div[class='col-md-8'] label").append("Lead In");
 });
 
 // add jquery row to section table
