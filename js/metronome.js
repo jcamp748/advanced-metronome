@@ -170,17 +170,17 @@ function leadIn() {
 
 // called when user clicks button to add section
 function addSection(button) {
-  //subset = true;
-  //playData = [];
-  var $button = $(button);
+  ////subset = true;
+  ////playData = [];
+  //var $button = $(button);
 
-  if( $button.hasClass("add-section") ) {
-    $button.text("include").toggleClass("add-section");
-  } else {
-    $button.text("remove").toggleClass("add-section");
-  }
+  //if( $button.hasClass("add-section") ) {
+    //$button.text("include").toggleClass("add-section");
+  //} else {
+    //$button.text("remove").toggleClass("add-section");
+  //}
 
-  updatePlayData();
+  //updatePlayData();
 }
 
 // called when user clicks on a table row

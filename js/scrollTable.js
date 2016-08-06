@@ -52,6 +52,10 @@ function addRow($row) {
   $("#metro-table tbody").append($row);
 }
 
+function updateRow($row) {
+  
+}
+
 // utility function to create section data from a
 // jquery object
 function genSection($button) {
@@ -66,6 +70,7 @@ function genSection($button) {
 
 // generate markup for a table row from a section object
 function genRow(data) {
+  if( data.section === "lead in" ) return;
   var $row = $('<tr></tr>');
   $row.attr("onclick", "editSection(this)");
   for(var prop in data) {

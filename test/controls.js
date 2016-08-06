@@ -82,7 +82,8 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#tempoInput").val("100");
   $("#countInput").val("2");
   $("#sectionInput").val("riff a");
-  $("input[value='add section']").click();
+  $("input[value='update']").click();
+  var sectionData = metronomeData["0"];
   // verify sectionData object
   assert.deepEqual(sectionData, testSection1, "sectionData shouldn't be null");
 
@@ -90,7 +91,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#tempoInput").val("200");
   $("#countInput").val("3");
   $("#sectionInput").val("riff b");
-  $("input[value='add section']").click();
+  $("input[value='update']").click();
   // verify sectionData object
   assert.deepEqual(sectionData, testSection2, "sectionData shouldn't be null");
 
@@ -98,7 +99,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#tempoInput").val("150");
   $("#countInput").val("2");
   $("#sectionInput").val("riff c");
-  $("input[value='add section']").click();
+  $("input[value='update']").click();
   // verify sectionData object
   assert.deepEqual(sectionData, testSection3, "sectionData shouldn't be null");
 

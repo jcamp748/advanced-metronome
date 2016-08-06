@@ -96,8 +96,8 @@ document.addEventListener("metronome loaded", function(event) {
   // create a add button
   var addButton = $('<input></input>')
     .attr("type", "button")
-    .attr("value", "add section")
-    .attr("onclick", "validate()");
+    .attr("value", "update")
+    .attr("onclick", "updateSection()");
   form.append(addButton);
 
   // create a clear button
@@ -137,10 +137,15 @@ document.addEventListener("metronome loaded", function(event) {
 
 });
 
+function updateSection() {
+
+  console.log("validate section");
+}
+
 function validate() {
   var text = "";
   var validForm = true;
-  sectionData = {};
+  var sectionData = {};
   
   text = $("#timeInput").val();
   if( checkTimeSig(text) ) {
@@ -188,7 +193,7 @@ function validate() {
     sectionNumber++;
   }
 
-  if(validForm) addRow(genRow(sectionData));
+  if(validForm) updateRow(sectionData);
 }
 
 function checkSection( userInput ) {
