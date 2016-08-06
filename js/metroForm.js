@@ -23,7 +23,7 @@ document.addEventListener("metronome loaded", function(event) {
 
   // time sig fieldset 
   var timeField = $('<div></div>').addClass("form-group");
-  var timeLabel = $('<lable></label>')
+  var timeLabel = $('<label></label>')
     .attr("for", "timeInput")
     .addClass("control-label")
     .text("Time Signature");

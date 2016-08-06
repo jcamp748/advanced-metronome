@@ -163,7 +163,7 @@ function leadIn() {
   };
 
   playData.unshift(-1);
-  console.log(JSON.stringify(metronomeData));
+  //console.log(JSON.stringify(metronomeData));
 
 
 }
@@ -181,6 +181,30 @@ function addSection(button) {
   }
 
   updatePlayData();
+}
+
+// called when user clicks on a table row
+function editSection(row) {
+  var $row = $(row);
+  //remove all highlighting
+  $("#metro-table tbody").children().removeClass("highlight");
+  // highlight current row
+  $row.addClass("highlight");
+
+  // populate #metronome-form with data from row
+  var $form = $("#metronome-form");
+  $form.children(":nth-child(1)").children(":nth-child(2)").val($row.children(":nth-child(1)").text());
+  $form.children(":nth-child(2)").children(":nth-child(2)").val($row.children(":nth-child(2)").text());
+  $form.children(":nth-child(3)").children(":nth-child(2)").val($row.children(":nth-child(3)").text());
+  $form.children(":nth-child(4)").children(":nth-child(2)").val($row.children(":nth-child(4)").text());
+
+  console.log($row.children(":nth-child(1)").text());
+  console.log($form.children(":nth-child(1)").children(":nth-child(2)"));
+}
+
+// called when user clicks delete button
+function deleteSection(button) {
+  console.lot("delete section");
 }
 
 

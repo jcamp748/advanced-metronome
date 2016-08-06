@@ -13,15 +13,15 @@ document.addEventListener('form complete', function(event) {
             $('<thead></thead>').append(
               $('<tr></tr>')
                 .append(
-                  $('<th></th>').text("time sig").addClass("col-xs-3"))
+                  $('<th></th>').text("time sig").addClass("col-xs-2"))
                 .append(
-                  $('<th></th>').text("tempo").addClass("col-xs-3"))
+                  $('<th></th>').text("tempo").addClass("col-xs-2"))
                 .append(
-                  $('<th></th>').text("measures").addClass("col-xs-3"))
+                  $('<th></th>').text("measures").addClass("col-xs-2"))
                 .append(
-                  $('<th></th>').text("name").addClass("col-xs-3"))
+                  $('<th></th>').text("name").addClass("col-xs-2"))
                 .append(
-                  $('<th></th>').text("loop").addClass("col-xs-3"))))
+                  $('<th></th>').text("loop").addClass("col-xs-2"))))
           .append(
             $('<tbody></tbody>'))));
   // add bootstrap checkbox for looping
@@ -67,6 +67,7 @@ function genSection($button) {
 // generate markup for a table row from a section object
 function genRow(data) {
   var $row = $('<tr></tr>');
+  $row.attr("onclick", "editSection(this)");
   for(var prop in data) {
     // create td with class col-xs-3
     $row.append( $('<td></td>').text(data[prop]).addClass("col-xs-3"));
