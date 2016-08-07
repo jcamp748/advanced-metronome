@@ -52,8 +52,15 @@ function addRow($row) {
   $("#metro-table tbody").append($row);
 }
 
-function updateRow($row) {
-  
+function updateRow(data) {
+  // find the current row 
+  console.log("update row");
+  var $row = $(".highlight");
+  $row.children(":nth-child(1)").text(data.timesig);
+  $row.children(":nth-child(2)").text(data.tempo);
+  $row.children(":nth-child(3)").text(data.count);
+  $row.children(":nth-child(4)").text(data.section);
+  updatePlayData();
 }
 
 // utility function to create section data from a

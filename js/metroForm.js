@@ -138,8 +138,8 @@ document.addEventListener("metronome loaded", function(event) {
 });
 
 function updateSection() {
-
-  console.log("validate section");
+  console.log("update section");
+  validate();
 }
 
 function validate() {
