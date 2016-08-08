@@ -97,7 +97,7 @@ document.addEventListener("metronome loaded", function(event) {
   var addButton = $('<input></input>')
     .attr("type", "button")
     .attr("value", "update")
-    .attr("onclick", "updateSection()");
+    .attr("onclick", "validate()");
   form.append(addButton);
 
   // create a clear button
@@ -137,10 +137,6 @@ document.addEventListener("metronome loaded", function(event) {
 
 });
 
-function updateSection() {
-  console.log("update section");
-  validate();
-}
 
 function validate() {
   var text = "";
@@ -187,13 +183,8 @@ function validate() {
     validForm = false;
   }
   if( validForm ) {
-    metronomeData[sectionNumber.toString()] = sectionData;
-    //console.log(JSON.stringify(metronomeData[sectionNumber.toString()], null, 4));
-    //console.log(JSON.stringify(metronomeData, null, 4));
-    sectionNumber++;
+    updateRow(sectionData);
   }
-
-  if(validForm) updateRow(sectionData);
 }
 
 function checkSection( userInput ) {

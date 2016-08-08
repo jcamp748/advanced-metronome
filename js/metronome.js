@@ -46,7 +46,6 @@ function play() {
 function clearTable() {
   // delete all elements under tbody
   $("#metro-table tbody").empty();
-  metronomeData = {};
 }
 
 function nextSection() {
@@ -119,6 +118,7 @@ function loadData(data) {
     };
   }
   genTable(metronomeData);
+  console.log(JSON.stringify(metronomeData));
   // generate playData
   updatePlayData();
   nextSection(); 
@@ -147,6 +147,20 @@ function updatePlayData() {
   if( $("#lead-checkbox").prop("checked") )
     leadIn();
 
+  //console.log(JSON.stringify(metronomeData));
+}
+
+function updateMetronomeData() {
+  metronomeData = {};
+  $.each($("#metro-table tbody").children(), function(index, tr) {
+    metronomeData[index] = {
+      "timesig" : $(tr).children(":nth-child(1)").text(),
+      "tempo"   : $(tr).children(":nth-child(2)").text(),
+      "count"   : $(tr).children(":nth-child(3)").text(),
+      "section" : $(tr).children(":nth-child(4)").text()
+    };
+
+  });
 }
 
 function leadIn() {
@@ -166,21 +180,6 @@ function leadIn() {
   //console.log(JSON.stringify(metronomeData));
 
 
-}
-
-// called when user clicks button to add section
-function addSection(button) {
-  ////subset = true;
-  ////playData = [];
-  //var $button = $(button);
-
-  //if( $button.hasClass("add-section") ) {
-    //$button.text("include").toggleClass("add-section");
-  //} else {
-    //$button.text("remove").toggleClass("add-section");
-  //}
-
-  //updatePlayData();
 }
 
 // called when user clicks on a table row

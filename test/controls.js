@@ -57,108 +57,74 @@ QUnit.test( "verify control functionality", function( assert ) {
     }
   };
 
+  metronomeData = testObj;
   var testSection1 = {
     "timesig" : "4/4",
-    "tempo" : "100",
-    "count" : "2",
-    "section" : "riff a"
+    "tempo" : "120",
+    "count" : "23",
+    "section" : "my riff a"
   };
 
   var testSection2 = {
-    "timesig" : "3/4",
-    "tempo" : "200",
-    "count" : "3",
-    "section" : "riff b"
+    "timesig" : "2/4",
+    "tempo" : "100",
+    "count" : "4",
+    "section" : "my riff b"
   };
 
   var testSection3 = {
     "timesig" : "4/4",
-    "tempo" : "150",
-    "count" : "2",
-    "section" : "riff c"
+    "tempo" : "110",
+    "count" : "244",
+    "section" : "my riff c"
   };
-  // test addSection() button;
+  // test update() button;
+  $('#form-wrapper').toggle();
+  highlightRow(1);
   $("#timeInput").val("4/4");
-  $("#tempoInput").val("100");
-  $("#countInput").val("2");
-  $("#sectionInput").val("riff a");
+  $("#tempoInput").val("120");
+  $("#countInput").val("23");
+  $("#sectionInput").val("my riff a");
   $("input[value='update']").click();
+  //console.log(JSON.stringify(metronomeData));
   var sectionData = metronomeData["0"];
 
   // verify sectionData object
   assert.deepEqual(sectionData, testSection1, "sectionData shouldn't be null");
 
-  $("#timeInput").val("3/4");
-  $("#tempoInput").val("200");
-  $("#countInput").val("3");
-  $("#sectionInput").val("riff b");
+  highlightRow(1);
+  highlightRow(2);
+  $("#timeInput").val("2/4");
+  $("#tempoInput").val("100");
+  $("#countInput").val("4");
+  $("#sectionInput").val("my riff b");
   $("input[value='update']").click();
+  //console.log(JSON.stringify(metronomeData));
   // verify sectionData object
+  // it happens after this
+  //console.log(JSON.stringify(metronomeData));
   sectionData = metronomeData["1"];
   assert.deepEqual(sectionData, testSection2, "sectionData shouldn't be null");
 
+  highlightRow(2);
+  highlightRow(3);
   $("#timeInput").val("4/4");
-  $("#tempoInput").val("150");
-  $("#countInput").val("2");
-  $("#sectionInput").val("riff c");
+  $("#tempoInput").val("110");
+  $("#countInput").val("244");
+  $("#sectionInput").val("my riff c");
   $("input[value='update']").click();
   // verify sectionData object
   sectionData = metronomeData["2"];
   assert.deepEqual(sectionData, testSection3, "sectionData shouldn't be null");
+  reset();
 
-  // verify reset button behavior
-  // verify metronomeData object
-  $("#metronome-controls").children(":nth-child(2)").click();
-  assert.deepEqual(metronomeData, testObj, "metronomeData shouldn't be null");
-
-  // test addRow
-  $("#metro-table tbody").empty();
-  assert.equal($("metro-table tbody").children().length, 0, "#metro-table should have 0 elements");
-  var testRow = {
-    "timesig" : "3/8",
-    "tempo"   : "134",
-    "count"   : "34",
-    "section" : "cool stuff"
-  };
-
-  addRow(genRow(testRow));
-  assert.equal($("#metro-table tbody").children().length, 1, "#metro-table should have 1 element");
-
-
-  // test clearTable()
-  clearTable();
-  assert.equal($("metro-table tbody").children().length, 0, "#metro-table should have 0 elements");
-
-
-  // populate table with sample data
-  $("#metro-table tbody").empty();
-  assert.equal(0, $("#metronome-table tbody").length, "#metro-table should have 0 elements");
-  addRow(genRow(testRow));
-  assert.equal($("#metro-table tbody").children().length, 1, "#metro-table should have 1 element");
-
-  // press clear table button
-  // verify table is empty
-  $("#metronome-form input[value='clear table']").click();
-  assert.equal($("#metro-table tbody").children().length, 0, "#metro-table should have 0 element");
-  
-  // set global metronomeData object
-  metronomeData = testObj;
-  nextSection();
-
-  // verify timesig, beatsPerMeasure, beatUnit, tempo, measureCount, sectionName
-  assert.equal(timesig, "4/4", "timesig should be 4/4");
-  assert.equal(tempo, "100", "tempo should be 100");
-  assert.equal(beatsPerMeasure, "4", "beatsPerMeasure should be 4");
-  assert.equal(beatUnit, "4", "beatUnit should be 4");
-  assert.equal(measureCount, "2", "measureCount should be 2");
-  assert.equal(sectionName, "riff a", "section name should be 'riff a'");
 
   // test highlightRow(row)
   // with section loaded first section should be highlighted
-  genTable(testObj);
+  //genTable(testObj);
   reset();
-  // skip lead in
   nextSection();
+  // skip lead in
   var $firstSection = $("#metro-table tbody").children(":nth-child(1)");
   assert.equal( $firstSection.hasClass("highlight"), true, "first row should be highlighted");
 

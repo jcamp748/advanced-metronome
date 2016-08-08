@@ -54,12 +54,12 @@ function addRow($row) {
 
 function updateRow(data) {
   // find the current row 
-  console.log("update row");
   var $row = $(".highlight");
   $row.children(":nth-child(1)").text(data.timesig);
   $row.children(":nth-child(2)").text(data.tempo);
   $row.children(":nth-child(3)").text(data.count);
   $row.children(":nth-child(4)").text(data.section);
+  updateMetronomeData();
   updatePlayData();
 }
 
@@ -109,9 +109,15 @@ function getIndex($row) {
 
 // utility function to fill table with sample data
 function genTable(obj) {
+  clearTable();
   for(var sec in obj) {
     addRow(genRow(obj[sec]));
   }
+}
+
+function addRow($row) {
+  // add row to tbody
+  $("#metro-table tbody").append($row);
 }
 
 // utility function to clear table
