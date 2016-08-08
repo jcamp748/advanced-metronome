@@ -141,7 +141,4 @@ QUnit.test( "verify control functionality", function( assert ) {
   $firstSection = $("#metro-table tbody").children(":nth-child(1)");
   assert.equal( $firstSection.hasClass("highlight"), false, "first row should not be highlighted");
 
-  // click edit again just to show table
-  $("#metronome-controls").children(":nth-child(3)").trigger("click");
-  
 });
