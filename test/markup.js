@@ -18,7 +18,6 @@ QUnit.test( "verify page markup", function( assert ) {
   assert.equal( $("#form-wrapper").length, 1, "should be only one form-wrapper id");
 
   assert.equal( $("#form-wrapper").children().hasClass("row"), true, "should be only one row");
-  assert.equal( $(".row").children().length, 2, "should be 2 children in the row");
   assert.equal( $(".row").children(":nth-child(1)").hasClass("col-md-4"), true, "first col should be 4");
   assert.equal( $(".row").children(":nth-child(2)").hasClass("col-md-8"), true, "first col should be 8");
 

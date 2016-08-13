@@ -29,6 +29,8 @@ var segmentOff = "rgba(175, 203, 175, 1)";
 
 
 function play() {
+    // disable table buttons
+    $(".table-button").attr("disabled", true);
     isPlaying = !isPlaying;
 
     if (isPlaying) { // start playing
@@ -82,6 +84,8 @@ function nextSection() {
 
 // this function is called when the user clicks reset
 function reset() {
+  // disable add row buttons
+  $(".table-button").attr("disabled", true);
   sectionNumber = 0;
   //playData = [];
   currentBeat = 0;
@@ -118,7 +122,7 @@ function loadData(data) {
     };
   }
   genTable(metronomeData);
-  console.log(JSON.stringify(metronomeData));
+  //console.log(JSON.stringify(metronomeData));
   // generate playData
   updatePlayData();
   nextSection(); 
@@ -179,11 +183,13 @@ function leadIn() {
   playData.unshift(-1);
   //console.log(JSON.stringify(metronomeData));
 
-
 }
 
 // called when user clicks on a table row
 function editSection(row) {
+  // enable the before and after buttons
+  $(".table-button").attr("disabled", false);
+
   var $row = $(row);
   //remove all highlighting
   $("#metro-table tbody").children().removeClass("highlight");
@@ -197,8 +203,8 @@ function editSection(row) {
   $form.children(":nth-child(3)").children(":nth-child(2)").val($row.children(":nth-child(3)").text());
   $form.children(":nth-child(4)").children(":nth-child(2)").val($row.children(":nth-child(4)").text());
 
-  console.log($row.children(":nth-child(1)").text());
-  console.log($form.children(":nth-child(1)").children(":nth-child(2)"));
+  //console.log($row.children(":nth-child(1)").text());
+  //console.log($form.children(":nth-child(1)").children(":nth-child(2)"));
 }
 
 // called when user clicks delete button

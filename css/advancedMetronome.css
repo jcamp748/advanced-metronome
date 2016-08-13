@@ -5,3 +5,11 @@
 button.add-section {
   background-color: #d9534f;
 }
+
+.checkbox {
+  margin-top: 0px !important;
+}
+
+.table-button {
+  margin-left: 5px;
+}

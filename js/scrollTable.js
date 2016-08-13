@@ -25,26 +25,72 @@ document.addEventListener('form complete', function(event) {
           .append(
             $('<tbody></tbody>'))));
   // add bootstrap checkbox for looping
-  $("#form-wrapper div[class='col-md-8']").append(
-    $('<div></div>').addClass("checkbox").append(
-      $('<label></label>')
-        .append(
-          $("<input>")
-            .attr("type", "checkbox")
-            .attr("id", "loop-checkbox"))));
-  $("#form-wrapper div[class='col-md-8'] label").append("Loop");
+  var $rowDiv = $('<div></div>').addClass("row");
+  var $checkbox = null;
+  $checkbox = $('<div></div>').addClass("checkbox col-xs-3").attr("id", "loop-div");
+  $checkbox.append(
+    $('<label></label>')
+      .append(
+        $("<input>")
+          .attr("type", "checkbox")
+          .attr("id", "loop-checkbox")));
+  $checkbox.children("label").append("Loop");
+  $rowDiv.append($checkbox);
 
   // add bootstrap checkbox for lead in 
-  $("#form-wrapper div[class='col-md-8']").append(
-    $('<div></div>').addClass("checkbox").append(
-      $('<label></label>')
-        .append(
-          $("<input>")
-            .attr("type", "checkbox")
-            .prop("checked", true)
-            .attr("id", "lead-checkbox"))));
-  $("#form-wrapper div[class='col-md-8'] label").append("Lead In");
+  $checkbox = $('<div></div>').addClass("checkbox col-xs-3").attr("id", "lead-in-div");
+  $checkbox.append(
+    $('<label></label>')
+      .append(
+        $("<input>")
+          .attr("type", "checkbox")
+          .prop("checked", true)
+          .attr("id", "lead-checkbox")));
+  $checkbox.children("label").append("Lead In");
+  $rowDiv.append($checkbox);
+
+  // add bootstrap button for add row before
+  var $button = $('<button></button>').attr("type", "button").attr("disabled", true).addClass("btn btn-primary table-button");
+  $button.text("Add Row Before").attr("onclick", "addRowBefore()");
+  $rowDiv.append($button);
+
+  // add bootstrap button for add row after 
+  $button = $('<button></button>').attr("type", "button").attr("disabled", true).addClass("btn btn-primary table-button");
+  $button.text("Add Row After").attr("onclick", "addRowAfter()");
+  $rowDiv.append($button);
+  
+  // add row to the page
+  $("#form-wrapper div[class='col-md-8']").append($rowDiv);
 });
+
+// called when user clicks add row before button
+function addRowBefore() {
+  var index = getIndex( $("tr.highlight") );
+  var $row = genRow(null);
+  var data = metronomeData;
+  var ndata = {};
+  var offset = 0;
+  var length = Object.keys(data).length;
+  for( var i = 0; i < length + 1; i++ ) {
+    if( i !== index ) {
+      var sec = data[i + offset];
+      ndata[i] = sec;
+    } else {
+      ndata[i] = $row;
+      offset = -1;
+    }
+  }
+  console.log(JSON.stringify(ndata));
+  //console.log(JSON.stringify(data));
+}
+
+// called when user clicks add row after button
+function addRowAfter() {
+  var index = getIndex( $("tr.highlight") );
+  var $row = genRow(null);
+  var data = metronomeData;
+  console.log("add row after: " + index );
+}
 
 // add jquery row to section table
 function addRow($row) {
@@ -77,12 +123,25 @@ function genSection($button) {
 
 // generate markup for a table row from a section object
 function genRow(data) {
-  if( data.section === "lead in" ) return;
-  var $row = $('<tr></tr>');
-  $row.attr("onclick", "editSection(this)");
-  for(var prop in data) {
-    // create td with class col-xs-3
-    $row.append( $('<td></td>').text(data[prop]).addClass("col-xs-3"));
+  var $row = null;
+  if(data === null) {
+    // generate row with filler data
+    $row = $('<tr></tr>');
+    $row.attr("onclick", "editSection(this)");
+    $row.append( $('<td></td>').text("4/4").addClass("col-xs-3"));
+    $row.append( $('<td></td>').text("100").addClass("col-xs-3"));
+    $row.append( $('<td></td>').text("2").addClass("col-xs-3"));
+    $row.append( $('<td></td>').text("my riff").addClass("col-xs-3"));
+  } else if( data.section === "lead in" ) {
+    return;
+  } else {
+
+    $row = $('<tr></tr>');
+    $row.attr("onclick", "editSection(this)");
+    for(var prop in data) {
+      // create td with class col-xs-3
+      $row.append( $('<td></td>').text(data[prop]).addClass("col-xs-3"));
+    }
   }
   // add include button
   $row.append( $('<td></td>').append(
@@ -90,6 +149,7 @@ function genRow(data) {
       .addClass("btn btn-secondary add-section")
       .attr("onclick", "addSection(this)")
       .text("remove")));
+  
   return $row;
 }
 
