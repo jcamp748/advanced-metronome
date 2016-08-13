@@ -66,7 +66,7 @@ document.addEventListener('form complete', function(event) {
 // called when user clicks add row before button
 function addRowBefore() {
   var index = getIndex( $("tr.highlight") );
-  var $row = genRow(null);
+  var nrow = { timesig: "4/4", tempo: "120", count: "4", section: "my section" };
   var data = metronomeData;
   var ndata = {};
   var offset = 0;
@@ -76,12 +76,12 @@ function addRowBefore() {
       var sec = data[i + offset];
       ndata[i] = sec;
     } else {
-      ndata[i] = $row;
+      ndata[i] = nrow;
       offset = -1;
     }
   }
-  console.log(JSON.stringify(ndata));
-  //console.log(JSON.stringify(data));
+  metronomeData = ndata;
+  genTable(metronomeData);
 }
 
 // called when user clicks add row after button
