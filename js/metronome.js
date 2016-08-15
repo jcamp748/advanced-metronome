@@ -168,19 +168,27 @@ function updateMetronomeData() {
 }
 
 function leadIn() {
-  // get tempo from first measure
-  var firstTempo = metronomeData[playData[0]]["tempo"];
-  // get timesig from first measure
-  var firstTimesig = metronomeData[playData[0]]["timesig"];
-  // count will always be 1
+  var firstTempo = 0;
+  var firstTimesig = 0;
+  if( playData[0] === -1) {
+    // get tempo from first measure
+    firstTempo = metronomeData[playData[1]]["tempo"];
+    // get timesig from first measure
+    firstTimesig = metronomeData[playData[1]]["timesig"];
+    // count will always be 1
+  } else {
+    // get tempo from first measure
+    firstTempo = metronomeData[playData[0]]["tempo"];
+    // get timesig from first measure
+    firstTimesig = metronomeData[playData[0]]["timesig"];
+  }
   metronomeData["-1"] = {
     "tempo" : firstTempo,
     "timesig" : firstTimesig,
     "count" : "1",
     "section" : "lead in"
   };
-
-  playData.unshift(-1);
+  if( playData[0] !== -1 ) playData.unshift(-1);
   //console.log(JSON.stringify(metronomeData));
 
 }

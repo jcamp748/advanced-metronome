@@ -93,22 +93,29 @@ document.addEventListener("metronome loaded", function(event) {
   form.append(sectionField);
 
 
-  // create a add button
-  var addButton = $('<input></input>')
+  // create a update button
+  var addButton = $('<button></button>')
+    .addClass("btn btn-primary table-button")
     .attr("type", "button")
-    .attr("value", "update")
-    .attr("onclick", "validate()");
+    .attr("id", "updateRowButton")
+    .text("update")
+    .attr("onclick", "validate()")
+    .attr("disabled", true);
   form.append(addButton);
 
-  // create a clear button
-  var clearButton = $('<input></input>')
+  // create a delete button
+  var clearButton = $('<button></button>')
+    .addClass("btn btn-primary table-button")
     .attr("type", "button")
-    .attr("value", "clear table")
-    .attr("onclick", "clearTable()");
+    .attr("id", "deleteRowButton")
+    .text("delete row")
+    .attr("onclick", "clearTable()")
+    .attr("disabled", true);
   form.append(clearButton);
     
   // create a submit button
   var submitButton = $('<button></button>')
+    .addClass("btn btn-primary")
     .attr("form", "metronome-form")
     .attr("formaction", "#")
     .attr("formmethod", "#")

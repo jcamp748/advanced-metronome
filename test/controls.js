@@ -85,7 +85,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#tempoInput").val("120");
   $("#countInput").val("23");
   $("#sectionInput").val("my riff a");
-  $("input[value='update']").click();
+  $("#updateRowButton").click();
   //console.log(JSON.stringify(metronomeData));
   var sectionData = metronomeData["0"];
 
@@ -98,7 +98,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#tempoInput").val("100");
   $("#countInput").val("4");
   $("#sectionInput").val("my riff b");
-  $("input[value='update']").click();
+  $("#updateRowButton").click();
   //console.log(JSON.stringify(metronomeData));
   // verify sectionData object
   // it happens after this
@@ -112,7 +112,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#tempoInput").val("110");
   $("#countInput").val("244");
   $("#sectionInput").val("my riff c");
-  $("input[value='update']").click();
+  $("#updateRowButton").click();
   // verify sectionData object
   sectionData = metronomeData["2"];
   assert.deepEqual(sectionData, testSection3, "sectionData shouldn't be null");

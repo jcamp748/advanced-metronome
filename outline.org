@@ -1,10 +1,9 @@
-* TODO Features [50%]
+* TODO Features [40%]
   - [X] add row before button underneath table
   - [X] add row after button underneath table
   - [ ] add delete row button underneath form
   - [ ] remove clear table button
-
-
+  - [ ] get lead in to work
 
 * TODO Testing [50%]
   
