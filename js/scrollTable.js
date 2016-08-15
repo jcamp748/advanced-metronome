@@ -100,7 +100,9 @@ function addRowAfter() {
   var sec = null;
   var offset = 0;
   var length = Object.keys(data).length;
-  for( var i = 0; i < length; i++ ) {
+  // one of the sections is potentially a lead in section
+  if( data["-1"] ) length--;
+  for( var i = 0; i < length + 1; i++ ) {
     if( i !== index ) {
       sec = data[i + offset];
       ndata[i] = sec;
@@ -113,8 +115,9 @@ function addRowAfter() {
     }
   }
   metronomeData = ndata;
-  leadIn();
   genTable(metronomeData);
+  updatePlayData();
+  leadIn();
 }
 
 // add jquery row to section table
