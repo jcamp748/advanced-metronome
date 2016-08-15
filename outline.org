@@ -8,7 +8,7 @@
 
 * TODO Testing [50%]
   
-  - [ ] test reset buttn
+  - [ ] test reset button
   - [X] test add row above button
   - [X] test add row below button
   - [ ] test delete row button
