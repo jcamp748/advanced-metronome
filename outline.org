@@ -1,14 +1,14 @@
-* TODO Features [0%]
-  - [ ] add row before button underneath table
+* TODO Features [25%]
+  - [X] add row before button underneath table
   - [ ] add row after button underneath table
   - [ ] add delete row button underneath form
   - [ ] remove clear table button
 
 
 
-* TODO Testing [0%]
+* TODO Testing [25%]
   
   - [ ] test reset buttn
-  - [ ] test add row above button
+  - [X] test add row above button
   - [ ] test add row below button
   - [ ] test delete row button

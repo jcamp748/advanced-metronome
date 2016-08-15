@@ -52,11 +52,13 @@ document.addEventListener('form complete', function(event) {
   // add bootstrap button for add row before
   var $button = $('<button></button>').attr("type", "button").attr("disabled", true).addClass("btn btn-primary table-button");
   $button.text("Add Row Before").attr("onclick", "addRowBefore()");
+  $button.attr("id", "addRowBeforeButton");
   $rowDiv.append($button);
 
   // add bootstrap button for add row after 
   $button = $('<button></button>').attr("type", "button").attr("disabled", true).addClass("btn btn-primary table-button");
   $button.text("Add Row After").attr("onclick", "addRowAfter()");
+  $button.attr("id", "addRowAfterButton");
   $rowDiv.append($button);
   
   // add row to the page
@@ -65,12 +67,15 @@ document.addEventListener('form complete', function(event) {
 
 // called when user clicks add row before button
 function addRowBefore() {
+  // 0 based index
   var index = getIndex( $("tr.highlight") );
   var nrow = { timesig: "4/4", tempo: "120", count: "4", section: "my section" };
   var data = metronomeData;
   var ndata = {};
   var offset = 0;
   var length = Object.keys(data).length;
+  // one of the sections is potentially a lead in section
+  if( data["-1"] ) length--;
   for( var i = 0; i < length + 1; i++ ) {
     if( i !== index ) {
       var sec = data[i + offset];
@@ -82,14 +87,34 @@ function addRowBefore() {
   }
   metronomeData = ndata;
   genTable(metronomeData);
+  updatePlayData();
+  leadIn();
 }
 
 // called when user clicks add row after button
 function addRowAfter() {
   var index = getIndex( $("tr.highlight") );
-  var $row = genRow(null);
+  var nrow = { timesig: "4/4", tempo: "120", count: "4", section: "my section" };
   var data = metronomeData;
-  console.log("add row after: " + index );
+  var ndata = {};
+  var sec = null;
+  var offset = 0;
+  var length = Object.keys(data).length;
+  for( var i = 0; i < length; i++ ) {
+    if( i !== index ) {
+      sec = data[i + offset];
+      ndata[i] = sec;
+    } else {
+      sec = data[i];
+      ndata[i] = sec;
+      i++;
+      ndata[i] = nrow;
+      offset = -1;
+    }
+  }
+  metronomeData = ndata;
+  leadIn();
+  genTable(metronomeData);
 }
 
 // add jquery row to section table
@@ -186,7 +211,8 @@ function clearTable() {
   $("#metro-table tbody").empty();
 }
 
-// utility function to highlight a row
+// utility function to highlight a row inexed at 1
 function highlightRow(row) {
+  $("#metro-table tbody").children().removeClass("highlight");
   $("#metro-table tbody").children(":nth-child(" + row.toString() + ")").toggleClass("highlight");
 }
