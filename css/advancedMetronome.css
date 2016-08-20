@@ -10,7 +10,7 @@ button.add-section {
   margin-top: 0px !important;
 }
 
-.table-button {
+.table-button, .metronome-control {
   margin-left: 5px;
 }
 

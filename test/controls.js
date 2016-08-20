@@ -4,9 +4,6 @@ QUnit.test( "verify control functionality", function( assert ) {
   // form should start out hidden
   assert.equal( $("#form-wrapper").is(":visible"), false, "form should start invisible");
 
-  // clicking new button should show form
-  $("#metronome-controls").children(":nth-child(4)").trigger("click");
-  assert.equal( $("#form-wrapper").is(":visible"), true, "form should be visible");
   // clicking new button again should hide form
   $("#metronome-controls").children(":nth-child(4)").trigger("click");
   assert.equal( $("#form-wrapper").is(":visible"), false, "form should be visible");

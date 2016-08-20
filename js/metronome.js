@@ -465,30 +465,24 @@ function init() {
   var playButton = $('<button></button>')
     .attr("onclick", "this.innerText = play()")
     .text("play")
-    .addClass("metronome-control");
+    .addClass("metronome-control btn btn-primary");
   controls.append(playButton);
 
   //var resetButton = document.createElement("button");
   var resetButton = $('<button></button>')
     .attr("onclick", "reset()")
     .text("reset")
-    .addClass("metronome-control");
+    .addClass("metronome-control btn btn-primary");
   controls.append(resetButton);
 
   var editButton = $('<button></button>')
     .attr("onclick", "$('#form-wrapper').toggle()")
     .text("edit")
-    .addClass("metronome-control");
+    .addClass("metronome-control btn btn-primary");
   controls.append(editButton);
   wrapper.append(controls);
 
   //var newButton = document.createElement("button");
-  var newButton = $('<button></button>')
-    .attr("onclick", "$('#form-wrapper').toggle()")
-    .text("new")
-    .addClass("metronome-control");
-  controls.append(newButton);
-  wrapper.append(controls);
 
   // fire event to load form
   var ev = new Event('metronome loaded');

@@ -21,7 +21,7 @@ QUnit.test( "verify page markup", function( assert ) {
   assert.equal( $(".row").children(":nth-child(1)").hasClass("col-md-4"), true, "first col should be 4");
   assert.equal( $(".row").children(":nth-child(2)").hasClass("col-md-8"), true, "first col should be 8");
 
-  assert.equal( $("#metronome-controls button").length, 4, "should be 4 control buttons");
+  assert.equal( $("#metronome-controls button").length, 3, "should be 3 control buttons");
 
   assert.equal( $("#metronome-form").is("form"), true, "should be metronome-form");
 
