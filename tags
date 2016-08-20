@@ -8,17 +8,11 @@
 CanvasGradient_	js/SegmentDisplay/excanvas.js	/^  function CanvasGradient_(aType) {$/;"	c
 CanvasPattern_	js/SegmentDisplay/excanvas.js	/^  function CanvasPattern_() {}$/;"	f
 CanvasRenderingContext2D_	js/SegmentDisplay/excanvas.js	/^  function CanvasRenderingContext2D_(surfaceElement) {$/;"	c
-Plugin	js/validator.js	/^  function Plugin(option) {$/;"	f	function:Validator.function
 SegmentDisplay	js/SegmentDisplay/segment-display.js	/^function SegmentDisplay(displayId, paddingX, paddingY, shrink) {$/;"	c
-Validator	js/validator.js	/^  var Validator = function (element, options) {$/;"	c
-Validator	js/validator.js	/^  }$/;"	c	class:Validator
-Validator	js/validator.js	/^  }$/;"	c	class:Validator.Validator
-Validator	js/validator.js	/^  }$/;"	c	class:Validator.Validator.Validator
-Validator	js/validator.js	/^  }$/;"	c	class:Validator.Validator.Validator.Validator
-Validator	js/validator.js	/^  }$/;"	c	class:Validator.Validator.Validator.Validator.Validator
 addColorStop	js/SegmentDisplay/excanvas.js	/^  CanvasGradient_.prototype.addColorStop = function(aOffset, aColor) {$/;"	m	class:CanvasGradient_
 addRow	js/scrollTable.js	/^function addRow($row) {$/;"	f
-addSection	js/metronome.js	/^function addSection(button) {$/;"	f
+addRowAfter	js/scrollTable.js	/^function addRowAfter() {$/;"	f
+addRowBefore	js/scrollTable.js	/^function addRowBefore() {$/;"	f
 animate	js/SegmentDisplay/index.html	/^      function animate() {$/;"	f
 audioContext	js/metronome.js	/^var audioContext = null;        \/\/ audio context $/;"	v
 backgroundColor	js/metronome.js	/^var backgroundColor = "rgba(196, 226, 196, 1)";$/;"	v
@@ -63,12 +57,13 @@ contextPrototype.transform	js/SegmentDisplay/excanvas.js	/^  };$/;"	f
 contextPrototype.translate	js/SegmentDisplay/excanvas.js	/^  }$/;"	f
 copyState	js/SegmentDisplay/excanvas.js	/^  function copyState(o1, o2) {$/;"	f
 count	js/metronome.js	/^    "timesig" : firstTimesig,$/;"	p	class:metronomeData
+count	js/scrollTable.js	/^  var nrow = { timesig: "4\/4", tempo: "120", count: "4", section: "my section" };$/;"	p	class:addRowAfter.nrow
+count	js/scrollTable.js	/^  var nrow = { timesig: "4\/4", tempo: "120", count: "4", section: "my section" };$/;"	p	class:addRowBefore.nrow
 createMatrixIdentity	js/SegmentDisplay/excanvas.js	/^  function createMatrixIdentity() {$/;"	f
 ctx	js/metronome.js	/^var ctx = null;                 \/\/ the drawing context$/;"	v
 currentBeat	js/metronome.js	/^var currentBeat = 0;$/;"	v
 dec2hex	js/SegmentDisplay/excanvas.js	/^  var dec2hex = [];$/;"	v
-defer	js/validator.js	/^  Validator.prototype.defer = function ($el, callback) {$/;"	m	class:Validator.Validator.Validator.Validator.Validator.Validator
-deleteSection	js/metronome.js	/^function deleteSection(button) {$/;"	f
+deleteRow	js/metronome.js	/^function deleteRow() {$/;"	f
 draw	js/SegmentDisplay/segment-display.js	/^SegmentDisplay.prototype.draw = function() {$/;"	m	class:SegmentDisplay
 draw	js/metronome.js	/^function draw() {$/;"	f
 drawBox	js/metronome.js	/^function drawBox() {$/;"	f
@@ -76,22 +71,18 @@ drawDigit	js/SegmentDisplay/segment-display.js	/^SegmentDisplay.prototype.drawDi
 drawDisplay	js/metronome.js	/^function drawDisplay() {$/;"	f
 drawPoint	js/SegmentDisplay/segment-display.js	/^SegmentDisplay.prototype.drawPoint = function(context, x1, y1, size) {$/;"	m	class:SegmentDisplay
 editSection	js/metronome.js	/^function editSection(row) {$/;"	f
-fieldErrors	js/validator.js	/^    function fieldErrors() {$/;"	f	function:Validator.Validator.Validator.Validator.Validator.function
-fieldIncomplete	js/validator.js	/^    function fieldIncomplete() {$/;"	f	function:Validator.Validator.Validator.Validator.Validator.function
 genRow	js/scrollTable.js	/^function genRow(data) {$/;"	f
 genSection	js/scrollTable.js	/^function genSection($button) {$/;"	f
 genTable	js/scrollTable.js	/^function genTable(obj) {$/;"	f
 getContext	js/SegmentDisplay/excanvas.js	/^  function getContext() {$/;"	f	function:function
 getIndex	js/scrollTable.js	/^function getIndex($row) {$/;"	f
 getSegmentColor	js/SegmentDisplay/segment-display.js	/^SegmentDisplay.prototype.getSegmentColor = function(c, charSet7, charSet14, charSet16) {$/;"	m	class:SegmentDisplay
-getValue	js/validator.js	/^  function getValue($el) {$/;"	f
 highlightRow	js/scrollTable.js	/^function highlightRow(row) {$/;"	f
 init	js/SegmentDisplay/excanvas.js	/^  var G_vmlCanvasManager_ = {$/;"	m	class:G_vmlCanvasManager_
 init	js/metronome.js	/^function init() {$/;"	f
 initElement	js/SegmentDisplay/excanvas.js	/^    },$/;"	m	class:G_vmlCanvasManager_
 init_	js/SegmentDisplay/excanvas.js	/^    },$/;"	m	class:G_vmlCanvasManager_
 interval	js/metronomeworker.js	/^var interval=100;$/;"	v
-isIncomplete	js/validator.js	/^  Validator.prototype.isIncomplete = function () {$/;"	m	class:Validator.Validator.Validator.Validator.Validator
 isPlaying	js/metronome.js	/^var isPlaying = false;$/;"	v
 leadIn	js/metronome.js	/^function leadIn() {$/;"	f
 loadData	js/metronome.js	/^function loadData(data) {$/;"	f
@@ -100,7 +91,6 @@ matrixIsFinite	js/SegmentDisplay/excanvas.js	/^  function matrixIsFinite(m) {$/;
 matrixMultiply	js/SegmentDisplay/excanvas.js	/^  function matrixMultiply(m1, m2) {$/;"	f
 measureCount	js/metronome.js	/^var measureCount = 0;           \/\/ number of measures left to play at current tempo$/;"	v
 metronomeData	js/metronome.js	/^var metronomeData = {};         \/\/ object that will hold the data$/;"	v
-native	js/validator.js	/^  Validator.VALIDATORS = {$/;"	m	class:Validator.VALIDATORS
 nextNote	js/metronome.js	/^function nextNote() {$/;"	f
 nextNoteTime	js/metronome.js	/^var nextNoteTime = 0.0;         \/\/ when the next note is due.$/;"	v
 nextSection	js/metronome.js	/^function nextSection() {$/;"	f
@@ -108,7 +98,6 @@ noteLength	js/metronome.js	/^var noteLength = 0.05;          \/\/ length of "bee
 notesInQueue	js/metronome.js	/^var notesInQueue = [];          \/\/ the notes that have been put into the web audio,$/;"	v
 onPropertyChange	js/SegmentDisplay/excanvas.js	/^  function onPropertyChange(e) {$/;"	f
 onResize	js/SegmentDisplay/excanvas.js	/^  function onResize(e) {$/;"	f
-onSubmit	js/validator.js	/^  Validator.prototype.onSubmit = function (e) {$/;"	m	class:Validator.Validator.Validator.Validator.Validator
 play	js/metronome.js	/^function play() {$/;"	f
 playData	js/metronome.js	/^var playData = [];              \/\/ empty array that will hold sections to be played$/;"	v
 processLineCap	js/SegmentDisplay/excanvas.js	/^  function processLineCap(lineCap) {$/;"	f
@@ -119,6 +108,8 @@ scheduleAheadTime	js/metronome.js	/^var scheduleAheadTime = 0.1;    \/\/ How far
 scheduleNote	js/metronome.js	/^function scheduleNote( beatNumber, time ) {$/;"	f
 scheduler	js/metronome.js	/^function scheduler() {$/;"	f
 section	js/metronome.js	/^    "count" : "1",$/;"	p	class:metronomeData
+section	js/scrollTable.js	/^  var nrow = { timesig: "4\/4", tempo: "120", count: "4", section: "my section" };$/;"	p	class:addRowAfter.nrow
+section	js/scrollTable.js	/^  var nrow = { timesig: "4\/4", tempo: "120", count: "4", section: "my section" };$/;"	p	class:addRowBefore.nrow
 sectionName	js/metronome.js	/^var sectionName = "";           \/\/ name of the current section$/;"	v
 sectionNumber	js/metronome.js	/^var sectionNumber = 0;          \/\/ section of the metronomeData hash we are on$/;"	v
 segmentOff	js/metronome.js	/^var segmentOff = "rgba(175, 203, 175, 1)";$/;"	v
@@ -126,22 +117,23 @@ segmentOn	js/metronome.js	/^var segmentOn = "rgba(9, 9, 9, 1)";$/;"	v
 self.onmessage	js/metronomeworker.js	/^var interval=100;$/;"	f
 setM	js/SegmentDisplay/excanvas.js	/^  function setM(ctx, m, updateLineScale) {$/;"	f
 setValue	js/SegmentDisplay/segment-display.js	/^SegmentDisplay.prototype.setValue = function(value) {$/;"	m	class:SegmentDisplay
-showErrors	js/validator.js	/^  Validator.prototype.showErrors = function ($el) {$/;"	m	class:Validator.Validator.Validator
 sigLabel	js/metronome.js	/^var sigLabel = null;            \/\/ label for time signature$/;"	v
 sigValue	js/metronome.js	/^var sigValue = null;            \/\/ value of time signature$/;"	v
 tempo	js/metronome.js	/^  metronomeData["-1"] = {$/;"	p	class:metronomeData
 tempo	js/metronome.js	/^var tempo = 0;                  \/\/ tempo (in beats per minute)$/;"	v
+tempo	js/scrollTable.js	/^  var nrow = { timesig: "4\/4", tempo: "120", count: "4", section: "my section" };$/;"	p	class:addRowAfter.nrow
+tempo	js/scrollTable.js	/^  var nrow = { timesig: "4\/4", tempo: "120", count: "4", section: "my section" };$/;"	p	class:addRowBefore.nrow
 thickness	js/metronome.js	/^var thickness = 25;             \/\/ the thickness of the egede of the metronome box$/;"	v
 timerID	js/metronomeworker.js	/^var timerID=null;$/;"	v
 timerWorker.onmessage	js/metronome.js	/^  window.requestAnimationFrame(draw);$/;"	f
 timesig	js/metronome.js	/^    "tempo" : firstTempo,$/;"	p	class:metronomeData
 timesig	js/metronome.js	/^var timesig = "";               \/\/ current time signature$/;"	v
+timesig	js/scrollTable.js	/^  var nrow = { timesig: "4\/4", tempo: "120", count: "4", section: "my section" };$/;"	p	class:addRowAfter.nrow
+timesig	js/scrollTable.js	/^  var nrow = { timesig: "4\/4", tempo: "120", count: "4", section: "my section" };$/;"	p	class:addRowBefore.nrow
+updateMetronomeData	js/metronome.js	/^function updateMetronomeData() {$/;"	f
 updatePlayData	js/metronome.js	/^function updatePlayData() {$/;"	f
-updateRow	js/scrollTable.js	/^function updateRow($row) {$/;"	f
-updateSection	js/metroForm.js	/^function updateSection() {$/;"	f
+updateRow	js/scrollTable.js	/^function updateRow(data) {$/;"	f
 validate	js/metroForm.js	/^function validate() {$/;"	f
-validate	js/validator.js	/^  Validator.prototype.validate = function () {$/;"	m	class:Validator.Validator
-validateInput	js/validator.js	/^  Validator.prototype.validateInput = function ($el, deferErrors) {$/;"	m	class:Validator
 x	js/SegmentDisplay/excanvas.js	/^        focus = {$/;"	p	class:focus
 x	js/SegmentDisplay/excanvas.js	/^      var focus = {x: 0, y: 0};$/;"	p	class:var.focus
 x	js/SegmentDisplay/excanvas.js	/^    var cp1 = {$/;"	p	class:contextPrototype.quadraticCurveTo.cp1

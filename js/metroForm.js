@@ -109,13 +109,14 @@ document.addEventListener("metronome loaded", function(event) {
     .attr("type", "button")
     .attr("id", "deleteRowButton")
     .text("delete row")
-    .attr("onclick", "clearTable()")
+    .attr("onclick", "deleteRow()")
     .attr("disabled", true);
   form.append(clearButton);
     
   // create a submit button
   var submitButton = $('<button></button>')
     .addClass("btn btn-primary")
+    .attr("id", "saveRowButton")
     .attr("form", "metronome-form")
     .attr("formaction", "#")
     .attr("formmethod", "#")

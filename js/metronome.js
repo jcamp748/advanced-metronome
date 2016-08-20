@@ -216,8 +216,13 @@ function editSection(row) {
 }
 
 // called when user clicks delete button
-function deleteSection(button) {
-  console.lot("delete section");
+function deleteRow() {
+  console.log("delete row");
+  $(".highlight").remove();
+  // update table
+  updateMetronomeData();
+  genTable(metronomeData);
+  updatePlayData();
 }
 
 
