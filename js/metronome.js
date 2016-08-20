@@ -21,6 +21,7 @@ var sigValue = null;            // value of time signature
 var sectionNumber = 0;          // section of the metronomeData hash we are on
 var metronomeData = {};         // object that will hold the data
 var playData = [];              // empty array that will hold sections to be played
+var loopComplete = false;       // true when we have successfully looped
 
 // colorscheme for metronome screen
 var backgroundColor = "rgba(196, 226, 196, 1)";
@@ -75,6 +76,7 @@ function nextSection() {
       $("#metronome-controls").children(":nth-child(1)").click();
     else {
       // reset play data
+      loopComplete = true;
       updatePlayData();
       $("#metro-table tbody").children().removeClass("highlight");
       nextSection();
@@ -84,6 +86,7 @@ function nextSection() {
 
 // this function is called when the user clicks reset
 function reset() {
+  loopComplete = false;
   // disable add row buttons
   $(".table-button").attr("disabled", true);
   sectionNumber = 0;
@@ -168,28 +171,33 @@ function updateMetronomeData() {
 }
 
 function leadIn() {
-  var firstTempo = 0;
-  var firstTimesig = 0;
-  if( playData[0] === -1) {
-    // get tempo from first measure
-    firstTempo = metronomeData[playData[1]]["tempo"];
-    // get timesig from first measure
-    firstTimesig = metronomeData[playData[1]]["timesig"];
-    // count will always be 1
+  if ( loopComplete ) {
+    return;
   } else {
-    // get tempo from first measure
-    firstTempo = metronomeData[playData[0]]["tempo"];
-    // get timesig from first measure
-    firstTimesig = metronomeData[playData[0]]["timesig"];
+
+    var firstTempo = 0;
+    var firstTimesig = 0;
+    if( playData[0] === -1) {
+      // get tempo from first measure
+      firstTempo = metronomeData[playData[1]]["tempo"];
+      // get timesig from first measure
+      firstTimesig = metronomeData[playData[1]]["timesig"];
+      // count will always be 1
+    } else {
+      // get tempo from first measure
+      firstTempo = metronomeData[playData[0]]["tempo"];
+      // get timesig from first measure
+      firstTimesig = metronomeData[playData[0]]["timesig"];
+    }
+    metronomeData["-1"] = {
+      "tempo" : firstTempo,
+      "timesig" : firstTimesig,
+      "count" : "1",
+      "section" : "lead in"
+    };
+    if( playData[0] !== -1 ) playData.unshift(-1);
+    //console.log(JSON.stringify(metronomeData));
   }
-  metronomeData["-1"] = {
-    "tempo" : firstTempo,
-    "timesig" : firstTimesig,
-    "count" : "1",
-    "section" : "lead in"
-  };
-  if( playData[0] !== -1 ) playData.unshift(-1);
-  //console.log(JSON.stringify(metronomeData));
 
 }
 

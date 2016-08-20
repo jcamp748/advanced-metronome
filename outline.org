@@ -5,9 +5,9 @@
   - [X] remove clear table button
   - [X] get lead in to work
 
-* TODO Testing [50%]
+* TODO Testing [100%]
   
-  - [ ] test reset button
+  - [X] test reset button
   - [X] test add row above button
   - [X] test add row below button
-  - [ ] test delete row button
+  - [X] test delete row button
