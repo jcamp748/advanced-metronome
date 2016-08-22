@@ -1,5 +1,0 @@
-the Event() constructor in scrollTable.js requires IE 11 or higher
-bootstrap is required for styling
-jquery is required
-modified version of segment display
-advanced version based of metronome.js
