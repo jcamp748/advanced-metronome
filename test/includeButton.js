@@ -29,26 +29,19 @@ QUnit.test( "test include button", function( assert ) {
 
   var firstSec = {
     "timesig" : "4/4",
-    "tempo" : "120",
-    "count" : "4",
-    "section" : "my section"
-  };
-
-   var secondSec = {
-    "timesig" : "4/4",
     "tempo" : "100",
-    "count" : "2",
+    "count" : "1",
     "section" : "riff a"
   };
 
-  var thirdSec = {
+   var secondSec = {
     "timesig" : "3/4",
     "tempo" : "200",
     "count" : "3",
     "section" : "riff b"
   };
 
-  var fourthSec = {
+  var thirdSec = {
     "timesig" : "4/4",
     "tempo" : "50",
     "count" : "2",
@@ -79,7 +72,7 @@ QUnit.test( "test include button", function( assert ) {
   var testSec = null;
   var lastIndex = playData.length - 1;
   testSec = metronomeData[playData[lastIndex]];
-  assert.deepEqual(testSec, thirdSec, "last section should be third section");
+  assert.deepEqual(testSec, secondSec, "last section should be second section");
 
   // click first button
   var $firstButton = $($incButtons[0]);
@@ -87,8 +80,8 @@ QUnit.test( "test include button", function( assert ) {
   assert.equal(Object.keys(metronomeData).length, 4, "metronomeData should have 4 keys");
   assert.equal(playData.length, 2, "play data should have two");
   assert.equal($firstButton.text(), "include", "first button should say include");
-  // get first section
-  testSec = metronomeData[playData[0]];
+  // get first section, remember to skip lead in section
+  testSec = metronomeData[playData[1]];
   assert.deepEqual(testSec, secondSec, "first section should be second section");
 
   // click first and last buttons
@@ -103,8 +96,8 @@ QUnit.test( "test include button", function( assert ) {
   assert.equal(Object.keys(metronomeData).length, 4, "metronomeData should have 4 keys");
   assert.equal(playData.length, 3, "play data should have three");
   assert.equal($secondButton.text(), "include", "second button should say include");
-  // verify second section
-  testSec = metronomeData[playData[1]];
+  // verify second section remember to skip lead in section
+  testSec = metronomeData[playData[2]];
   assert.deepEqual(testSec, thirdSec, "second section should be third section");
 
 });

@@ -189,7 +189,7 @@ function includeSection(button) {
   } else {
     $button.text("remove");
   }
-
+  updatePlayData();
 }
 
 // utility function to get the index of the current row
@@ -212,6 +212,7 @@ function genTable(obj) {
   for(var sec in obj) {
     addRow(genRow(obj[sec]));
   }
+  updatePlayData();
 }
 
 function addRow($row) {
