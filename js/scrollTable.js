@@ -182,7 +182,14 @@ function genRow(data) {
 }
 
 function includeSection(button) {
-  console.log(button);
+  var $button = $(button);
+  $button.toggleClass('add-section');
+  if( $button.text() === "remove" ) {
+    $button.text("include");
+  } else {
+    $button.text("remove");
+  }
+
 }
 
 // utility function to get the index of the current row

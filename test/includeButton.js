@@ -63,11 +63,18 @@ QUnit.test( "test include button", function( assert ) {
   var $incButtons = $(".add-section");
   assert.equal($incButtons.length, 3, "should be three include buttons");
 
+  // verify text of include buttons
+  $incButtons.each( function(index, element) {
+    var $element = $(element);
+    assert.equal($element.text(), "remove", "buttons should say remove");
+  });
+
   // click last button
-  var $thirdButton = $incButtons.children(":nth-child(3)");
+  var $thirdButton = $($incButtons[2]);
   $thirdButton.click();
   assert.equal(Object.keys(metronomeData).length, 4, "metronomeData should have 4 keys");
   assert.equal(playData.length, 3, "play data should have three");
+  assert.equal($thirdButton.text(), "include", "third button should say include");
   // get last section data
   var testSec = null;
   var lastIndex = playData.length - 1;
@@ -75,10 +82,11 @@ QUnit.test( "test include button", function( assert ) {
   assert.deepEqual(testSec, thirdSec, "last section should be third section");
 
   // click first button
-  var $firstButton = $incButtons.children(":nth-child(3)");
+  var $firstButton = $($incButtons[0]);
   $firstButton.click();
   assert.equal(Object.keys(metronomeData).length, 4, "metronomeData should have 4 keys");
   assert.equal(playData.length, 2, "play data should have two");
+  assert.equal($firstButton.text(), "include", "first button should say include");
   // get first section
   testSec = metronomeData[playData[0]];
   assert.deepEqual(testSec, secondSec, "first section should be second section");
@@ -86,12 +94,15 @@ QUnit.test( "test include button", function( assert ) {
   // click first and last buttons
   $thirdButton.click();
   $firstButton.click();
+  assert.equal($firstButton.text(), "remove", "first button should say remove");
+  assert.equal($thirdButton.text(), "remove", "third button should say remove");
 
   // click second button
-  $secondButton = $incButtons.children(":nth-child(2)");
+  $secondButton = $($incButtons[1]);
   $secondButton.click();
   assert.equal(Object.keys(metronomeData).length, 4, "metronomeData should have 4 keys");
   assert.equal(playData.length, 3, "play data should have three");
+  assert.equal($secondButton.text(), "include", "second button should say include");
   // verify second section
   testSec = metronomeData[playData[1]];
   assert.deepEqual(testSec, thirdSec, "second section should be third section");
