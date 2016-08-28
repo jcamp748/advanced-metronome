@@ -38,6 +38,7 @@ function play() {
         //loadSection(sectionNumber);
         nextNoteTime = audioContext.currentTime;
         timerWorker.postMessage("start");
+        nextSection();
         return "stop";
     } else {
         timerWorker.postMessage("stop");
@@ -55,10 +56,10 @@ function nextSection() {
   var section = playData.shift();
   if ( section !== undefined) {
     // unhighlight everything
-    $("#metro-table tbody").children().removeClass("highlight");
+    //$("#metro-table tbody").children().removeClass("highlight");
     // hightlight current row
-    if( !$("#metro-table tbody").children(":nth-child(" + (section + 1) + ")").hasClass("highlight")) 
-      highlightRow(section + 1);
+    //if( !$("#metro-table tbody").children(":nth-child(" + (section + 1) + ")").hasClass("highlight")) 
+    highlightRow(section + 1);
 
     var secData = metronomeData[section.toString()];
     if( secData ) {
@@ -95,7 +96,8 @@ function reset() {
   // unhighlight everything
   $("#metro-table tbody").children().removeClass("highlight");
   updatePlayData();
-  nextSection();
+  // why is this necessary?
+  //nextSection();
 }
 
 // have the first measure of the song be a lead in tick
@@ -128,7 +130,7 @@ function loadData(data) {
   //console.log(JSON.stringify(metronomeData));
   // generate playData
   updatePlayData();
-  nextSection(); 
+  //nextSection(); 
 }
 
 function updatePlayData() {

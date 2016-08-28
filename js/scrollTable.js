@@ -175,7 +175,7 @@ function genRow(data) {
   $row.append( $('<td></td>').append(
     $('<button></button>').attr("type", "button")
       .addClass("btn btn-secondary add-section")
-      .attr("onclick", "addSection(this)")
+      .attr("onclick", "includeSection(this)")
       .text("remove")));
   
   return $row;

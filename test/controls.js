@@ -88,6 +88,7 @@ QUnit.test( "verify control functionality", function( assert ) {
 
   // verify sectionData object
   assert.deepEqual(sectionData, testSection1, "sectionData shouldn't be null");
+  assert.equal(playData.length, 4, "play data should have 4");
 
   highlightRow(1);
   highlightRow(2);
@@ -102,6 +103,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   //console.log(JSON.stringify(metronomeData));
   sectionData = metronomeData["1"];
   assert.deepEqual(sectionData, testSection2, "sectionData shouldn't be null");
+  assert.equal(playData.length, 4, "play data should have 4");
 
   highlightRow(2);
   highlightRow(3);
@@ -113,6 +115,7 @@ QUnit.test( "verify control functionality", function( assert ) {
   // verify sectionData object
   sectionData = metronomeData["2"];
   assert.deepEqual(sectionData, testSection3, "sectionData shouldn't be null");
+  assert.equal(playData.length, 4, "play data should have 4");
   reset();
 
 
@@ -120,22 +123,35 @@ QUnit.test( "verify control functionality", function( assert ) {
   // with section loaded first section should be highlighted
   //genTable(testObj);
   reset();
+  assert.equal(playData.length, 4, "play data should have 4");
+  //skip lead in
   nextSection();
-  // skip lead in
+  //go to first section
+  nextSection();
   var $firstSection = $("#metro-table tbody").children(":nth-child(1)");
   assert.equal( $firstSection.hasClass("highlight"), true, "first row should be highlighted");
+  assert.equal(playData.length, 2, "play data should have 2");
 
   // test lead in
   metronomeData = testObj;
   $("#lead-checkbox").prop("checked", false);
   reset();
   $firstSection = $("#metro-table tbody").children(":nth-child(1)");
+  nextSection();
   assert.equal( $firstSection.hasClass("highlight"), true, "first row should be highlighted");
+  assert.equal(playData.length, 2, "play data should have two");
 
   metronomeData = testObj;
   $("#lead-checkbox").prop("checked", true);
   reset();
   $firstSection = $("#metro-table tbody").children(":nth-child(1)");
   assert.equal( $firstSection.hasClass("highlight"), false, "first row should not be highlighted");
+  assert.equal(playData.length, 4, "play data should have four");
+
+  // test includeSection(this) on table
+  reset();
+  var $include = $("#metro-table tbody").children(":nth-child(2)").children(":nth-child(5)");
+  $include.click();
+  assert.equal(playData.length, 4, "should be four sections in play data");
 
 });
