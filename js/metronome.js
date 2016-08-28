@@ -55,12 +55,7 @@ function clearTable() {
 function nextSection() {
   var section = playData.shift();
   if ( section !== undefined) {
-    // unhighlight everything
-    //$("#metro-table tbody").children().removeClass("highlight");
-    // hightlight current row
-    //if( !$("#metro-table tbody").children(":nth-child(" + (section + 1) + ")").hasClass("highlight")) 
     highlightRow(section + 1);
-
     var secData = metronomeData[section.toString()];
     if( secData ) {
       timesig = secData["timesig"];
@@ -127,10 +122,7 @@ function loadData(data) {
     };
   }
   genTable(metronomeData);
-  //console.log(JSON.stringify(metronomeData));
-  // generate playData
   updatePlayData();
-  //nextSection(); 
 }
 
 function updatePlayData() {
@@ -139,12 +131,10 @@ function updatePlayData() {
   $.each( $("#metro-table tbody").children(), function(index, tr) {
     if( $(tr).children(":nth-child(5)").children().hasClass("add-section") ) {
       playData.push(index);
-      //console.log(playData);
     } else {
       // make sure play data does not contain the index
       playData = playData.filter( function(element, ndx, array){
         if( element === index ) {
-          //console.log(index);
           return false;
         } else {
           return true;
@@ -155,8 +145,6 @@ function updatePlayData() {
   // if lead in box is checked load lead in measure
   if( $("#lead-checkbox").prop("checked") )
     leadIn();
-
-  //console.log(JSON.stringify(metronomeData));
 }
 
 function updateMetronomeData() {
@@ -198,7 +186,6 @@ function leadIn() {
       "section" : "lead in"
     };
     if( playData[0] !== -1 ) playData.unshift(-1);
-    //console.log(JSON.stringify(metronomeData));
   }
 
 }
@@ -220,14 +207,10 @@ function editSection(row) {
   $form.children(":nth-child(2)").children(":nth-child(2)").val($row.children(":nth-child(2)").text());
   $form.children(":nth-child(3)").children(":nth-child(2)").val($row.children(":nth-child(3)").text());
   $form.children(":nth-child(4)").children(":nth-child(2)").val($row.children(":nth-child(4)").text());
-
-  //console.log($row.children(":nth-child(1)").text());
-  //console.log($form.children(":nth-child(1)").children(":nth-child(2)"));
 }
 
 // called when user clicks delete button
 function deleteRow() {
-  console.log("delete row");
   $(".highlight").remove();
   // update table
   updateMetronomeData();
@@ -265,7 +248,6 @@ function scheduleNote( beatNumber, time ) {
     // create an oscillator
     var osc = audioContext.createOscillator();
     osc.connect( audioContext.destination );
-    //console.log(beatNumber);
     if (beatNumber === 0)    // beat 0 == high pitch
         osc.frequency.value = 880.0;
     else                        // other 16th notes = low pitch
@@ -491,8 +473,6 @@ function init() {
     .addClass("metronome-control btn btn-primary");
   controls.append(editButton);
   wrapper.append(controls);
-
-  //var newButton = document.createElement("button");
 
   // fire event to load form
   var ev = new Event('metronome loaded');

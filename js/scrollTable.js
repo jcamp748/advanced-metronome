@@ -181,6 +181,10 @@ function genRow(data) {
   return $row;
 }
 
+function includeSection(button) {
+  console.log(button);
+}
+
 // utility function to get the index of the current row
 function getIndex($row) {
   var $table = $("#metro-table tbody");
