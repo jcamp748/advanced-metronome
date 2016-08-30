@@ -7,3 +7,7 @@ FILE=$(pwd)/js/metronome.js
 sed -i.bak -e's/js\/metronomeworker.js/\/javascripts\/advanced-metronome\/js\/metronomeworker.js/' $FILE 
 rm -rf test/
 rm -rf scripts/
+rm index.html
+rm INSTALL
+rm tags
+rm README.md
