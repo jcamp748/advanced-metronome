@@ -1,0 +1,13 @@
+the Worker() constructor in metronome.js takes a file path for an argument.
+This causes problems for the asset pipeline in ruby on rails and possibly
+for other web frameworks as well.  For this reason I am creating shell scripts
+in the scripts directory to alter this file path and do any other file operations
+necessary (delete the test dir for example).
+
+installation example:
+
+cd /path/to/project/javascript
+git clone https://github.com/jcamp748/advanced-metronome
+cd advanced-metronome
+chmod +x scripts/rails.sh
+./scripts/rails.sh
