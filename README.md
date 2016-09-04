@@ -7,7 +7,6 @@ uses a modified version of [SegmentDisplay](http://www.3quarks.com/en/SegmentDis
 # Dependencies
 * [bootstrap](https://github.com/twbs/bootstrap for styling) for styling.
 * [jquery](https://jquery.com/)
-* IE11 or higher required for Event() constructor
 
 # Usage
 To use the metronome on a web page add `<div id="metronome-wrapper"></div>` to the `<body>` and copy the javascript
