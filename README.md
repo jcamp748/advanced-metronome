@@ -9,6 +9,7 @@ uses a modified version of [SegmentDisplay](http://www.3quarks.com/en/SegmentDis
 * [jquery](https://jquery.com/)
 
 # Usage
-To use the metronome on a web page add `<div id="metronome-wrapper"></div>` to the `<body>` and copy the javascript
-files accordingly.  Enjoy!
+To use the metronome on a web page copy what you need from the `index.html` to the `<body>` element
+of the appropriate view.  Next copy all the javascript files where they will be served.  
+Read the `INSTALL` file for instructions on how to integrate the metronome with a rails application.
 

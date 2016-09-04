@@ -33,9 +33,9 @@
       <div id="metronome-controls">
         <button onclick="this.innerText = play()" class="metronome-control btn btn-primary">play</button>
         <button onclick="reset()" class="metronome-control btn btn-primary">reset</button>
-        <button onclick="$('#form-wrapper').toggle()" class="metronome-control btn btn-primary">edit</button>
+        <button onclick="$('#form-wrapper').toggleClass('hidden')" class="metronome-control btn btn-primary">edit</button>
       </div>
-      <div id="form-wrapper" style="display: block;" class="container">
+      <div id="form-wrapper" style="display: block;" class="container hidden">
         <div class="row">
           <div class="col-md-4">
             <form id="metronome-form" role="form" data-toggle="validator" action="#" method="#">
