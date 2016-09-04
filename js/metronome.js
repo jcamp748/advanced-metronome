@@ -303,21 +303,6 @@ function init() {
   var qfix = $('<div></div>').attr("id", "qunit-fixture");
   $("body").append(qfix);
 
-  // create a div to put the metronome display in
-  var displayWrapper = $('<div></div>').attr("id", "display-wrapper");
-
-  // create canvas element to draw metronome display on
-  var canvas = $('<canvas></canvas>')
-    .attr("id", "metronome-canvas")
-    .attr("height", 400)
-    .attr("width", 600);
-  // add <canvas> to display div
-  displayWrapper.append(canvas);
-
-  // add display div to root div
-  var wrapper = $("#metronome-wrapper").append(displayWrapper);
-  wrapper.addClass("container");
-
   // initialize digital number display
   beatValue = new SegmentDisplay("metronome-canvas", 0, 0, 0.2);
 
@@ -451,32 +436,6 @@ function init() {
   sectionValue.segmentCount    = 14;
   sectionValue.colorOn         = segmentOn;
   sectionValue.colorOff        = segmentOff;
-
-  // addControls
-  var controls = $('<div></div>').attr("id", "metronome-controls");
-  var playButton = $('<button></button>')
-    .attr("onclick", "this.innerText = play()")
-    .text("play")
-    .addClass("metronome-control btn btn-primary");
-  controls.append(playButton);
-
-  //var resetButton = document.createElement("button");
-  var resetButton = $('<button></button>')
-    .attr("onclick", "reset()")
-    .text("reset")
-    .addClass("metronome-control btn btn-primary");
-  controls.append(resetButton);
-
-  var editButton = $('<button></button>')
-    .attr("onclick", "$('#form-wrapper').toggle()")
-    .text("edit")
-    .addClass("metronome-control btn btn-primary");
-  controls.append(editButton);
-  wrapper.append(controls);
-
-  // fire event to load form
-  var ev = new Event('metronome loaded');
-  document.dispatchEvent(ev);
 
   // create audio context
   audioContext = new AudioContext();

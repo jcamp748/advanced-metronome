@@ -1,6 +1,7 @@
 
 QUnit.test( "verify control functionality", function( assert ) {
 
+  $("#form-wrapper").toggle();
   // form should start out hidden
   assert.equal( $("#form-wrapper").is(":visible"), false, "form should start invisible");
 
