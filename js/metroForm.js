@@ -6,9 +6,10 @@ function validate() {
   text = $("#timeInput").val();
   if( checkTimeSig(text) ) {
     sectionData["timesig"] = text;
+    $("#timeInput").parent().removeClass("has-error");
   } else {
     sectionData = {};
-    $("#timeInput").parent().toggleClass("has-error");
+    $("#timeInput").parent().addClass("has-error");
     $("#timeInput").next().text("time sig cant be blank");
     validForm = false;
   }
@@ -16,9 +17,10 @@ function validate() {
   text = $("#tempoInput").val();
   if( checkTempo(text) ) {
     sectionData["tempo"] = text;
+    $("#tempoInput").parent().removeClass("has-error");
   } else {
     sectionData = {};
-    $("#tempoInput").parent().toggleClass("has-error");
+    $("#tempoInput").parent().addClass("has-error");
     $("#tempoInput").next().text("tempo must be between 1 and 400");
     validForm = false;
   }
@@ -26,9 +28,10 @@ function validate() {
   text = $("#countInput").val();
   if( checkCount(text) ) {
     sectionData["count"] = text;
+    $("countInput").parent().removeClass("has-error");
   } else {
     sectionData = {};
-    $("countInput").parent().toggleClass("has-error");
+    $("countInput").parent().addClass("has-error");
     $("countInput").next().text("enter a number between 1 and 9999");
     validForm = false;
   }
@@ -36,15 +39,17 @@ function validate() {
   text = $("#sectionInput").val();
   if( checkSection(text) ) {
     sectionData["section"] = text;
+    $("sectionInput").parent().removeClass("has-error");
   } else {
     sectionData = {};
-    $("sectionInput").parent().toggleClass("has-error");
+    $("sectionInput").parent().addClass("has-error");
     $("sectionInput").next().text("section must have a name");
     validForm = false;
   }
   if( validForm ) {
     updateRow(sectionData);
   }
+  return validForm;
 }
 
 function checkSection( userInput ) {
@@ -58,27 +63,31 @@ function checkSection( userInput ) {
 function checkCount( userInput ) {
   // verify 1 <= count <= 9999
   var number = parseInt(userInput);
-  if( isNaN(number) )
+  var validCount = /^[0-9]{1,4}$/;
+  if( isNaN(number) || number === 0 || number > 9999) {
     return false;
-  if( number < 1 || number > 9999 )
-    return false;
-  return true;
+  } else {
+    var valid = validCount.test(userInput);
+    return valid;
+  }
 }
 
 function checkTempo( userInput ) {
   // verify 1 <= tempo <= 400
   var number = parseInt(userInput);
-  if( isNaN(number) )
+  var validNum = /^[1-4]?[0-9]{1,2}$/;
+  if( isNaN(number) || number === 0 || number > 400) {
     return false;
-  if( number < 1 || number > 400 )
-    return false;
-  return true;
+  } else {
+    var valid = validNum.test(userInput);
+    return valid;
+  }
 }
 
 function checkTimeSig( userInput ) {
   // verify time sig is of the form N/M where 
   // 1 <= N <= 9 and M == 2 || 4 || 8
-  var validSig = /[1-9]\/[248]/;
+  var validSig = /^[1-9]\/[248]$/;
   var valid = validSig.test(userInput);
   //console.log(valid);
   return valid;
