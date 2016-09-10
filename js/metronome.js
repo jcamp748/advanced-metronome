@@ -95,6 +95,11 @@ function reset() {
   //nextSection();
 }
 
+// save the metronomeData to the server using XMLHttpRequest
+function saveData() {
+
+}
+
 // have the first measure of the song be a lead in tick
 function loadData(data) {
   if( data ) {
