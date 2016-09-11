@@ -2,9 +2,9 @@
 set -e
 
 find rails.sh . > /dev/null
+ruby edits.rb
 cd ..
-FILE=$(pwd)/js/metronome.js
-sed -i.bak -e's/js\/metronomeworker.js/\/javascripts\/advanced-metronome\/js\/metronomeworker.js/' $FILE 
+# remove unneeded files
 rm -rf test/
 rm -rf scripts/
 rm INSTALL
