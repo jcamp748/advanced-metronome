@@ -446,7 +446,7 @@ function init() {
   audioContext = new AudioContext();
 
   // create timer worker
-  timerWorker = new Worker("/javascripts/advanced-metronome//javascripts/advanced-metronome/js/metronomeworker.js");
+  timerWorker = new Worker("/js/metronomeworker.js");
 
   // load metronomeData var
   loadData(null);
