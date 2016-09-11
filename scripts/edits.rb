@@ -4,7 +4,7 @@ tempfile = File.open("file.tmp", 'w')
 File.open("../js/metronome.js", 'r') do |f|
   f.each_line do |line|
     if line =~ /timerWorker = new Worker\("\/js\/metronomeworker.js"\);/
-      tempfile << '  timerWorker = new Worker("/javascripts/advanced-metronome/js/metronomeworker.js\");'
+      tempfile << '  timerWorker = new Worker("/javascripts/advanced-metronome/js/metronomeworker.js");'
     elsif line =~ /function saveData\(\) {/
       tempfile << line
       code = <<-eos
