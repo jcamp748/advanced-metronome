@@ -449,8 +449,7 @@ function init() {
   timerWorker = new Worker("/js/metronomeworker.js");
 
   // load metronomeData var
-  loadData(null);
-
+  loadData($("#metronome-wrapper").data('metronome'));
 
   // start drawing loop
   ctx = document.getElementById('metronome-canvas').getContext('2d');
