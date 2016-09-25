@@ -10,3 +10,5 @@ rm -rf scripts/
 rm INSTALL
 rm tags
 rm README.md
+rm -rf .git/
+rm .gitignore
