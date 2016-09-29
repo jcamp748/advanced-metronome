@@ -3,6 +3,8 @@ function validate() {
   var validForm = true;
   var sectionData = {};
   
+  // remove all error divs
+  $("#metronome-form .form-group .help-block").text("");
   text = $("#timeInput").val();
   if( checkTimeSig(text) ) {
     sectionData["timesig"] = text;
@@ -10,7 +12,7 @@ function validate() {
   } else {
     sectionData = {};
     $("#timeInput").parent().addClass("has-error");
-    $("#timeInput").next().text("time sig cant be blank");
+    $("#timeInput").next().text("invalid time signature");
     validForm = false;
   }
 
