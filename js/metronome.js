@@ -207,11 +207,11 @@ function editSection(row) {
   $row.addClass("highlight");
 
   // populate #metronome-form with data from row
-  var $form = $("#metronome-form");
-  $form.children(":nth-child(1)").children(":nth-child(2)").val($row.children(":nth-child(1)").text());
-  $form.children(":nth-child(2)").children(":nth-child(2)").val($row.children(":nth-child(2)").text());
-  $form.children(":nth-child(3)").children(":nth-child(2)").val($row.children(":nth-child(3)").text());
-  $form.children(":nth-child(4)").children(":nth-child(2)").val($row.children(":nth-child(4)").text());
+  var $form = $("#metronome-form .form-group");
+  $($form[0]).children(":nth-child(2)").val($row.children(":nth-child(1)").text());
+  $($form[1]).children(":nth-child(2)").val($row.children(":nth-child(2)").text());
+  $($form[2]).children(":nth-child(2)").val($row.children(":nth-child(3)").text());
+  $($form[3]).children(":nth-child(2)").val($row.children(":nth-child(4)").text());
 }
 
 // called when user clicks delete button
