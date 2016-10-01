@@ -65,7 +65,7 @@ function checkSection( userInput ) {
 function checkCount( userInput ) {
   // verify 1 <= count <= 9999
   var number = parseInt(userInput);
-  var validCount = /^[0-9]{1,4}$/;
+  var validCount = /^[0-9]+$/;
   if( isNaN(number) || number === 0 || number > 9999) {
     return false;
   } else {
@@ -77,7 +77,7 @@ function checkCount( userInput ) {
 function checkTempo( userInput ) {
   // verify 1 <= tempo <= 400
   var number = parseInt(userInput);
-  var validNum = /^[1-4]?[0-9]{1,2}$/;
+  var validNum = /^[0-9]+$/;
   if( isNaN(number) || number === 0 || number > 400) {
     return false;
   } else {
