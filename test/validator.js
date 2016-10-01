@@ -150,6 +150,9 @@ QUnit.test( "verify validator functionality", function( assert ) {
   $("#tempoInput").val("-3");
   assert.equal(validate(), false, "-3 should be invalid");
 
+  $("#tempoInput").val("10");
+  assert.equal(validate(), true, "132 should be valid");
+
   // verify 1 <= count <= 9999
   $("#countInput").val("4");
   assert.equal(validate(), true, "4 should be valid");
@@ -180,6 +183,9 @@ QUnit.test( "verify validator functionality", function( assert ) {
 
   $("#countInput").val("-4");
   assert.equal(validate(), false, "-4 should be invalid");
+
+  $("#countInput").val("2000");
+  assert.equal(validate(), true, "3000 should be valid");
 
   // verify 1 <= section.char_length <= 18
   $("#sectionInput").val("one two");
