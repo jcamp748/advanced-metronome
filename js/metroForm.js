@@ -77,11 +77,11 @@ function checkCount( userInput ) {
 function checkTempo( userInput ) {
   // verify 1 <= tempo <= 400
   var number = parseInt(userInput);
-  var validNum = /^[1-4]?[0-9]{1,2}$/;
+  var validNum = /^[0-9]+$/;
   if( isNaN(number) || number === 0 || number > 400) {
     return false;
   } else {
-    var valid = validNum.test(userInput);
+    var valid = validNum.test(number);
     return valid;
   }
 }

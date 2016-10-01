@@ -139,16 +139,16 @@ QUnit.test( "verify validator functionality", function( assert ) {
   assert.equal(validate(), true, "400 should be valid");
 
   $("#tempoInput").val("0");
-  assert.equal(validate(), false, "tempo should be invalid");
+  assert.equal(validate(), false, "0 should be invalid");
 
   $("#tempoInput").val("132");
-  assert.equal(validate(), true, "tempo should be valid");
+  assert.equal(validate(), true, "132 should be valid");
 
   $("#tempoInput").val("401");
-  assert.equal(validate(), false, "tempo should be invalid");
+  assert.equal(validate(), false, "401 should be invalid");
 
   $("#tempoInput").val("-3");
-  assert.equal(validate(), false, "tempo should be invalid");
+  assert.equal(validate(), false, "-3 should be invalid");
 
   // verify 1 <= count <= 9999
   $("#countInput").val("4");
