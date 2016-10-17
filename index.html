@@ -27,6 +27,29 @@
   </head>
   <body>
     <div id="metronome-wrapper" data-metronome="" class='container'>
+      <script>
+        window.metronomeData = {
+          "0" : {
+            "timesig" : "4/4",
+            "tempo" : "100",
+            "count" : "2",
+            "section" : "riff a"
+          },
+          "1" : {
+            "timesig" : "3/4",
+            "tempo" : "200",
+            "count" : "3",
+            "section" : "riff b"
+          },
+          "2" : {
+            "timesig" : "4/4",
+            "tempo" : "120",
+            "count" : "2",
+            "section" : "riff c"
+          }
+        };
+      
+      </script>
       <div id='display-wrapper'>
         <canvas id='metronome-canvas' height='400' width='600'></canvas>
       </div>

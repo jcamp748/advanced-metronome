@@ -19,7 +19,7 @@ var beatValue = null;           // display beat number
 var sigLabel = null;            // label for time signature
 var sigValue = null;            // value of time signature
 var sectionNumber = 0;          // section of the metronomeData hash we are on
-var metronomeData = {};         // object that will hold the data
+//var metronomeData = {};         // object that will hold the data
 var playData = [];              // empty array that will hold sections to be played
 var loopComplete = false;       // true when we have successfully looped
 

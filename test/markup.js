@@ -8,7 +8,7 @@ QUnit.test( "verify page markup", function( assert ) {
   assert.equal( $outerWrapper.is("div"), true, "verify outer wrapper is a div");
   assert.equal( $outerWrapper.length, 1, "should be only one metronome-wrapper id");
 
-  assert.equal( $outerWrapper.children(":nth-child(1)").is("div"), true, "verify  display-wrapper div");
+  assert.equal( $outerWrapper.children(":nth-child(2)").is("div"), true, "verify  display-wrapper div");
   assert.equal( $("#display-wrapper").length, 1, "should be only one display-wrapper id");
 
   assert.equal( $outerWrapper.children(":nth-child(2)").is("div"), true, "verify  metronome-controls div");
