@@ -275,6 +275,10 @@ function draw() {
   // do drawing stuff
   drawBox(); 
   drawDisplay();
+  drawUpArrow();
+  drawDownArrow();
+  drawUpBox();
+  drawDownBox();
   window.requestAnimationFrame(draw);
 }
 
@@ -296,8 +300,44 @@ function drawDisplay() {
   sigValue.setValue(timesig.toString());
   sectionLabel.setValue('section');
   sectionValue.setValue(sectionName);
+  //plusSymbol.setValue('+');
 }
 
+function drawUpArrow() {
+  // draw a triangle pointing up to increase tempo
+  ctx.save();
+  ctx.beginPath();
+  ctx.translate(380, 80);
+  ctx.lineTo(15, -15);
+  ctx.lineTo(30, 0);
+  ctx.lineTo(0,0);
+  ctx.stroke();
+  ctx.fill();
+  ctx.restore();
+
+}
+
+function drawUpBox() {
+
+}
+
+function drawDownArrow() {
+  // draw a triangle pointing down to decrease tempo
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.translate(380, 120);
+  ctx.lineTo(15, 15);
+  ctx.lineTo(30, 0);
+  ctx.lineTo(0,0);
+  ctx.stroke();
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawDownBox() {
+
+}
 
 function init() {
 
