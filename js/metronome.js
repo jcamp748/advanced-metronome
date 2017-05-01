@@ -271,14 +271,55 @@ function scheduler() {
     }
 }
 
+var arrowBoxes = [
+  {x: 380, y: 60, w: 30, h: 30},
+  {x: 380, y: 110, w: 30, h: 30}
+], i = 0, r;
+
+var upBox = new Path2D();
+upBox.rect(380, 60, 30, 30);
+
+var downBox = new Path2D();
+downBox.rect(380, 110, 30, 30);
+
+var hoverUp = false;
+var hoverDown = false;
+
+var canvas = document.getElementById('metronome-canvas');
+canvas.onmousemove = function(e) {
+
+  var rect = this.getBoundingClientRect(),
+  x = e.clientX - rect.left,
+  y = e.clientY - rect.top,
+  i = 0, r;
+
+
+  while(r = arrowBoxes[i++]) {
+    //ctx.beginPath();
+    //ctx.rect(r.x, r.y, r.w, r.h);
+    //ctx.stroke();
+
+    if( ctx.isPointInPath(upBox, x, y) ) {
+      hoverUp = true;
+      hoverDown = false;
+    } else if( ctx.isPointInPath(downBox, x, y) ) {
+      hoverUp = false;
+      hoverDown = true;
+    } else {
+      hoverUp = false;
+      hoverDown = false;
+    }
+  }
+};
+
 function draw() {
   // do drawing stuff
   drawBox(); 
   drawDisplay();
   drawUpArrow();
-  drawUpBox();
+  //drawUpBox();
   drawDownArrow();
-  drawDownBox();
+  //drawDownBox();
   window.requestAnimationFrame(draw);
 }
 
@@ -311,19 +352,15 @@ function drawUpArrow() {
   ctx.lineTo(15, -15);
   ctx.lineTo(30, 0);
   ctx.lineTo(0,0);
+  if(hoverUp) {
+    ctx.fillStyle = 'red';
+  } else {
+    ctx.fillStyle = 'black';
+  }
   ctx.stroke();
   ctx.fill();
   ctx.restore();
 
-}
-
-function drawUpBox() {
-  ctx.save();
-  ctx.translate(380, 80);
-  ctx.rect(0, -20, 30, 30);
-  //ctx.strokeStyle = 'red';
-  ctx.stroke();
-  ctx.restore();
 }
 
 function drawDownArrow() {
@@ -335,19 +372,16 @@ function drawDownArrow() {
   ctx.lineTo(15, 15);
   ctx.lineTo(30, 0);
   ctx.lineTo(0,0);
+  if(hoverDown) {
+    ctx.fillStyle = 'red';
+  } else {
+    ctx.fillStyle = 'black';
+  }
   ctx.stroke();
   ctx.fill();
   ctx.restore();
 }
 
-function drawDownBox() {
-  ctx.save();
-  ctx.translate(380, 120);
-  ctx.rect(0, -10, 30, 30);
-  //ctx.strokeStyle = 'red';
-  ctx.stroke();
-  ctx.restore();
-} 
 function init() {
 
   // create QUnit fixture
