@@ -276,8 +276,8 @@ function draw() {
   drawBox(); 
   drawDisplay();
   drawUpArrow();
-  drawDownArrow();
   drawUpBox();
+  drawDownArrow();
   drawDownBox();
   window.requestAnimationFrame(draw);
 }
@@ -318,7 +318,12 @@ function drawUpArrow() {
 }
 
 function drawUpBox() {
-
+  ctx.save();
+  ctx.translate(380, 80);
+  ctx.rect(0, -20, 30, 30);
+  //ctx.strokeStyle = 'red';
+  ctx.stroke();
+  ctx.restore();
 }
 
 function drawDownArrow() {
@@ -336,9 +341,13 @@ function drawDownArrow() {
 }
 
 function drawDownBox() {
-
-}
-
+  ctx.save();
+  ctx.translate(380, 120);
+  ctx.rect(0, -10, 30, 30);
+  //ctx.strokeStyle = 'red';
+  ctx.stroke();
+  ctx.restore();
+} 
 function init() {
 
   // create QUnit fixture
@@ -506,8 +515,12 @@ function init() {
   };
   timerWorker.postMessage({"interval":lookahead});
 
-}
+  // add event listener for mouse
+  $("#metronome-canvas").hover(handlerIn, handlerOut);
 
+}
+function handlerIn() { console.log("inside"); }
+function handlerOut() { console.log("outside"); }
 
 // utility function for drawing rectangles with rounded corners
 function roundedRect(ctx,x,y,width,height,radius, color){
@@ -527,6 +540,7 @@ function roundedRect(ctx,x,y,width,height,radius, color){
   ctx.fill();
   ctx.restore();
 }
+
 
 document.addEventListener("DOMContentLoaded", function(event) {
   init();
