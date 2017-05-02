@@ -315,9 +315,11 @@ canvas.onmousemove = function(e) {
 canvas.onclick = function(e) {
 
   if(hoverUp) {
-    console.log("increase tempo");
+    //console.log("increase tempo");
+    tempo++;
   } else if(hoverDown) {
-    console.log("decrease tempo");
+    //console.log("decrease tempo");
+    tempo--;
   } else {
     //do nothing
   }
