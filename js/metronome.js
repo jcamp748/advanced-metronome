@@ -312,6 +312,18 @@ canvas.onmousemove = function(e) {
   }
 };
 
+canvas.onclick = function(e) {
+
+  if(hoverUp) {
+    console.log("increase tempo");
+  } else if(hoverDown) {
+    console.log("decrease tempo");
+  } else {
+    //do nothing
+  }
+
+};
+
 function draw() {
   // do drawing stuff
   drawBox(); 
@@ -549,12 +561,7 @@ function init() {
   };
   timerWorker.postMessage({"interval":lookahead});
 
-  // add event listener for mouse
-  $("#metronome-canvas").hover(handlerIn, handlerOut);
-
 }
-function handlerIn() { console.log("inside"); }
-function handlerOut() { console.log("outside"); }
 
 // utility function for drawing rectangles with rounded corners
 function roundedRect(ctx,x,y,width,height,radius, color){
