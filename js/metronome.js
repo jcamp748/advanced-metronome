@@ -36,7 +36,7 @@ function play() {
 
   nextNoteTime = audioContext.currentTime;
   timerWorker.postMessage("start");
-  nextSection();
+  //nextSection();
 }
 
 function pause() {
