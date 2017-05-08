@@ -2,7 +2,6 @@ var ctx = null;                 // the drawing context
 var audioContext = null;        // audio context 
 var thickness = 25;             // the thickness of the egede of the metronome box
 var lookahead = 25.0;           // How frequently to call scheduling function 
-var isPlaying = false;
 var scheduleAheadTime = 0.1;    // How far ahead to schedule audio (sec)
 var tempo = 0;                  // tempo (in beats per minute)
 var nextNoteTime = 0.0;         // when the next note is due.
@@ -30,20 +29,20 @@ var segmentOff = "rgba(175, 203, 175, 1)";
 
 
 function play() {
-    // disable table buttons
-    $(".table-button").attr("disabled", true);
-    isPlaying = !isPlaying;
+  // disable table buttons
+  $(".table-button").attr("disabled", true);
+  $("#playButton").attr("disabled", true);
+  $("#pauseButton").attr("disabled", false);
 
-    if (isPlaying) { // start playing
-        //loadSection(sectionNumber);
-        nextNoteTime = audioContext.currentTime;
-        timerWorker.postMessage("start");
-        nextSection();
-        return "stop";
-    } else {
-        timerWorker.postMessage("stop");
-        return "play";
-    }
+  nextNoteTime = audioContext.currentTime;
+  timerWorker.postMessage("start");
+  nextSection();
+}
+
+function pause() {
+  timerWorker.postMessage("stop");
+  $("#playButton").attr("disabled", false);
+  $("#pauseButton").attr("disabled", true);
 }
 
 // utility function to clear table

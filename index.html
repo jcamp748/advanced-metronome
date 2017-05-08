@@ -41,7 +41,8 @@
         <canvas id='metronome-canvas' height='400' width='600'></canvas>
       </div>
       <div id="metronome-controls">
-        <button onclick="this.innerText = play()" class="metronome-control btn btn-primary">play</button>
+        <button id='playButton' onclick="play()" class="metronome-control btn btn-primary">play</button>
+        <button id='pauseButton' onclick="pause()" class="metronome-control btn btn-primary" disabled='true'>pause</button>
         <button onclick="reset()" class="metronome-control btn btn-primary">reset</button>
         <button onclick="$('#form-wrapper').toggleClass('hidden')" class="metronome-control btn btn-primary">edit</button>
       </div>
@@ -111,12 +112,14 @@
     <script src="js/scrollTable.js"></script>
     <script src="js/metronome.js"></script>
     <script src="js/metroForm.js"></script>
-    <script src="test/markup.js"></script>
-    <script src="test/validator.js"></script>
-    <script src="test/controls.js"></script>
-    <script src="test/addRow.js"></script>
-    <script src="test/deleteRow.js"></script>
-    <script src="test/includeButton.js"></script>
+    <!-- load in unit tests -->
+
+    <!--<script src="test/markup.js"></script>-->
+    <!--<script src="test/validator.js"></script>-->
+    <!--<script src="test/controls.js"></script>-->
+    <!--<script src="test/addRow.js"></script>-->
+    <!--<script src="test/deleteRow.js"></script>-->
+    <!--<script src="test/includeButton.js"></script>-->
     <!--[if lt IE 9]>
       <script type="text/javascript" src="excanvas.js"></script>
     <![endif]-->
