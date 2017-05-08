@@ -4,27 +4,30 @@ QUnit.test( "verify control functionality", function( assert ) {
   $("#form-wrapper").toggle();
   // form should start out hidden
   assert.equal( $("#form-wrapper").is(":visible"), false, "form should start invisible");
-
-  // clicking new button again should hide form
-  $("#metronome-controls").children(":nth-child(4)").trigger("click");
-  assert.equal( $("#form-wrapper").is(":visible"), false, "form should be visible");
-
   // clicking edit button should show form
-  $("#metronome-controls").children(":nth-child(3)").trigger("click");
+  $("#metronome-controls").children(":nth-child(4)").trigger("click");
   assert.equal( $("#form-wrapper").is(":visible"), true, "form should be visible");
   // clicking edit button again should hide form
-  $("#metronome-controls").children(":nth-child(3)").trigger("click");
+  $("#metronome-controls").children(":nth-child(4)").trigger("click");
   assert.equal( $("#form-wrapper").is(":visible"), false, "form should be visible");
   
   // verify play() button behavior
-  // clicking play should change text of play button to stop
-  var playButton = $("#metronome-controls").children(":nth-child(1)");
-  assert.equal( playButton.text(), "play", "play button should start as play");
-  playButton.trigger("click");
+  // play button should be enabled to start
+  // pause button should be disabled to start
+  var playButton = $("#playButton");
+  var pauseButton = $("#pauseButton");
+  assert.equal( playButton.prop("disabled"), false, "play button should start enabled");
+  assert.equal( pauseButton.prop("disabled"), true, "pause button should start disabled");
 
-  // clicking stop should change the text of stop button to play
-  assert.equal( playButton.text(), "stop", "play button should be stop");
+  // play should be disabled after clicking it and pause should be enabled
   playButton.trigger("click");
+  assert.equal( playButton.prop("disabled"), true, "play button should be disabled after clicking play");
+  assert.equal( pauseButton.prop("disabled"), false, "pause button should be enabled after clicking play");
+
+  // play should be enabled after clicking pause and pause should be disabled
+  pauseButton.trigger("click");
+  assert.equal( playButton.prop("disabled"), false, "play button should be enabled after clicking pause");
+  assert.equal( pauseButton.prop("disabled"), true, "pause button should be disabled after clicking pause");
 
   // simulate a simple user session
   metronomeData = {};
