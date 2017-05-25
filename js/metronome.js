@@ -1,5 +1,5 @@
+"use strict";
 var ctx = null;                 // the drawing context
-var audioContext = null;        // audio context 
 var thickness = 25;             // the thickness of the egede of the metronome box
 var lookahead = 25.0;           // How frequently to call scheduling function 
 var scheduleAheadTime = 0.1;    // How far ahead to schedule audio (sec)
@@ -13,6 +13,11 @@ var notesInQueue = [];          // the notes that have been put into the web aud
 var noteLength = 0.05;          // length of "beep" (in seconds)
 var measureCount = 0;           // number of measures left to play at current tempo
 var sectionName = "";           // name of the current section
+var audioContext = null;
+var timerWorker = null;
+var tempoValue = null;
+var tempoLabel = null;
+var countLabel = null;
 
 var beatValue = null;           // display beat number 
 var sigLabel = null;            // label for time signature
@@ -42,7 +47,7 @@ function play() {
 function pause() {
   timerWorker.postMessage("stop");
   $("#playButton").attr("disabled", false);
-  $("#pauseButton").attr("disabled", true);
+ 
 }
 
 // utility function to clear table
@@ -420,7 +425,8 @@ function init() {
   beatValue.colorOff        = segmentOff;
 
   sigLabel = new SegmentDisplay("metronome-canvas", 80, 10, 0.12);
-
+  
+  // different pattern, segmentWidth, added segmentCount
   sigLabel.pattern         = "###";
   sigLabel.cornerType      = 2;
   sigLabel.displayType     = 7;
@@ -436,6 +442,7 @@ function init() {
 
   sigValue = new SegmentDisplay("metronome-canvas", 80, 50, 0.12);
 
+  //
   sigValue.pattern         = "###";
   sigValue.cornerType      = 2;
   sigValue.displayType     = 7;
@@ -539,10 +546,10 @@ function init() {
   sectionValue.colorOff        = segmentOff;
 
   // create audio context
-  audioContext = new AudioContext();
+  var audioContext = new AudioContext();
 
   // create timer worker
-  timerWorker = new Worker("/js/metronomeworker.js");
+  var timerWorker = new Worker("/js/metronomeworker.js");
 
   // load metronomeData var
   loadData($("#metronome-wrapper").data('metronome'));
