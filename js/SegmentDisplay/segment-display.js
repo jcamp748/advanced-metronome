@@ -22,17 +22,18 @@ SegmentDisplay.SymmetricCorner = 0;
 SegmentDisplay.SquaredCorner   = 1;
 SegmentDisplay.RoundedCorner   = 2;
 
+// need x,y offset segment count, digit distance, segment width, pattern
 
 function SegmentDisplay(displayId, paddingX, paddingY, shrink) {
   this.displayId       = displayId;
   this.pattern         = '##:##:##';
   this.value           = '12:34:56';
   this.digitHeight     = 20;
-  this.digitWidth      = 10;
-  this.digitDistance   = 2.5;
-  this.displayAngle    = 12;
+  this.digitWidth      = 12;
+  this.digitDistance   = 2;
+  this.displayAngle    = 9;
   this.segmentWidth    = 2.5;
-  this.segmentDistance = 0.2;
+  this.segmentDistance = 0.5;
   this.segmentCount    = SegmentDisplay.SevenSegment;
   this.cornerType      = SegmentDisplay.RoundedCorner;
   this.colorOn         = 'rgb(233, 93, 15)';
