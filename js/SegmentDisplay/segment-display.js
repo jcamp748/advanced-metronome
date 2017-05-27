@@ -36,14 +36,14 @@ function SegmentDisplay(displayId, paddingX, paddingY, shrink) {
   this.segmentDistance = 0.5;
   this.segmentCount    = SegmentDisplay.SevenSegment;
   this.cornerType      = SegmentDisplay.RoundedCorner;
-  this.colorOn         = 'rgb(233, 93, 15)';
-  this.colorOff        = 'rgb(75, 30, 5)';
+  this.colorOn         = 'rgba(9, 9, 9, 1)';
+  this.colorOff        = 'rgba(175, 203, 175, 1)';
   // add argument to offset display from top left corner
   this.paddingX        = paddingX ? paddingX : 0;
   this.paddingY        = paddingY ? paddingY : 0;
   // add argument to display be made smaller than whole canvas
   this.shrink          = shrink ? shrink : 1;
-};
+}
 
 SegmentDisplay.prototype.setValue = function(value) {
   this.value = value;

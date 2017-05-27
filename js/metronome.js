@@ -408,9 +408,6 @@ function init() {
   var qfix = $('<div></div>').attr("id", "qunit-fixture");
   $("body").append(qfix);
 
-  // add colors to prototype to reduce duplicate code
-  SegmentDisplay.prototype.colorOn = segmentOn;
-  SegmentDisplay.prototype.colorOff = segmentOff;
 
   // initialize digital number display
   beatValue = new SegmentDisplay("metronome-canvas", 0, 0, 0.2);
@@ -428,8 +425,6 @@ function init() {
   sigLabel.segmentWidth    = 1;
   sigLabel.segmentDistance = 0.5;
   sigLabel.segmentCount    = 14;
-  sigLabel.colorOn         = segmentOn;
-  sigLabel.colorOff        = segmentOff;
 
   sigValue = new SegmentDisplay("metronome-canvas", 80, 50, 0.12);
 
@@ -439,8 +434,6 @@ function init() {
   sigValue.segmentWidth    = 1;
   sigValue.segmentDistance = 0.5;
   sigValue.segmentCount    = 14;
-  sigValue.colorOn         = segmentOn;
-  sigValue.colorOff        = segmentOff;
 
   tempoValue = new SegmentDisplay("metronome-canvas", 200, 50, 0.2);
 
@@ -448,8 +441,6 @@ function init() {
   tempoValue.digitDistance   = 2;
   tempoValue.segmentWidth    = 3;
   tempoValue.segmentDistance = 0.5;
-  tempoValue.colorOn         = segmentOn;
-  tempoValue.colorOff        = segmentOff;
 
   tempoLabel = new SegmentDisplay("metronome-canvas", 200, 10, 0.2);
 
@@ -458,8 +449,6 @@ function init() {
   tempoLabel.segmentWidth    = 1;
   tempoLabel.segmentDistance = 0.5;
   tempoLabel.segmentCount    = 14;
-  tempoLabel.colorOn         = segmentOn;
-  tempoLabel.colorOff        = segmentOff;
 
   countLabel = new SegmentDisplay("metronome-canvas", 400, 10, 0.2);
 
@@ -468,8 +457,6 @@ function init() {
   countLabel.segmentWidth    = 1;
   countLabel.segmentDistance = 0.5;
   countLabel.segmentCount    = 14;
-  countLabel.colorOn         = segmentOn;
-  countLabel.colorOff        = segmentOff;
 
   countValue = new SegmentDisplay("metronome-canvas", 400, 70, 0.2);
 
@@ -477,9 +464,6 @@ function init() {
   countValue.digitDistance   = 2;
   countValue.segmentWidth    = 3;
   countValue.segmentDistance = 0.5;
-  countValue.segmentCount    = 7;
-  countValue.colorOn         = segmentOn;
-  countValue.colorOff        = segmentOff;
 
   sectionLabel = new SegmentDisplay("metronome-canvas", 0, 200, 0.8);
 
@@ -488,8 +472,6 @@ function init() {
   sectionLabel.segmentWidth    = 1;
   sectionLabel.segmentDistance = 0.5;
   sectionLabel.segmentCount    = 14;
-  sectionLabel.colorOn         = segmentOn;
-  sectionLabel.colorOff        = segmentOff;
 
   sectionValue = new SegmentDisplay("metronome-canvas", 0, 270, 0.8);
 
@@ -498,8 +480,6 @@ function init() {
   sectionValue.segmentWidth    = 1;
   sectionValue.segmentDistance = 0.5;
   sectionValue.segmentCount    = 14;
-  sectionValue.colorOn         = segmentOn;
-  sectionValue.colorOff        = segmentOff;
 
   // create audio context
   var audioContext = new AudioContext();
