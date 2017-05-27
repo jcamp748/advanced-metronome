@@ -475,6 +475,7 @@ function init() {
 
   sectionValue = new SegmentDisplay("metronome-canvas", 0, 270, 0.8);
 
+
   sectionValue.pattern         = "##################";
   sectionValue.digitDistance   = 2;
   sectionValue.segmentWidth    = 1;
