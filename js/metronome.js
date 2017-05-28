@@ -6,10 +6,6 @@ var metronome = (function () {
   function init() {
     // private methods and variables
 
-    function loadData() {
-      console.log("loading data");
-    }
-
     function draw() {
       console.log("drawing");
     }
@@ -28,7 +24,14 @@ var metronome = (function () {
       reset: function() {
 	console.log("resetting metronome");
       }
+      
+      function loadData(data) {
+	console.log("loading data");
+      }
 
+      function seekTo(time) {
+	console.log("seek to " + time);
+      }
 
     };
 
