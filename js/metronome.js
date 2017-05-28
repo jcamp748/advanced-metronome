@@ -1,5 +1,6 @@
 // metronome is a Singleton
 var metronome = (function () {
+    
   // instance stores a reference to the Singleton
   var instance;
 
@@ -23,13 +24,13 @@ var metronome = (function () {
 
       reset: function() {
 	console.log("resetting metronome");
-      }
-      
-      function loadData(data) {
-	console.log("loading data");
-      }
+      },
 
-      function seekTo(time) {
+      loadData: function(data) {
+	console.log("loading data");
+      },
+
+      seekTo: function(time) {
 	console.log("seek to " + time);
       }
 
