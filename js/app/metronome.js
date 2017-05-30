@@ -9,20 +9,24 @@ define(function() {
   var metronome = {};
 
   metronome.play = function() {
-    console.log("playing");
+
   };
 
   metronome.pause = function() {
-    console.log("pause");
+    
   };
 
   metronome.seekTo = function(time) {
-    console.log("seek to " + time);
+
   };
 
   metronome.loadData = function(data) {
     metronomeData = data;
     console.log(data);
+  };
+
+  metronome.draw = function() {
+    // start the drawing loop to display the metronome
   };
 
 
