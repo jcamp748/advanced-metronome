@@ -41,7 +41,7 @@
         <canvas id='metronome-canvas' height='400' width='600'></canvas>
       </div>
       <div id="metronome-controls">
-        <button id='playButton' onclick="play()" class="metronome-control btn btn-primary">play</button>
+        <button id='playButton' class="metronome-control btn btn-primary">play</button>
         <button id='pauseButton' onclick="pause()" class="metronome-control btn btn-primary" disabled='true'>pause</button>
         <button onclick="reset()" class="metronome-control btn btn-primary">reset</button>
         <button onclick="$('#form-wrapper').toggleClass('hidden')" class="metronome-control btn btn-primary">edit</button>
@@ -109,7 +109,14 @@
       </div>
     </div>
 
-    <script data-main='js/app/main' src='js/lib/require.js'></script>
+    <script src="js/config.js"></script>
+    <script src='js/lib/require.js'></script>
+    <script type="text/javascript">
+      require(["app/main"], function(){
+        // do stuff after main loaded
+        
+      }); 
+    </script>
     <!--<script type="text/javascript" src="js/SegmentDisplay/segment-display.js"></script>-->
     <!--<script src="js/scrollTable.js"></script>-->
     <!--<script src="js/metronome.js"></script>-->

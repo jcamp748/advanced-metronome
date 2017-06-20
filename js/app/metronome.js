@@ -1,5 +1,4 @@
-define(function() {
-
+define(["worker!app/metronomeWorker.js"], function(worker) {
   // do initialization work
   
   // private data variable
@@ -9,6 +8,8 @@ define(function() {
   var metronome = {};
 
   metronome.play = function() {
+    console.log("play");
+    //worker.postMessage("start");
 
   };
 
