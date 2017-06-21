@@ -1,6 +1,14 @@
 
 define(['app/metronome'], function(metronome){
-  metronome.loadData({one: "one", two: "two"});
+
+  $("#skipBackButton").click(function(){
+    metronome.skipBack();
+  });
+
+  $("#rewindButton").click(function(){
+    metronome.rewind();
+  });
+
   $("#playButton").click(function(){
     $(this).attr("disabled", true);
     $("#pauseButton").attr("disabled", false);
@@ -12,4 +20,13 @@ define(['app/metronome'], function(metronome){
     $("#playButton").attr("disabled", false);
     metronome.pause();
   });
+
+  $("#fastForwardButton").click(function(){
+    metronome.fastForward();
+  });
+
+  $("#skipForwardButton").click(function(){
+    metronome.skipForward();
+  });
+
 });

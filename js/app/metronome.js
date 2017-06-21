@@ -7,6 +7,14 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
   // create the metronome object and add variables and methods to it
   var metronome = {};
 
+  metronome.skipBack = function() {
+    console.log("skip back");
+  };
+
+  metronome.rewind = function() {
+    console.log("rewind");
+  };
+
   metronome.play = function() {
     console.log("play");
     worker.postMessage("start");
@@ -16,6 +24,14 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
   metronome.pause = function() {
     console.log("pause");
     worker.postMessage("pause");
+  };
+
+  metronome.fastForward = function() {
+    console.log("fast forward");
+  };
+
+  metronome.skipForward = function() {
+    console.log("skip forward");
   };
 
   metronome.seekTo = function(time) {
