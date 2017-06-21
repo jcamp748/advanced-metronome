@@ -2,10 +2,14 @@
 define(['app/metronome'], function(metronome){
   metronome.loadData({one: "one", two: "two"});
   $("#playButton").click(function(){
-      console.log("play");
+    $(this).attr("disabled", true);
+    $("#pauseButton").attr("disabled", false);
+    metronome.play();
   });
-      
-  metronome.play();
-  metronome.pause();
-  metronome.seekTo(30);
+
+  $("#pauseButton").click(function(){
+    $(this).attr("disabled", true);
+    $("#playButton").attr("disabled", false);
+    metronome.pause();
+  });
 });

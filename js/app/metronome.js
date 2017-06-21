@@ -9,12 +9,13 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
 
   metronome.play = function() {
     console.log("play");
-    //worker.postMessage("start");
+    worker.postMessage("start");
 
   };
 
   metronome.pause = function() {
-    
+    console.log("pause");
+    worker.postMessage("pause");
   };
 
   metronome.seekTo = function(time) {
