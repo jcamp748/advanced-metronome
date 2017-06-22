@@ -1,6 +1,8 @@
 
 define(['app/metronome'], function(metronome){
 
+  // logic for metronome controls
+
   $("#skipBackButton").click(function(){
     metronome.skipBack();
   });
@@ -27,6 +29,14 @@ define(['app/metronome'], function(metronome){
 
   $("#skipForwardButton").click(function(){
     metronome.skipForward();
+  });
+
+  $("#resetButton").click(function(){
+    metronome.reset();
+  });
+
+  $("#editButton").click(function(){
+    metronome.edit();
   });
 
 });

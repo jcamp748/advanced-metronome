@@ -43,6 +43,16 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     console.log(data);
   };
 
+  metronome.reset = function(data) {
+    console.log("reset metronome");
+  };
+
+  metronome.edit = function(data) {
+    $("#form-wrapper").toggleClass("hidden");
+  };
+
+
+
   metronome.draw = function() {
     // start the drawing loop to display the metronome
   };
