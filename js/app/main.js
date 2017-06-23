@@ -1,5 +1,8 @@
 
-define(['app/metronome'], function(metronome){
+define(['app/metronome', 'app/userControls'], function(metronome, ui){
+
+  // TODO define global metronome data object before anything else,
+  // possibly inside a requirejs function
 
   // logic for metronome controls
 
@@ -37,6 +40,28 @@ define(['app/metronome'], function(metronome){
 
   $("#editButton").click(function(){
     metronome.edit();
+  });
+
+  $("#updateRowButton").click(function(){
+    ui.update();
+  });
+
+  $("#deleteRowButton").click(function(){
+    ui.deleteRow();
+  });
+
+  $("#saveRowButton").click(function(){
+    ui.save();
+  });
+
+  $("#addRowBeforeButton").click(function(){
+    var data = {};
+    ui.unshift(data);
+  });
+
+  $("#addRowAfterButton").click(function(){
+    var data = {};
+    ui.push(data);
   });
 
 });
