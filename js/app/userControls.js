@@ -17,6 +17,10 @@ define(function(){
     // inject table into html view
   }
 
+  function generateRow(section) {
+    // use SECTION data to generate html <tr> element
+  }
+
   // return the api
   // the global object is an array of Section objects
   return {
