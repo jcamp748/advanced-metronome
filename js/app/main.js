@@ -1,8 +1,36 @@
 
 define(['app/metronome', 'app/userControls'], function(metronome, ui){
 
-  // TODO define global metronome data object before anything else,
-  // possibly inside a requirejs function
+  // define global metronome data object before anything else
+  window.metronomeData = {};
+  
+  // initialize it for testing purposes
+  window.metronomeData = {
+    "-1" : {
+      "timesig" : "4/4",
+      "tempo" : "100",
+      "count" : "1",
+      "section" : "lead in"
+    },
+    "0" : {
+      "timesig" : "4/4",
+      "tempo" : "100",
+      "count" : "2",
+      "section" : "riff a"
+    },
+    "1" : {
+      "timesig" : "3/4",
+      "tempo" : "200",
+      "count" : "3",
+      "section" : "riff b"
+    },
+    "2" : {
+      "timesig" : "4/4",
+      "tempo" : "150",
+      "count" : "2",
+      "section" : "riff c"
+    }
+  };
 
   // logic for metronome controls
 
