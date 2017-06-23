@@ -4,6 +4,19 @@
 define(function(){
   // do initialization work here
 
+  // private utility functions for updating table
+  function deleteTable() {
+    // find and delete table
+  }
+
+  function generateTable() {
+    // use window.metronomeData to generate table
+  }
+
+  function insertTable() {
+    // inject table into html view
+  }
+
   // return the api
   // the global object is an array of Section objects
   return {
@@ -27,7 +40,13 @@ define(function(){
 
     create: function() {
       // initialize a section and return it
-    }
+    },
+
+    update: function() {
+      // delete the html for the table
+      // generate the new html for the table
+      // inject html into view
+    },
   };
 
 });
