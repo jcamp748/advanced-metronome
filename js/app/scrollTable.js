@@ -127,7 +127,7 @@ function includeSection(button) {
 
 // utility function to get the index of the current row
 function getIndex($row) {
-  var $table = $("#metro-table tbody");
+  var $table = $("#metronomeTable tbody");
   var index = 0;
   $.each( $table.children(), function(ndx, element) {
     if( $(this).is($row) ) {

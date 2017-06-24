@@ -6,25 +6,25 @@ define(['app/metronome', 'app/userControls'], function(metronome, ui){
   
   // initialize it for testing purposes
   window.metronomeData = {
-    "-1" : {
+    "0" : {
       "timesig" : "4/4",
       "tempo" : "100",
       "count" : "1",
       "section" : "lead in"
     },
-    "0" : {
+    "1" : {
       "timesig" : "4/4",
       "tempo" : "100",
       "count" : "2",
       "section" : "riff a"
     },
-    "1" : {
+    "2" : {
       "timesig" : "3/4",
       "tempo" : "200",
       "count" : "3",
       "section" : "riff b"
     },
-    "2" : {
+    "3" : {
       "timesig" : "4/4",
       "tempo" : "150",
       "count" : "2",
