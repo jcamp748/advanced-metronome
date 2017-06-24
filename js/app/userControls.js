@@ -5,12 +5,33 @@ define(function(){
   // do initialization work here
 
   // private utility functions for updating table
+  
+  
+  // utility function to get the index of the current row
+  function getIndex($row) {
+    var $table = $("#metronomeTable tbody");
+    var index = 0;
+    $.each( $table.children(), function(ndx, element) {
+      if( $(this).is($row) ) {
+        index = ndx;
+        // break out of the loop
+        return false;
+      }
+    });
+    return index;
+  }
+
   function deleteTable() {
     // find and delete table
+    $("#metronomeTable").empty();
   }
 
   function generateTable() {
     // use window.metronomeData to generate table
+    $("#metronomeTable").append($('<tbody></tbody>'));
+    for(var section in window.metronomeData) {
+      addRow(generateRow(window.metronomeData[section]));
+    }
   }
 
   function insertTable() {
@@ -19,6 +40,34 @@ define(function(){
 
   function generateRow(section) {
     // use SECTION data to generate html <tr> element
+
+    var $row = $('<tr>');
+    for(var prop in section) {
+      // create td with class col-xs-3
+      $row.append( $('<td></td>').text(section[prop]).addClass("col-xs-3"));
+    }
+    $row.click(function(){
+      // highlight row in table
+      $("#metronomeTable tbody").children().removeClass("highlight");
+      var $row = $(this);
+      $row.addClass("highlight");
+      // populate form with data from section
+      $row.addClass("highlight");
+      $("#metronomeForm .form-group").each(function(index, el){
+        var section = window.metronomeData[getIndex($row)];
+        var value = section[Object.keys(section)[index]];
+        $(this).children(":nth-child(2)").val(value);
+
+
+      });
+      
+    });
+    return $row;
+  }
+
+  function addRow($row) {
+    // add jquery obj $ROW to view
+    $("#metronomeTable tbody").append($row);
   }
 
   // return the api
@@ -34,7 +83,7 @@ define(function(){
     },
 
     insert: function(section, index) {
-      // put section at INDEX and move the rest of the
+      // put SECTION at INDEX and move the rest of the
       // sections up 1 place
     },
 
@@ -48,7 +97,9 @@ define(function(){
 
     update: function() {
       // delete the html for the table
+      deleteTable();
       // generate the new html for the table
+      generateTable();
       // inject html into view
     },
   };

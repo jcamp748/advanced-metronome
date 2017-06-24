@@ -92,4 +92,7 @@ define(['app/metronome', 'app/userControls'], function(metronome, ui){
     ui.push(data);
   });
 
+  // update the ui
+  ui.update();
+
 });
