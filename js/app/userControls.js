@@ -3,7 +3,7 @@
 // logic is based on
 define(function(){
   // do initialization work here
-
+ 
   // private utility functions for updating table
   
   
@@ -89,6 +89,29 @@ define(function(){
     return $row;
   }
 
+  function updateData() {
+    var $row = $("tr.highlight");
+    var rowIndex = getIndex($row);
+    var $form = $("#metronomeForm");
+    var i = 0;
+    var selectors = {
+      0: ":nth-child(1)",
+      1: ":nth-child(2)",
+      2: ":nth-child(3)",
+      3: ":nth-child(4)"
+    };
+
+    var oldData = window.metronomeData[rowIndex];
+    var newData = oldData;
+
+    for(var key in oldData) {
+      newData[key] = $form.children(selectors[i]).children(":nth-child(2)").val();
+      i++;
+    }
+    window.metronomeData[rowIndex] = newData;
+    return rowIndex;
+  }
+
   function addRow($row) {
     // add jquery obj $ROW to view
     $("#metronomeTable tbody").append($row);
@@ -120,11 +143,23 @@ define(function(){
     },
 
     update: function() {
-      // delete the html for the table
+      // check for a highlighted row
+      if($("tr.highlight").length){
+        // use data from metronomeForm to update window.metronomeData object
+        // :nth-child selector uses 1 based indexing so we add 1 to the rowIndex
+        var rowIndex = updateData() + 1;
+        // delete the html for the table
+        deleteTable();
+        // generate the new html for the table
+        generateTable();
+        // highlight updated row
+        $("#metronomeTable tbody").children(":nth-child(" + rowIndex.toString() + ")").attr("class", "highlight");
+      }
+    },
+
+    initialize: function() {
       deleteTable();
-      // generate the new html for the table
       generateTable();
-      // inject html into view
     },
   };
 
