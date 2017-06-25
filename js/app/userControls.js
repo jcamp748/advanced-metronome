@@ -26,13 +26,37 @@ define(function(){
     $("#metronomeTable").empty();
   }
 
+
   function generateTable() {
     // use window.metronomeData to generate table
+    $("#metronomeTable").append(generateHead());
     $("#metronomeTable").append($('<tbody></tbody>'));
     for(var section in window.metronomeData) {
       addRow(generateRow(window.metronomeData[section]));
     }
   }
+
+  function generateHead() {
+    // generate <thead> element
+    $head = $("<thead>");
+    var headings = {
+      0: "time sig",
+      1: "tempo",
+      2: "measures",
+      3: "name",
+      4: "loop"
+    };
+    $head.append(function(){
+      var $markup = $("<tr>");
+      for(var key in headings) {
+        $markup.append($("<th>").attr("class", "col-xs-2").text(headings[key]));
+      }
+      return $markup;
+    });
+    return $head;
+  }
+    
+          
 
   function insertTable() {
     // inject table into html view
