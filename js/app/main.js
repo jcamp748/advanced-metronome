@@ -83,13 +83,15 @@ define(['app/metronome', 'app/userControls'], function(metronome, ui){
   });
 
   $("#addRowBeforeButton").click(function(){
-    var data = {};
-    ui.unshift(data);
+    // create a blank section object
+    var data = ui.create(); 
+    // insert the section before the highlighted row
   });
 
   $("#addRowAfterButton").click(function(){
-    var data = {};
-    ui.push(data);
+    // create a blank section object
+    var data = ui.create(); 
+    // insert the section after the highlighted row
   });
 
   ui.initialize();

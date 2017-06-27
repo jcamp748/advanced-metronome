@@ -158,6 +158,13 @@ define(function(){
 
     create: function() {
       // initialize a section and return it
+      var section = {
+        "timesig" : "4/4",
+        "tempo" : "100",
+        "count" : "10",
+        "section" : "my section"
+      };
+      return section;
     },
 
     updateRow: function() {
@@ -175,19 +182,16 @@ define(function(){
       }
     },
 
-
     initialize: function() {
       deleteTable();
       generateTable();
     },
+
+    save: function() {
+      // write xhr request code here
+      console.log("saved to server");
+    }
   };
 
 });
-
-
-
-
-      
-
-
 
