@@ -71,7 +71,7 @@ define(['app/metronome', 'app/userControls'], function(metronome, ui){
   });
 
   $("#updateRowButton").click(function(){
-    ui.update();
+    ui.updateRow();
   });
 
   $("#deleteRowButton").click(function(){

@@ -117,6 +117,11 @@ define(function(){
     $("#metronomeTable tbody").append($row);
   }
 
+  function update() {
+      deleteTable();
+      generateTable();
+   }
+
   // return the api
   // the global object is an array of Section objects
   return {
@@ -134,15 +139,28 @@ define(function(){
       // sections up 1 place
     },
 
-    remove: function(index) {
-      // delete section at INDEX
+    deleteRow: function() {
+      // get index of highlighted row
+      var index = getIndex($("tr.highlight"));
+      // remove data from global object
+      delete window.metronomeData[index];
+      // change the indices of remaining keys in the object
+      var numberOfKeys = Object.keys(window.metronomeData).length;
+      var data = {};
+      var i = 0;
+      for(var key in window.metronomeData) {
+        data[i] = window.metronomeData[key];
+        i++;
+      }
+      window.metronomeData = data;
+      update();
     },
 
     create: function() {
       // initialize a section and return it
     },
 
-    update: function() {
+    updateRow: function() {
       // check for a highlighted row
       if($("tr.highlight").length){
         // use data from metronomeForm to update window.metronomeData object
@@ -156,6 +174,7 @@ define(function(){
         $("#metronomeTable tbody").children(":nth-child(" + rowIndex.toString() + ")").attr("class", "highlight");
       }
     },
+
 
     initialize: function() {
       deleteTable();
