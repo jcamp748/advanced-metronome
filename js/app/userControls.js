@@ -1,7 +1,7 @@
 // this module is the api for editing the global
 // metronome data structure that the application 
 // logic is based on
-define(function(){
+define(["worker!app/metronomeWorker.js"], function(worker){
   // do initialization work here
  
   // private utility functions for updating table
@@ -190,7 +190,46 @@ define(function(){
     save: function() {
       // write xhr request code here
       console.log("saved to server");
-    }
+    },
+
+    skipBack: function() {
+      console.log("go back 1 measure");
+    },
+
+    rewind: function() {
+      console.log("rewind metronome");
+    },
+
+    play: function() {
+      console.log("play song");
+      worker.postMessage("start");
+    },
+
+    pause: function() {
+      console.log("pause song");
+      worker.postMessage("pause");
+    },
+
+    fastForward: function() {
+      console.log("fast forward");
+    },
+
+    skipForward: function() {
+      console.log("skip to next measure");
+    },
+
+    reset: function() {
+      console.log("reset to beginning of song");
+    },
+
+    edit: function() {
+      console.log("show/hide table");
+      $("#form-wrapper").toggleClass("hidden");
+    },
+
+    seekTo: function() {
+      console.log("seek in song");
+    },
   };
 
 });

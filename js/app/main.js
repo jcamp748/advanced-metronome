@@ -1,7 +1,8 @@
 
-define(['app/metronome', 'app/userControls'], function(metronome, ui){
+define(["app/metronome", "app/userControls", "app/subject"], function(metronome, ui, subject){
 
   // define global metronome data object before anything else
+  debugger
   window.metronomeData = {};
   
   // initialize it for testing purposes
@@ -32,42 +33,46 @@ define(['app/metronome', 'app/userControls'], function(metronome, ui){
     }
   };
 
+  function loadData() {
+    console.log("xhr request for data");
+  }
+
   // logic for metronome controls
 
   $("#skipBackButton").click(function(){
-    metronome.skipBack();
+    ui.skipBack();
   });
 
   $("#rewindButton").click(function(){
-    metronome.rewind();
+    ui.rewind();
   });
 
   $("#playButton").click(function(){
     $(this).attr("disabled", true);
     $("#pauseButton").attr("disabled", false);
-    metronome.play();
+    ui.play();
   });
 
   $("#pauseButton").click(function(){
     $(this).attr("disabled", true);
     $("#playButton").attr("disabled", false);
-    metronome.pause();
+    ui.pause();
   });
 
   $("#fastForwardButton").click(function(){
-    metronome.fastForward();
+    ui.fastForward();
   });
 
   $("#skipForwardButton").click(function(){
-    metronome.skipForward();
+    ui.skipForward();
   });
 
   $("#resetButton").click(function(){
-    metronome.reset();
+    ui.reset();
   });
 
   $("#editButton").click(function(){
-    metronome.edit();
+    ui.edit();
   });
 
   $("#updateRowButton").click(function(){
