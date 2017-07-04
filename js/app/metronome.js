@@ -1,5 +1,6 @@
-define(["worker!app/metronomeWorker.js"], function(worker) {
+define(["worker!app/metronomeWorker.js", "app/observerList"], function(worker, observerList) {
   // do initialization work
+  debugger
   
   // private data variable
   var metronomeData = {};
