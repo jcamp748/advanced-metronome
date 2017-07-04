@@ -1,4 +1,4 @@
-define(["worker!app/metronomeWorker.js", "app/observerList"], function(worker, observerList) {
+define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
   // do initialization work
   debugger
   
