@@ -4,7 +4,7 @@ var metroTimer = null;
 onmessage = function(e) {
   if (e.data == "start") {
     metroTimer = setInterval(function(){
-      console.log("tick");
+      postMessage("tick");
     }, interval);
   } else if (e.data == "pause") {
     if (metroTimer) {

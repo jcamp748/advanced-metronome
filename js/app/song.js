@@ -37,6 +37,10 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
     }
   }
 
+  worker.onmessage = function(e){
+    console.log("hello from song.js");
+  };
+
   return {
 
     create: function() {
@@ -63,12 +67,12 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
 
     play: function() {
       console.log("play song");
-      //worker.postMessage("start");
+      worker.postMessage("start");
     },
 
     pause: function() {
       console.log("pause song");
-      //worker.postMessage("pause");
+      worker.postMessage("pause");
     },
 
     fastForward: function() {
