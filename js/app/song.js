@@ -1,4 +1,4 @@
-define(["app/subject"], function(subject) {
+define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker) {
 
   var time = 0.0;
   var measure = 0;
@@ -38,13 +38,6 @@ define(["app/subject"], function(subject) {
   }
 
   return {
-    getMeasure: function() {
-      return measure;
-    },
-
-    getTime: function() {
-      return time;
-    },
 
     create: function() {
       var song = subject.create();
@@ -53,6 +46,45 @@ define(["app/subject"], function(subject) {
       // load data from server
       song.metronomeData = loadData();
       return song;
-    }
+    },
+
+    save: function() {
+      // write xhr request code here
+      console.log("saved to server");
+    },
+
+    skipBack: function() {
+      console.log("go back 1 measure");
+    },
+
+    rewind: function() {
+      console.log("rewind metronome");
+    },
+
+    play: function() {
+      console.log("play song");
+      //worker.postMessage("start");
+    },
+
+    pause: function() {
+      console.log("pause song");
+      //worker.postMessage("pause");
+    },
+
+    fastForward: function() {
+      console.log("fast forward");
+    },
+
+    skipForward: function() {
+      console.log("skip to next measure");
+    },
+
+    reset: function() {
+      console.log("reset to beginning of song");
+    },
+
+    seekTo: function() {
+      console.log("seek in song");
+    },
   };
 });

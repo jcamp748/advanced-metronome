@@ -157,14 +157,14 @@ define(function(){
     },
 
     create: function() {
-      // initialize a row and return it
+      // initialize a section and return it
       var section = {
         "timesig" : "4/4",
         "tempo" : "100",
         "count" : "10",
         "section" : "my section"
       };
-      return generateRow(section);
+      return section;
     },
 
     updateRow: function() {
