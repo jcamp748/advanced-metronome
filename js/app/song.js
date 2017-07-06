@@ -3,6 +3,8 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
   var time = 0.0;
   var measure = 0;
   var observers = null;
+  var measures = [];
+  var metronomeData = {};
 
   function loadData() {
     var success = false;
@@ -44,6 +46,12 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
     });
   }
 
+  function populateMeasures() {
+    for(var section in metronomeData) {
+      console.log(section);
+    }
+  }
+
   worker.onmessage = function(e){
     console.log("hello from song.js");
     notify();
@@ -55,7 +63,7 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
     create: function() {
       var song = subject.create();
       observers = song.observers;
-      song.metronomeData = {};
+      song.metronomeData = metronomeData;
       
       // load data from server
       song.metronomeData = loadData();
