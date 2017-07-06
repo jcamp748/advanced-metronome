@@ -2,6 +2,7 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
 
   var time = 0.0;
   var measure = 0;
+  var observers = null;
 
   function loadData() {
     var success = false;
@@ -37,14 +38,23 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
     }
   }
 
+  function notify(){
+    observers.observerList.forEach(function(observer){
+      observer.update(this);
+    });
+  }
+
   worker.onmessage = function(e){
     console.log("hello from song.js");
+    notify();
   };
+
 
   return {
 
     create: function() {
       var song = subject.create();
+      observers = song.observers;
       song.metronomeData = {};
       
       // load data from server
@@ -55,40 +65,49 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
     save: function() {
       // write xhr request code here
       console.log("saved to server");
+      notify();
     },
 
     skipBack: function() {
       console.log("go back 1 measure");
+      notify();
     },
 
     rewind: function() {
       console.log("rewind metronome");
+      notify();
     },
 
     play: function() {
       console.log("play song");
       worker.postMessage("start");
+      notify();
     },
 
     pause: function() {
       console.log("pause song");
       worker.postMessage("pause");
+      notify();
     },
 
     fastForward: function() {
       console.log("fast forward");
+      notify();
     },
 
     skipForward: function() {
       console.log("skip to next measure");
+      notify();
     },
 
     reset: function() {
       console.log("reset to beginning of song");
+      notify();
     },
 
     seekTo: function() {
       console.log("seek in song");
+      notify();
     },
   };
 });

@@ -4,6 +4,9 @@ define(["app/metronome", "app/metronomeTable", "app/song"], function(metronome, 
   // define global metronome data object before anything else
   window.song = song.create();
 
+  // add metronome as an observer to the song
+  window.song.addObserver(metronome);
+
 
   // logic for metronome controls
 
