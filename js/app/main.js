@@ -6,6 +6,7 @@ define(["app/metronome", "app/metronomeTable", "app/song"], function(metronome, 
 
   // add metronome as an observer to the song
   window.song.addObserver(metronome);
+  song.pause();
 
 
   // logic for metronome controls
