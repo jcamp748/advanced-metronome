@@ -40,16 +40,20 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
     }
   }
 
+  function populateMeasures() {
+    for(var section in metronomeData) {
+      console.log(section);
+      var count = parseInt(metronomeData[section]["count"]);
+      for(var i = 0; i < count; i++) {
+        measures.push(metronomeData[section]);
+      }
+    }
+  }
+
   function notify(){
     observers.observerList.forEach(function(observer){
       observer.update(this);
     });
-  }
-
-  function populateMeasures() {
-    for(var section in metronomeData) {
-      console.log(section);
-    }
   }
 
   worker.onmessage = function(e){
@@ -57,16 +61,14 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
     notify();
   };
 
-
   return {
-
     create: function() {
       var song = subject.create();
       observers = song.observers;
-      song.metronomeData = metronomeData;
       
       // load data from server
-      song.metronomeData = loadData();
+      metronomeData = loadData();
+      populateMeasures();
       return song;
     },
 
