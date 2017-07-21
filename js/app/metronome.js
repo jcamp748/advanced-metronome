@@ -1,7 +1,5 @@
 define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
 
-  debugger
-
   // initialize digital number display
   var beatValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 0, 0, 0.2);
 
@@ -156,8 +154,9 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
 
   function drawDisplay() {
     var displayBeat = currentBeat;
-    if(currentBeat === 0)
+    if(currentBeat === 0) {
       displayBeat = beatsPerMeasure;
+    }
     beatValue.setValue(displayBeat.toString());
     tempoLabel.setValue('tempo');
     tempoValue.setValue(tempo.toString());
@@ -210,7 +209,10 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
 
   function draw(){ 
     roundedRect(ctx, 0, 0, 600, 400, 12, "black");
-    roundedRect(ctx, thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);   // start the drawing loop to display the metronome
+    roundedRect(ctx, thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
+    drawDisplay();
+    drawUpArrow();
+    drawDownArrow();
   }
 
 

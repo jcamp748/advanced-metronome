@@ -50,6 +50,10 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
     }
   }
 
+  function initializePlaybackData() {
+
+  }
+
   function notify(){
     observers.observerList.forEach(function(observer){
       observer.update(this);
@@ -69,6 +73,7 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
       // load data from server
       metronomeData = loadData();
       populateMeasures();
+      initializePlaybackData();
       return song;
     },
 
