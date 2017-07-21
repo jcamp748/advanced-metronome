@@ -1,8 +1,9 @@
-define(function() {
+define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
 
+  debugger
 
- // initialize digital number display
-  var beatValue = new SegmentDisplay("metronome-canvas", 0, 0, 0.2);
+  // initialize digital number display
+  var beatValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 0, 0, 0.2);
 
   beatValue.pattern         = "#";
   beatValue.cornerType      = 2;
@@ -13,10 +14,10 @@ define(function() {
   beatValue.digitDistance   = 2;
   beatValue.segmentWidth    = 3;
   beatValue.segmentDistance = 0.5;
-  beatValue.colorOn         = segmentOn;
-  beatValue.colorOff        = segmentOff;
+  beatValue.colorOn         = segmentDisplay.segmentOn;
+  beatValue.colorOff        = segmentDisplay.segmentOff;
 
-  var sigLabel = new SegmentDisplay("metronome-canvas", 80, 10, 0.12);
+  var sigLabel = new segmentDisplay.SegmentDisplay("metronome-canvas", 80, 10, 0.12);
 
   sigLabel.pattern         = "###";
   sigLabel.cornerType      = 2;
@@ -28,10 +29,10 @@ define(function() {
   sigLabel.segmentWidth    = 1;
   sigLabel.segmentDistance = 0.5;
   sigLabel.segmentCount    = 14;
-  sigLabel.colorOn         = segmentOn;
-  sigLabel.colorOff        = segmentOff;
+  sigLabel.colorOn         = segmentDisplay.segmentOn;
+  sigLabel.colorOff        = segmentDisplay.segmentOff;
 
-  var sigValue = new SegmentDisplay("metronome-canvas", 80, 50, 0.12);
+  var sigValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 80, 50, 0.12);
 
   sigValue.pattern         = "###";
   sigValue.cornerType      = 2;
@@ -43,10 +44,10 @@ define(function() {
   sigValue.segmentWidth    = 1;
   sigValue.segmentDistance = 0.5;
   sigValue.segmentCount    = 14;
-  sigValue.colorOn         = segmentOn;
-  sigValue.colorOff        = segmentOff;
+  sigValue.colorOn         = segmentDisplay.segmentOn;
+  sigValue.colorOff        = segmentDisplay.segmentOff;
 
-  var tempoValue = new SegmentDisplay("metronome-canvas", 200, 50, 0.2);
+  var tempoValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 200, 50, 0.2);
 
   tempoValue.pattern         = "###";
   tempoValue.cornerType      = 2;
@@ -57,10 +58,10 @@ define(function() {
   tempoValue.digitDistance   = 2;
   tempoValue.segmentWidth    = 3;
   tempoValue.segmentDistance = 0.5;
-  tempoValue.colorOn         = segmentOn;
-  tempoValue.colorOff        = segmentOff;
+  tempoValue.colorOn         = segmentDisplay.segmentOn;
+  tempoValue.colorOff        = segmentDisplay.segmentOff;
 
-  var tempoLabel = new SegmentDisplay("metronome-canvas", 200, 10, 0.2);
+  var tempoLabel = new segmentDisplay.SegmentDisplay("metronome-canvas", 200, 10, 0.2);
 
   tempoLabel.pattern         = "#####";
   tempoLabel.cornerType      = 2;
@@ -72,10 +73,10 @@ define(function() {
   tempoLabel.segmentWidth    = 1;
   tempoLabel.segmentDistance = 0.5;
   tempoLabel.segmentCount    = 14;
-  tempoLabel.colorOn         = segmentOn;
-  tempoLabel.colorOff        = segmentOff;
+  tempoLabel.colorOn         = segmentDisplay.segmentOn;
+  tempoLabel.colorOff        = segmentDisplay.segmentOff;
 
-  var countLabel = new SegmentDisplay("metronome-canvas", 400, 10, 0.2);
+  var countLabel = new segmentDisplay.SegmentDisplay("metronome-canvas", 400, 10, 0.2);
 
   countLabel.pattern         = "#####";
   countLabel.cornerType      = 2;
@@ -87,10 +88,10 @@ define(function() {
   countLabel.segmentWidth    = 1;
   countLabel.segmentDistance = 0.5;
   countLabel.segmentCount    = 14;
-  countLabel.colorOn         = segmentOn;
-  countLabel.colorOff        = segmentOff;
+  countLabel.colorOn         = segmentDisplay.segmentOn;
+  countLabel.colorOff        = segmentDisplay.segmentOff;
 
-  var countValue = new SegmentDisplay("metronome-canvas", 400, 70, 0.2);
+  var countValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 400, 70, 0.2);
 
   countValue.pattern         = "#####";
   countValue.cornerType      = 2;
@@ -102,10 +103,10 @@ define(function() {
   countValue.segmentWidth    = 3;
   countValue.segmentDistance = 0.5;
   countValue.segmentCount    = 7;
-  countValue.colorOn         = segmentOn;
-  countValue.colorOff        = segmentOff;
+  countValue.colorOn         = segmentDisplay.segmentOn;
+  countValue.colorOff        = segmentDisplay.segmentOff;
 
-  var sectionLabel = new SegmentDisplay("metronome-canvas", 0, 200, 0.8);
+  var sectionLabel = new segmentDisplay.SegmentDisplay("metronome-canvas", 0, 200, 0.8);
 
   sectionLabel.pattern         = "##################";
   sectionLabel.cornerType      = 2;
@@ -117,10 +118,10 @@ define(function() {
   sectionLabel.segmentWidth    = 1;
   sectionLabel.segmentDistance = 0.5;
   sectionLabel.segmentCount    = 14;
-  sectionLabel.colorOn         = segmentOn;
-  sectionLabel.colorOff        = segmentOff;
+  sectionLabel.colorOn         = segmentDisplay.segmentOn;
+  sectionLabel.colorOff        = segmentDisplay.segmentOff;
 
-  var sectionValue = new SegmentDisplay("metronome-canvas", 0, 270, 0.8);
+  var sectionValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 0, 270, 0.8);
 
   sectionValue.pattern         = "##################";
   sectionValue.cornerType      = 2;
@@ -132,8 +133,8 @@ define(function() {
   sectionValue.segmentWidth    = 1;
   sectionValue.segmentDistance = 0.5;
   sectionValue.segmentCount    = 14;
-  sectionValue.colorOn         = segmentOn;
-  sectionValue.colorOff        = segmentOff;
+  sectionValue.colorOn         = segmentDisplay.segmentOn;
+  sectionValue.colorOff        = segmentDisplay.segmentOff;
   // utility function for drawing rectangles with rounded corners
   function roundedRect(ctx,x,y,width,height,radius, color){
     ctx.save();
@@ -209,7 +210,7 @@ define(function() {
 
   function draw(){ 
     roundedRect(ctx, 0, 0, 600, 400, 12, "black");
-    roundedRect(ctx, thickness, thickness, 550, 350, 12, backgroundColor);   // start the drawing loop to display the metronome
+    roundedRect(ctx, thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);   // start the drawing loop to display the metronome
   }
 
 

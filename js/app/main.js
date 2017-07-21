@@ -1,3 +1,4 @@
+// this is the entry point for the entire application
 
 define(["app/metronome", "app/metronomeTable", "app/song"], function(metronome, table, song){
 
