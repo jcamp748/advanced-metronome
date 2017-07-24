@@ -1,9 +1,10 @@
 define(["app/observerList"], function(observerList) {
 
+  var observers = Object.create(observerList);
 
   return {
 
-    observers: Object.create(observerList),
+    observers: observers,
      
     addObserver: function( observer ){
       observers.add( observer );

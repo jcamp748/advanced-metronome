@@ -3,8 +3,7 @@
 define(["app/metronome", "app/metronomeTable", "app/song", "app/subject"], function(metronome, table, song, subject){
 
   //// define global metronome data object before anything else
-  debugger
-  window.song = Object.create(subject, song);
+  window.song = _.extend(song, subject);
 
   //// add metronome as an observer to the song
   window.song.addObserver(metronome);
