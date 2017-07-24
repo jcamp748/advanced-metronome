@@ -1,4 +1,4 @@
-define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker) {
+define(["worker!app/metronomeWorker.js"], function(worker) {
 
   var time = 0.0;
   var measure = 0;
@@ -50,32 +50,17 @@ define(["app/subject","worker!app/metronomeWorker.js"], function(subject, worker
     }
   }
 
-  function initializePlaybackData() {
-
-  }
-
-  function notify(){
-    observers.observerList.forEach(function(observer){
-      observer.update(this);
-    });
-  }
-
   worker.onmessage = function(e){
     console.log("hello from song.js");
     notify();
   };
 
+  metronomeData = loadData();
+  populateMeasures();
+
   return {
-    create: function() {
-      var song = subject.create();
-      observers = song.observers;
-      
-      // load data from server
-      metronomeData = loadData();
-      populateMeasures();
-      initializePlaybackData();
-      return song;
-    },
+    metronomeData: metronomeData,
+    currentBeat: 0,
 
     save: function() {
       // write xhr request code here

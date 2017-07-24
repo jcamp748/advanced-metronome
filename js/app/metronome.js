@@ -152,23 +152,6 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
     ctx.restore();
   }
 
-  function drawDisplay() {
-    var displayBeat = currentBeat;
-    if(currentBeat === 0) {
-      displayBeat = beatsPerMeasure;
-    }
-    beatValue.setValue(displayBeat.toString());
-    tempoLabel.setValue('tempo');
-    tempoValue.setValue(tempo.toString());
-    countLabel.setValue('count');
-    countValue.setValue(measureCount.toString());
-    sigLabel.setValue('sig');
-    sigValue.setValue(timesig.toString());
-    sectionLabel.setValue('section');
-    sectionValue.setValue(sectionName);
-    //plusSymbol.setValue('+');
-  }
-
   function drawUpArrow() {
     // draw a triangle pointing up to increase tempo
     ctx.save();
@@ -207,23 +190,32 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
     ctx.restore();
   }
 
-  function draw(){ 
-    roundedRect(ctx, 0, 0, 600, 400, 12, "black");
-    roundedRect(ctx, thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
-    drawDisplay();
-    drawUpArrow();
-    drawDownArrow();
-  }
-
-
-  var ctx = document.getElementById('metronome-canvas').getContext('2d');
-  var thickness = 25;
-  window.requestAnimationFrame(draw);
 
   return {
-    update: function(context) {
+    update: function(song) {
       console.log("update metronome with context");
-      draw();
+      
+      var ctx = document.getElementById('metronome-canvas').getContext('2d');
+      var thickness = 25;
+
+      roundedRect(ctx, 0, 0, 600, 400, 12, "black");
+      roundedRect(ctx, thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
+      debugger
+      var displayBeat = song.currentBeat;
+      beatValue.setValue(displayBeat.toString());
+      tempoLabel.setValue('tempo');
+      tempoValue.setValue(tempo.toString());
+      countLabel.setValue('count');
+      countValue.setValue(measureCount.toString());
+      sigLabel.setValue('sig');
+      sigValue.setValue(timesig.toString());
+      sectionLabel.setValue('section');
+      sectionValue.setValue(sectionName);
+      //plusSymbol.setValue('+');
+      drawUpArrow();
+      drawDownArrow();
+
+      window.requestAnimationFrame(draw);
     }
   };
 });
