@@ -1,7 +1,7 @@
 define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
 
   // initialize digital number display
-  var beatValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 0, 0, 0.2);
+  var beatValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 0, 10, 0.2);
 
   beatValue.pattern         = "#";
   beatValue.cornerType      = 2;
@@ -12,9 +12,8 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
   beatValue.digitDistance   = 2;
   beatValue.segmentWidth    = 3;
   beatValue.segmentDistance = 0.5;
+  beatValue.segmentCount    = 7;
   beatValue.colorOn         = segmentDisplay.segmentOn;
-  beatValue.colorOff        = segmentDisplay.segmentOff;
-
   var sigLabel = new segmentDisplay.SegmentDisplay("metronome-canvas", 80, 10, 0.12);
 
   sigLabel.pattern         = "###";
@@ -56,9 +55,8 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
   tempoValue.digitDistance   = 2;
   tempoValue.segmentWidth    = 3;
   tempoValue.segmentDistance = 0.5;
+  tempoValue.segmentCount    = 7;
   tempoValue.colorOn         = segmentDisplay.segmentOn;
-  tempoValue.colorOff        = segmentDisplay.segmentOff;
-
   var tempoLabel = new segmentDisplay.SegmentDisplay("metronome-canvas", 200, 10, 0.2);
 
   tempoLabel.pattern         = "#####";
@@ -201,16 +199,15 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
       roundedRect(ctx, 0, 0, 600, 400, 12, "black");
       roundedRect(ctx, thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
       debugger
-      var displayBeat = song.currentBeat;
-      beatValue.setValue(displayBeat.toString());
+      beatValue.setValue(song.getBeat().toString());
       tempoLabel.setValue('tempo');
-      tempoValue.setValue(tempo.toString());
+      tempoValue.setValue(song.getTempo().toString());
       countLabel.setValue('count');
-      countValue.setValue(measureCount.toString());
+      countValue.setValue(song.getCount().toString());
       sigLabel.setValue('sig');
-      sigValue.setValue(timesig.toString());
+      sigValue.setValue(song.getTimeSig());
       sectionLabel.setValue('section');
-      sectionValue.setValue(sectionName);
+      sectionValue.setValue(song.getSectionName());
       //plusSymbol.setValue('+');
       drawUpArrow();
       drawDownArrow();

@@ -7,6 +7,7 @@ define(["app/metronome", "app/metronomeTable", "app/song", "app/subject"], funct
 
   //// add metronome as an observer to the song
   window.song.addObserver(metronome);
+  window.song.notify(window.song);
   //window.song.pause();
 
 

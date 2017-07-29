@@ -5,6 +5,11 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
   var observers = null;
   var measures = [];
   var metronomeData = {};
+  var currentBeat = 0;
+  var tempo = 0;
+  var count = 0;
+  var timeSig = "4/4";
+  var sectionName = "cool name";
 
   function loadData() {
     var success = false;
@@ -60,7 +65,11 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
 
   return {
     metronomeData: metronomeData,
-    currentBeat: 0,
+    getBeat: function() { return currentBeat; },
+    getTempo: function() { return tempo; },
+    getCount: function() { return count; },
+    getTimeSig: function() { return timeSig; },
+    getSectionName: function() { return sectionName; },
 
     save: function() {
       // write xhr request code here
