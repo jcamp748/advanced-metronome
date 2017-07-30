@@ -1,5 +1,7 @@
 define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
 
+  var ctx = document.getElementById('metronome-canvas').getContext('2d');
+
   // initialize digital number display
   var beatValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 0, 10, 0.2);
 
@@ -132,7 +134,7 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
   sectionValue.colorOn         = segmentDisplay.segmentOn;
   sectionValue.colorOff        = segmentDisplay.segmentOff;
   // utility function for drawing rectangles with rounded corners
-  function roundedRect(ctx,x,y,width,height,radius, color){
+  function roundedRect(x,y,width,height,radius, color){
     ctx.save();
     ctx.beginPath();
     ctx.moveTo(x,y+radius);
@@ -188,17 +190,71 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
     ctx.restore();
   }
 
+  // implement up and down arrow click detection
+  var arrowBoxes = [
+    {x: 380, y: 60, w: 30, h: 30},
+    {x: 380, y: 110, w: 30, h: 30}
+  ], i = 0, r;
+
+  var upBox = new Path2D();
+  upBox.rect(380, 60, 30, 30);
+
+  var downBox = new Path2D();
+  downBox.rect(380, 110, 30, 30);
+
+  var hoverUp = false;
+  var hoverDown = false;
+
+  var canvas = document.getElementById('metronome-canvas');
+
+  canvas.onmousemove = function(e) {
+
+    var rect = this.getBoundingClientRect(),
+    x = e.clientX - rect.left,
+    y = e.clientY - rect.top,
+    i = 0, r;
+
+
+    while(r = arrowBoxes[i++]) {
+      //ctx.beginPath();
+      //ctx.rect(r.x, r.y, r.w, r.h);
+      //ctx.stroke();
+
+      if( ctx.isPointInPath(upBox, x, y) ) {
+        hoverUp = true;
+        hoverDown = false;
+      } else if( ctx.isPointInPath(downBox, x, y) ) {
+        hoverUp = false;
+        hoverDown = true;
+      } else {
+        hoverUp = false;
+        hoverDown = false;
+      }
+    }
+  };
+
+  canvas.onclick = function(e) {
+
+    if(hoverUp) {
+      //console.log("increase tempo");
+      tempo++;
+    } else if(hoverDown) {
+      //console.log("decrease tempo");
+      tempo--;
+    } else {
+      //do nothing
+    }
+
+  };
 
   return {
     update: function(song) {
       console.log("update metronome with context");
       
-      var ctx = document.getElementById('metronome-canvas').getContext('2d');
       var thickness = 25;
 
-      roundedRect(ctx, 0, 0, 600, 400, 12, "black");
-      roundedRect(ctx, thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
-      debugger
+      roundedRect(0, 0, 600, 400, 12, "black");
+      roundedRect(thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
       beatValue.setValue(song.getBeat().toString());
       tempoLabel.setValue('tempo');
       tempoValue.setValue(song.getTempo().toString());
@@ -208,11 +264,10 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
       sigValue.setValue(song.getTimeSig());
       sectionLabel.setValue('section');
       sectionValue.setValue(song.getSectionName());
-      //plusSymbol.setValue('+');
       drawUpArrow();
       drawDownArrow();
 
-      window.requestAnimationFrame(draw);
+      //window.requestAnimationFrame(draw);
     }
   };
 });
