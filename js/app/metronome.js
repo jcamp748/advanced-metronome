@@ -237,10 +237,10 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
 
     if(hoverUp) {
       //console.log("increase tempo");
-      tempo++;
+      window.song.increaseTempo();
     } else if(hoverDown) {
       //console.log("decrease tempo");
-      tempo--;
+      window.song.decreaseTempo();
     } else {
       //do nothing
     }

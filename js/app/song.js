@@ -57,7 +57,7 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
 
   worker.onmessage = function(e){
     console.log("hello from song.js");
-    notify();
+    this.notify();
   };
 
   metronomeData = loadData();
@@ -74,49 +74,59 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     save: function() {
       // write xhr request code here
       console.log("saved to server");
-      notify();
+      this.notify(this);
     },
 
     skipBack: function() {
       console.log("go back 1 measure");
-      notify();
+      this.notify(this);
     },
 
     rewind: function() {
       console.log("rewind metronome");
-      notify();
+      this.notify(this);
     },
 
     play: function() {
       console.log("play song");
       worker.postMessage("start");
-      notify();
+      this.notify(this);
     },
 
     pause: function() {
       console.log("pause song");
       worker.postMessage("pause");
-      notify();
+      this.notify(this);
     },
 
     fastForward: function() {
       console.log("fast forward");
-      notify();
+      this.notify(this);
     },
 
     skipForward: function() {
       console.log("skip to next measure");
-      notify();
+      this.notify(this);
     },
 
     reset: function() {
       console.log("reset to beginning of song");
-      notify();
+      this.notify(this);
     },
 
     seekTo: function() {
       console.log("seek in song");
-      notify();
+      this.notify(this);
+    },
+
+    increaseTempo: function() {
+      tempo++;
+      this.notify(this);
+    },
+
+    decreaseTempo: function() {
+      tempo--;
+      this.notify(this);
     },
   };
 });
