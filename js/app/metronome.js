@@ -247,27 +247,34 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
 
   };
 
-  return {
-    update: function(song) {
-      console.log("update metronome with context");
-      
+  function draw() {
+    try {
       var thickness = 25;
-
       roundedRect(0, 0, 600, 400, 12, "black");
       roundedRect(thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
-      beatValue.setValue(song.getBeat().toString());
+      beatValue.setValue(window.song.getBeat().toString());
       tempoLabel.setValue('tempo');
-      tempoValue.setValue(song.getTempo().toString());
+      tempoValue.setValue(window.song.getTempo().toString());
       countLabel.setValue('count');
-      countValue.setValue(song.getCount().toString());
+      countValue.setValue(window.song.getCount().toString());
       sigLabel.setValue('sig');
-      sigValue.setValue(song.getTimeSig());
+      sigValue.setValue(window.song.getTimeSig());
       sectionLabel.setValue('section');
-      sectionValue.setValue(song.getSectionName());
+      sectionValue.setValue(window.song.getSectionName());
       drawUpArrow();
       drawDownArrow();
+    } catch(e) {
+      console.log("song not yet created");
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
 
-      //window.requestAnimationFrame(draw);
+  return {
+    update: function() {
+      console.log("update metronome with context");
+      
+
     }
   };
 });
