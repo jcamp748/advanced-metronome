@@ -271,7 +271,7 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
   requestAnimationFrame(draw);
 
   return {
-    update: function() {
+    update: function(context) {
       console.log("update metronome with context");
       
 
