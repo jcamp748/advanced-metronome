@@ -5,5 +5,6 @@ var require = {
   paths: {
     //except if the module id starts with "app"
     app: "../app",
-  }
+  },
+
 };
