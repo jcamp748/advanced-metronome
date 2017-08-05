@@ -1,15 +1,13 @@
 
 QUnit.test( "verify control functionality", function( assert ) {
 
-  $("#form-wrapper").toggle();
   // form should start out hidden
   assert.equal( $("#form-wrapper").is(":visible"), false, "form should start invisible");
   // clicking edit button should show form
-  debugger
   $("#editButton").trigger("click");
   assert.equal( $("#form-wrapper").is(":visible"), true, "form should be visible");
   // clicking edit button again should hide form
-  $("#metronome-controls").children(":nth-child(4)").trigger("click");
+  $("#editButton").trigger("click");
   assert.equal( $("#form-wrapper").is(":visible"), false, "form should be invisible");
   
   // verify play() button behavior
