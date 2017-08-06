@@ -77,7 +77,15 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     getMeasureData: function() {return currentMeasure;},
     
     // utitlity method for testing song object
-    refresh: function() { populateMeasures(); loadMeasure(0); },
+    refresh: function() {
+      time = 0.0;
+      measure = 0;
+      measures = [];
+      currentMeasure = {};
+      currentBeat = 0;
+      populateMeasures(); 
+      loadMeasure(0); 
+    },
 
 
     save: function() {
@@ -87,7 +95,10 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     },
 
     skipBack: function() {
-      console.log("go back 1 measure");
+      var i = measures.indexOf(currentMeasure);
+      if(i > 0) {
+        loadMeasure(--i);
+      }
       this.notify(this);
     },
 
@@ -114,7 +125,10 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     },
 
     skipForward: function() {
-      console.log("skip to next measure");
+      var i = measures.indexOf(currentMeasure);
+      if(i < measures.length - 1) {
+        loadMeasure(++i);
+      }
       this.notify(this);
     },
 
