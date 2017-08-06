@@ -62,6 +62,8 @@ QUnit.test( "verify control functionality", function( assert ) {
   var skipForwardButton = $("#skipForwardButton");
   assert.notEqual(window.song, undefined, "window.song exists");
 
+  // test the skipForward and skipBack buttons
+  // these buttons should move forward and backward 1 measure respectively
   // simulate clicks on skip forward and back buttons and verify data
   assert.equal(window.song.getSectionName(), "lead in", "song should start with lead in section");
   assert.equal(window.song.getMeasureNumber(), 0, "should start on measure 0");
@@ -90,5 +92,20 @@ QUnit.test( "verify control functionality", function( assert ) {
   skipForwardButton.trigger("click");
   assert.equal(window.song.getMeasureNumber(), 4, "should still be on measure 4");
   assert.deepEqual(window.song.getMeasureData(), testObj[3], "should still be outro data");
+
+  // test reset button
+  // the reset button should take us back to the first measure regardless of where we are
+  var resetButton = $("#resetButton");
+  resetButton.trigger("click");
+  assert.equal(window.song.getMeasureNumber(), 0, "should be on measure 0");
+  assert.deepEqual(window.song.getMeasureData(), testObj[0], "should be on lead in data");
+  skipForwardButton.trigger("click");
+  assert.equal(window.song.getMeasureNumber(), 1, "should be on measure 1 now");
+  assert.deepEqual(window.song.getMeasureData(), testObj[1], "should be intro data");
+  resetButton.trigger("click");
+  assert.equal(window.song.getMeasureNumber(), 0, "should be on measure 0");
+  assert.deepEqual(window.song.getMeasureData(), testObj[0], "should be on lead in data");
+
+
   
 });
