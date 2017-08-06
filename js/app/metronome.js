@@ -248,24 +248,40 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
   };
 
   function draw() {
-    try {
       var thickness = 25;
       roundedRect(0, 0, 600, 400, 12, "black");
       roundedRect(thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
-      beatValue.setValue(window.song.getBeat().toString());
+      try { 
+        beatValue.setValue(window.song.getBeat().toString());
+      } catch (e) {
+        console.log("could not get beat from window.song");
+      }
       tempoLabel.setValue('tempo');
-      tempoValue.setValue(window.song.getTempo().toString());
+      try {
+        tempoValue.setValue(window.song.getTempo().toString());
+      } catch (e) {
+        console.log("could  not get tempo from window.song");
+      }
       countLabel.setValue('count');
-      countValue.setValue(window.song.getCount().toString());
+      try { 
+        countValue.setValue(window.song.getCount().toString());
+      } catch (e) {
+        console.log("could not get count from window.song");
+      }
       sigLabel.setValue('sig');
-      sigValue.setValue(window.song.getTimeSig());
+      try {
+        sigValue.setValue(window.song.getTimeSig());
+      } catch (e) {
+        console.log("could not get timesig from window.song");
+      }
       sectionLabel.setValue('section');
-      sectionValue.setValue(window.song.getSectionName());
+      try {
+        sectionValue.setValue(window.song.getSectionName());
+      } catch (e) {
+        console.log("could not get section name from window.song");
+      }
       drawUpArrow();
       drawDownArrow();
-    } catch(e) {
-      console.log("song not yet created");
-    }
     requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);

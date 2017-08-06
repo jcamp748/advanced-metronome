@@ -43,8 +43,8 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
   }
 
   function populateMeasures() {
+    measures = [];
     for(var section in metronomeData) {
-      console.log(section);
       var count = parseInt(metronomeData[section]["count"]);
       for(var i = 0; i < count; i++) {
         measures.push(metronomeData[section]);
@@ -56,7 +56,6 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     currentMeasure = metronomeData[measureNumber];
     measure = measureNumber;
   }
-
 
   worker.onmessage = function(e){
     console.log("hello from song.js");
@@ -74,6 +73,12 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     getCount: function() { return currentMeasure["count"]; },
     getTimeSig: function() { return currentMeasure["timeSig"]; },
     getSectionName: function() { return currentMeasure["section"]; },
+    getMeasureNumber: function() { return measures.indexOf(currentMeasure);},
+    getMeasureData: function() {return currentMeasure;},
+    
+    // utitlity method for testing song object
+    refresh: function() { populateMeasures(); loadMeasure(0); },
+
 
     save: function() {
       // write xhr request code here
