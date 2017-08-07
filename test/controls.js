@@ -54,8 +54,7 @@ QUnit.test( "verify control functionality", function( assert ) {
     }
   };
 
-  window.song.metronomeData = testObj;
-  window.song.refresh();
+  window.song.loadTestData(testObj);
 
   // make sure window.song object exists
   var skipBackButton = $("#skipBackButton");

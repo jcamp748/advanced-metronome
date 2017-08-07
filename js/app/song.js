@@ -8,12 +8,15 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
   var currentMeasure = {};
   var currentBeat = 0;
 
-  function loadData() {
+  function loadData(data) {
+    if(data) {
+      this.metronomeData = data;
+    }
     var success = false;
     console.log("xhr request for data");
     if(!success) {
       // request failed, fill with dummy data
-      return {
+      this.metronomeData = {
         "0" : {
           "timesig" : "4/4",
           "tempo" : "100",
@@ -44,16 +47,17 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
 
   function populateMeasures() {
     measures = [];
-    for(var section in metronomeData) {
-      var count = parseInt(metronomeData[section]["count"]);
+    for(var section in this.metronomeData) {
+      var count = parseInt(this.metronomeData[section]["count"]);
       for(var i = 0; i < count; i++) {
-        measures.push(metronomeData[section]);
+        measures.push(this.metronomeData[section]);
       }
     }
   }
 
   function loadMeasure(measureNumber) {
-    currentMeasure = metronomeData[measureNumber];
+    debugger
+    currentMeasure = this.metronomeData[measureNumber];
     measure = measureNumber;
   }
 
@@ -62,12 +66,11 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     this.notify();
   };
 
-  metronomeData = loadData();
+  loadData();
   populateMeasures();
   loadMeasure(0);
 
   return {
-    metronomeData: metronomeData,
     getBeat: function() { return currentBeat; },
     getTempo: function() { return currentMeasure["tempo"]; },
     getCount: function() { return currentMeasure["count"]; },
@@ -77,16 +80,11 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     getMeasureData: function() {return currentMeasure;},
     
     // utitlity method for testing song object
-    refresh: function() {
-      time = 0.0;
-      measure = 0;
-      measures = [];
-      currentMeasure = {};
-      currentBeat = 0;
-      populateMeasures(); 
-      loadMeasure(0); 
+    loadTestData: function(data) {
+      loadData(data);
+      populateMeasures();
+      loadMeasure(0);
     },
-
 
     save: function() {
       // write xhr request code here
@@ -95,9 +93,12 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     },
 
     skipBack: function() {
+      debugger
       var i = measures.indexOf(currentMeasure);
       if(i > 0) {
         loadMeasure(--i);
+      } else {
+        loadMeasure(i);
       }
       this.notify(this);
     },
@@ -128,6 +129,8 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
       var i = measures.indexOf(currentMeasure);
       if(i < measures.length - 1) {
         loadMeasure(++i);
+      } else {
+        loadMeasure(i);
       }
       this.notify(this);
     },

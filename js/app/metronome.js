@@ -251,7 +251,6 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
       var thickness = 25;
       roundedRect(0, 0, 600, 400, 12, "black");
       roundedRect(thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
-      debugger
       try { 
         beatValue.setValue(window.song.getBeat().toString());
       } catch (e) {
