@@ -1,4 +1,6 @@
-define(["app/song"], function(song){
+define(["qunit"], function(QUnit){
+  QUnit.config.autostart = false;
+  QUnit.start();
   QUnit.test( "verify control functionality", function( assert ) {
 
     // form should start out hidden

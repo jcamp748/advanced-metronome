@@ -8,35 +8,12 @@
     <link rel="stylesheet" href="css/advancedMetronome.css">
     <!-- Latest compiled and minified CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
-    <script src="https://code.jquery.com/qunit/qunit-2.0.0.js"></script>
+    <!--<script src="https://code.jquery.com/qunit/qunit-2.0.0.js"></script>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
   </head>
   <body>
     <div id="metronome-wrapper" class='container'>
-      <script>
-        window.metronomeData = {
-          "0" : {
-            "timesig" : "4/4",
-            "tempo" : "100",
-            "count" : "2",
-            "section" : "riff a"
-          },
-          "1" : {
-            "timesig" : "3/4",
-            "tempo" : "200",
-            "count" : "3",
-            "section" : "riff b"
-          },
-          "2" : {
-            "timesig" : "4/4",
-            "tempo" : "120",
-            "count" : "2",
-            "section" : "riff c"
-          }
-        };
-      
-      </script>
       <div id='display-wrapper'>
         <canvas id='metronome-canvas' height='400' width='600'></canvas>
       </div>
@@ -117,13 +94,13 @@
     <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="js/config.js"></script>
     <script src='js/lib/require.js'></script>
-    <script>
-      QUnit.config.autostart = false; 
-    </script>
+    <!--<script>-->
+      <!--QUnit.config.autostart = false; -->
+    <!--</script>-->
     <script type="text/javascript">
       require(["app/main"], function(){
         // do stuff after main loaded
-        QUnit.start(); 
+        //QUnit.start(); 
       }); 
     </script>
     <!--<script type="text/javascript" src="js/SegmentDisplay/segment-display.js"></script>-->
@@ -139,7 +116,7 @@
    
      <!--<script src="test/markup.js"></script>-->
    <!--<script src="test/validator.js"></script>-->
-   <script src="test/controls.js"></script>
+   <!--<script src="test/controls.js"></script>-->
    <!--<script src="test/addRow.js"></script>-->
    <!--<script src="test/deleteRow.js"></script>-->
    <!--<script src="test/includeButton.js"></script> -->

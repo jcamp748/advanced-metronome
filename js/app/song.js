@@ -165,7 +165,6 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     // get the singleton instance if one exists
     // or create one if it doesn't
     getInstance: function(data) {
-      debugger 
       if (!instance || (instance && data)) {
         instance = init(data);
         loadData();
