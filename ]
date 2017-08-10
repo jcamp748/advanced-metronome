@@ -71,6 +71,9 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     var metronomeData = data;
     var currentMeasure = {};
     var currentBeat = 0;
+    if(data) {
+      loadData(data);
+    }
 
     // private methods
     
@@ -81,7 +84,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       getCount: function() { return instance.currentMeasure["count"]; },
       getTimeSig: function() { return instance.currentMeasure["timeSig"]; },
       getSectionName: function() { return instance.currentMeasure["section"]; },
-      getMeasureNumber: function() { return instance.measure;},
+      getMeasureNumber: function() { return instance.measures.indexOf(instance.currentMeasure);},
       getMeasureData: function() {return instance.currentMeasure;},
       
       save: function() {
@@ -97,6 +100,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         } else {
           loadMeasure(i);
         }
+        debugger;
         instance.notify(instance);
       },
 
@@ -124,7 +128,6 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       skipForward: function() {
         var i = instance.measures.indexOf(instance.currentMeasure);
-        debugger
         if(i < instance.measures.length - 1) {
           loadMeasure(++i);
         } else {
@@ -162,7 +165,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     getInstance: function(data) {
       if (!instance || (instance && data)) {
         instance = init(data);
-        loadData(data);
+        //loadData(data);
         populateMeasures();
         loadMeasure(0);
         instance =  _.extend(instance, subject);

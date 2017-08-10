@@ -86,10 +86,10 @@ define(["qunit", "app/song"], function(QUnit, song){
     assert.deepEqual(window.song.getMeasureData(), testObj[2], "should be chorus data");
     skipForwardButton.trigger("click");
     assert.equal(window.song.getMeasureNumber(), 3, "should be on measure 3 now");
-    assert.deepEqual(window.song.getMeasureData(), testObj[2], "should be chorus data");
+    assert.deepEqual(window.song.getMeasureData(), testObj[3], "should be chorus data");
     skipForwardButton.trigger("click");
     assert.equal(window.song.getMeasureNumber(), 4, "should be on measure 4 now");
-    assert.deepEqual(window.song.getMeasureData(), testObj[3], "should be outro data");
+    assert.deepEqual(window.song.getMeasureData(), testObj[4], "should be outro data");
     skipForwardButton.trigger("click");
     assert.equal(window.song.getMeasureNumber(), 4, "should still be on measure 4");
     assert.deepEqual(window.song.getMeasureData(), testObj[3], "should still be outro data");
