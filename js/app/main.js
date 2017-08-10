@@ -1,9 +1,9 @@
 // this is the entry point for the entire application
 
-define(["app/metronome", "app/metronomeTable", "app/song", "app/subject", "test/controls"], function(metronome, table, song, subject, test){
+define(["app/metronome", "app/metronomeTable", "app/song", "test/controls"], function(metronome, table, song, test){
 
   //// define global metronome data object before anything else
-  window.song = _.extend(song.getInstance(), subject);
+  window.song = song.getInstance();
 
   //// add metronome as an observer to the song
   window.song.addObserver(metronome);

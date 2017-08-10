@@ -1,4 +1,4 @@
-define(["worker!app/metronomeWorker.js"], function(worker) {
+define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
 
   var instance = null;
 
@@ -11,7 +11,7 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     if(!success) {
       // request failed, fill with dummy data
       // this === window, this needs to be fixed
-      this.metronomeData = {
+      instance.metronomeData = {
         "0" : {
           "timesig" : "4/4",
           "tempo" : "100",
@@ -41,23 +41,23 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
   }
 
   function populateMeasures() {
-    measures = [];
-    for(var section in this.metronomeData) {
-      var count = parseInt(this.metronomeData[section]["count"]);
+    instance.measures = [];
+    for(var section in instance.metronomeData) {
+      var count = parseInt(instance.metronomeData[section]["count"]);
       for(var i = 0; i < count; i++) {
-        measures.push(this.metronomeData[section]);
+        instance.measures.push(instance.metronomeData[section]);
       }
     }
   }
 
   function loadMeasure(measureNumber) {
-    currentMeasure = this.metronomeData[measureNumber];
-    measure = measureNumber;
+    instance.currentMeasure = instance.metronomeData[measureNumber];
+    instance.measure = measureNumber;
   }
 
   worker.onmessage = function(e){
     console.log("hello from song.js");
-    this.notify();
+    instance.notify(this);
   };
 
   function init(data) {
@@ -75,13 +75,13 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     
     // return public methods and variables
     return {
-      getBeat: function() { return currentBeat; },
-      getTempo: function() { return currentMeasure["tempo"]; },
-      getCount: function() { return currentMeasure["count"]; },
-      getTimeSig: function() { return currentMeasure["timeSig"]; },
-      getSectionName: function() { return currentMeasure["section"]; },
-      getMeasureNumber: function() { return measures.indexOf(currentMeasure);},
-      getMeasureData: function() {return currentMeasure;},
+      getBeat: function() { return instance.currentBeat; },
+      getTempo: function() { return instance.currentMeasure["tempo"]; },
+      getCount: function() { return instance.currentMeasure["count"]; },
+      getTimeSig: function() { return instance.currentMeasure["timeSig"]; },
+      getSectionName: function() { return instance.currentMeasure["section"]; },
+      getMeasureNumber: function() { return instance.measures.indexOf(instance.currentMeasure);},
+      getMeasureData: function() {return instance.currentMeasure;},
       
       // utitlity method for testing song object
       loadTestData: function(data) {
@@ -93,69 +93,70 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
       save: function() {
         // write xhr request code here
         console.log("saved to server");
-        this.notify(this);
+        instance.notify(instance);
       },
 
       skipBack: function() {
-        var i = measures.indexOf(currentMeasure);
+        var i = instance.measures.indexOf(instance.currentMeasure);
         if(i > 0) {
           loadMeasure(--i);
         } else {
           loadMeasure(i);
         }
-        this.notify(this);
+        debugger;
+        instance.notify(instance);
       },
 
       rewind: function() {
         console.log("rewind metronome");
-        this.notify(this);
+        instance.notify(instance);
       },
 
       play: function() {
         console.log("play song");
         worker.postMessage("start");
-        this.notify(this);
+        instance.notify(instance);
       },
 
       pause: function() {
         console.log("pause song");
         worker.postMessage("pause");
-        this.notify(this);
+        instance.notify(instance);
       },
 
       fastForward: function() {
         console.log("fast forward");
-        this.notify(this);
+        instance.notify(instance);
       },
 
       skipForward: function() {
-        var i = measures.indexOf(currentMeasure);
-        if(i < measures.length - 1) {
+        var i = instance.measures.indexOf(instance.currentMeasure);
+        if(i < instance.measures.length - 1) {
           loadMeasure(++i);
         } else {
           loadMeasure(i);
         }
-        this.notify(this);
+        instance.notify(instance);
       },
 
       reset: function() {
         console.log("reset to beginning of song");
-        this.notify(this);
+        instance.notify(instance);
       },
 
       seekTo: function() {
         console.log("seek in song");
-        this.notify(this);
+        instance.notify(instance);
       },
 
       increaseTempo: function() {
         tempo++;
-        this.notify(this);
+        instance.notify(instance);
       },
 
       decreaseTempo: function() {
         tempo--;
-        this.notify(this);
+        instance.notify(instance);
       },
     };
 
@@ -170,6 +171,8 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
         loadData();
         populateMeasures();
         loadMeasure(0);
+        instance =  _.extend(instance, subject);
+
       }
       return instance;
     }

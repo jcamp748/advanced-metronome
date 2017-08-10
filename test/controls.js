@@ -57,7 +57,6 @@ define(["qunit", "app/song"], function(QUnit, song){
     };
 
     window.song = song.getInstance(testObj);
-    debugger
 
     // make sure window.song object exists
     var skipBackButton = $("#skipBackButton");
