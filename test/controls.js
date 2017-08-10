@@ -1,4 +1,4 @@
-define(["qunit"], function(QUnit){
+define(["qunit", "app/song"], function(QUnit, song){
   QUnit.config.autostart = false;
   QUnit.start();
   QUnit.test( "verify control functionality", function( assert ) {
@@ -56,8 +56,8 @@ define(["qunit"], function(QUnit){
       }
     };
 
-    debugger
     window.song = song.getInstance(testObj);
+    debugger
 
     // make sure window.song object exists
     var skipBackButton = $("#skipBackButton");

@@ -282,7 +282,7 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
       }
       drawUpArrow();
       drawDownArrow();
-    //requestAnimationFrame(draw);
+    requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
 
