@@ -76,7 +76,8 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     
     // return public methods and variables
     return {
-      getBeat: function() { return instance.currentBeat; },
+      // decide whether to use functions or just vars
+      getBeat: currentBeat,
       getTempo: function() { return instance.currentMeasure["tempo"]; },
       getCount: function() { return instance.currentMeasure["count"]; },
       getTimeSig: function() { return instance.currentMeasure["timeSig"]; },
@@ -124,7 +125,6 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       skipForward: function() {
         var i = instance.measures.indexOf(instance.currentMeasure);
-        debugger
         if(i < instance.measures.length - 1) {
           loadMeasure(++i);
         } else {
