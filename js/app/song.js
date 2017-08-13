@@ -1,5 +1,5 @@
 define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
-
+  debugger
   var instance = null;
 
   function loadData(data) {
@@ -52,14 +52,14 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   }
 
   function loadMeasure(measureNumber) {
-    instance.currentMeasure = instance.metronomeData[measureNumber];
+    instance.currentMeasure = instance.measures[measureNumber];
     instance.measure = measureNumber;
   }
 
-  worker.onmessage = function(e){
-    console.log("hello from song.js");
-    instance.notify(this);
-  };
+  //worker.onmessage = function(e){
+    //console.log("hello from song.js");
+    //instance.notify(this);
+  //};
 
   function init(data) {
     data = data || null;
@@ -77,7 +77,13 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     // return public methods and variables
     return {
       // decide whether to use functions or just vars
-      getBeat: currentBeat,
+      getBeat: function() { 
+        if(instance.currentBeat === undefined) {
+          instance.currentBeat = currentBeat;
+        } else {
+          return instance.currentBeat; 
+        }
+      },
       getTempo: function() { return instance.currentMeasure["tempo"]; },
       getCount: function() { return instance.currentMeasure["count"]; },
       getTimeSig: function() { return instance.currentMeasure["timeSig"]; },
@@ -92,7 +98,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       },
 
       skipBack: function() {
-        var i = instance.measures.indexOf(instance.currentMeasure);
+        var i = instance.measure
         if(i > 0) {
           loadMeasure(--i);
         } else {
@@ -108,13 +114,13 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       play: function() {
         console.log("play song");
-        worker.postMessage("start");
+        //worker.postMessage("start");
         instance.notify(instance);
       },
 
       pause: function() {
         console.log("pause song");
-        worker.postMessage("pause");
+        //worker.postMessage("pause");
         instance.notify(instance);
       },
 
@@ -124,7 +130,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       },
 
       skipForward: function() {
-        var i = instance.measures.indexOf(instance.currentMeasure);
+        var i = instance.measure
         if(i < instance.measures.length - 1) {
           loadMeasure(++i);
         } else {
@@ -165,9 +171,8 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         loadData(data);
         populateMeasures();
         loadMeasure(0);
-        instance =  _.extend(instance, subject);
-
       }
+      instance = _.extend(instance, subject);
       return instance;
     }
 

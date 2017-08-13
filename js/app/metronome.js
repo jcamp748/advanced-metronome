@@ -252,7 +252,7 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
       roundedRect(0, 0, 600, 400, 12, "black");
       roundedRect(thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
       try { 
-        beatValue.setValue(window.song.getBeat.toString());
+        beatValue.setValue(window.song.getBeat().toString());
       } catch (e) {
         console.log("could not get beat from window.song");
       }
