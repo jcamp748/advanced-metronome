@@ -1,5 +1,4 @@
 define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
-  debugger
   var instance = null;
 
   function loadData(data) {
@@ -130,7 +129,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       },
 
       skipForward: function() {
-        var i = instance.measure
+        var i = instance.measure;
         if(i < instance.measures.length - 1) {
           loadMeasure(++i);
         } else {
@@ -141,6 +140,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       reset: function() {
         console.log("reset to beginning of song");
+        loadMeasure(0);
         instance.notify(instance);
       },
 
