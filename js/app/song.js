@@ -1,5 +1,4 @@
 define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
-  //var instance = {};
   var instance = null; 
 
   function loadData(data) {
@@ -82,13 +81,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     // return public methods and variables
     return {
       // decide whether to use functions or just vars
-      getBeat: function() { 
-        //if(instance.currentBeat === undefined) {
-          //instance.currentBeat = currentBeat;
-        //} else {
-          return instance.currentBeat; 
-        //}
-      },
+      getBeat: function() { return instance.currentBeat; },
       getTempo: function() { return instance.currentMeasure["tempo"]; },
       getCount: function() { return instance.currentMeasure["count"]; },
       getTimeSig: function() { return instance.currentMeasure["timeSig"]; },
