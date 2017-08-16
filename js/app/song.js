@@ -1,5 +1,6 @@
 define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
-  var instance = null;
+  //var instance = {};
+  var instance = null; 
 
   function loadData(data) {
     if(data) {
@@ -53,6 +54,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   function loadMeasure(measureNumber) {
     instance.currentMeasure = instance.measures[measureNumber];
     instance.measure = measureNumber;
+    instance.currentBeat = 0;
   }
 
   //worker.onmessage = function(e){
@@ -63,13 +65,17 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   function init(data) {
     data = data || null;
     // private variables
-    var time = 0.0;
-    var measure = 0;
-    var observers = null;
-    var measures = [];
-    var metronomeData = data;
-    var currentMeasure = {};
-    var currentBeat = 0;
+    try {
+      instance.time = 0.0;
+      instance.measure = 0;
+      instance.observers = null;
+      instance.measures = [];
+      instance.metronomeData = data;
+      instance.currentMeasure = {};
+      instance.currentBeat = 0;
+    } catch(e) {
+      console.log(e); 
+    }
 
     // private methods
     
@@ -77,11 +83,11 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     return {
       // decide whether to use functions or just vars
       getBeat: function() { 
-        if(instance.currentBeat === undefined) {
-          instance.currentBeat = currentBeat;
-        } else {
+        //if(instance.currentBeat === undefined) {
+          //instance.currentBeat = currentBeat;
+        //} else {
           return instance.currentBeat; 
-        }
+        //}
       },
       getTempo: function() { return instance.currentMeasure["tempo"]; },
       getCount: function() { return instance.currentMeasure["count"]; },

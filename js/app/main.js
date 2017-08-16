@@ -4,17 +4,12 @@ define(["app/metronome", "app/metronomeTable", "app/song", "test/controls"], fun
 
   //// define global metronome data object before anything else
   window.song = song.getInstance();
-  //window.song = _.extend(window.song, subject);
 
 
   //// add metronome as an observer to the song
   window.song.addObserver(metronome);
-  //window.song.notify(window.song);
-  //window.song.pause();
-
 
   // logic for metronome controls
-
   $("#skipBackButton").click(function(){
     window.song.skipBack();
   });
