@@ -31,8 +31,8 @@ define(function(){
     // use window.metronomeData to generate table
     $("#metronomeTable").append(generateHead());
     $("#metronomeTable").append($('<tbody></tbody>'));
-    for(var section in window.metronomeData) {
-      addRow(generateRow(window.metronomeData[section]));
+    for(var section in window.song.metronomeData) {
+      addRow(generateRow(window.song.metronomeData[section]));
     }
   }
 
@@ -78,7 +78,7 @@ define(function(){
       // populate form with data from section
       $row.addClass("highlight");
       $("#metronomeForm .form-group").each(function(index, el){
-        var section = window.metronomeData[getIndex($row)];
+        var section = window.song.metronomeData[getIndex($row)];
         var value = section[Object.keys(section)[index]];
         $(this).children(":nth-child(2)").val(value);
 
@@ -101,14 +101,14 @@ define(function(){
       3: ":nth-child(4)"
     };
 
-    var oldData = window.metronomeData[rowIndex];
+    var oldData = window.song.metronomeData[rowIndex];
     var newData = oldData;
 
     for(var key in oldData) {
       newData[key] = $form.children(selectors[i]).children(":nth-child(2)").val();
       i++;
     }
-    window.metronomeData[rowIndex] = newData;
+    window.song.metronomeData[rowIndex] = newData;
     return rowIndex;
   }
 
@@ -143,16 +143,16 @@ define(function(){
       // get index of highlighted row
       var index = getIndex($("tr.highlight"));
       // remove data from global object
-      delete window.metronomeData[index];
+      delete window.song.metronomeData[index];
       // change the indices of remaining keys in the object
-      var numberOfKeys = Object.keys(window.metronomeData).length;
+      var numberOfKeys = Object.keys(window.song.metronomeData).length;
       var data = {};
       var i = 0;
-      for(var key in window.metronomeData) {
-        data[i] = window.metronomeData[key];
+      for(var key in window.song.metronomeData) {
+        data[i] = window.song.metronomeData[key];
         i++;
       }
-      window.metronomeData = data;
+      window.song.metronomeData = data;
       update();
     },
 

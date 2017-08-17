@@ -80,7 +80,6 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     
     // return public methods and variables
     return {
-      // decide whether to use functions or just vars
       getBeat: function() { return instance.currentBeat; },
       getTempo: function() { return instance.currentMeasure["tempo"]; },
       getCount: function() { return instance.currentMeasure["count"]; },

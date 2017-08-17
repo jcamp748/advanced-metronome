@@ -254,31 +254,31 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
       try { 
         beatValue.setValue(window.song.getBeat().toString());
       } catch (e) {
-        console.log("could not get beat from window.song");
+        //console.log("could not get beat from window.song");
       }
       tempoLabel.setValue('tempo');
       try {
         tempoValue.setValue(window.song.getTempo().toString());
       } catch (e) {
-        console.log("could  not get tempo from window.song");
+        //console.log("could  not get tempo from window.song");
       }
       countLabel.setValue('count');
       try { 
         countValue.setValue(window.song.getCount().toString());
       } catch (e) {
-        console.log("could not get count from window.song");
+        //console.log("could not get count from window.song");
       }
       sigLabel.setValue('sig');
       try {
         sigValue.setValue(window.song.getTimeSig());
       } catch (e) {
-        console.log("could not get timesig from window.song");
+        //console.log("could not get timesig from window.song");
       }
       sectionLabel.setValue('section');
       try {
         sectionValue.setValue(window.song.getSectionName());
       } catch (e) {
-        console.log("could not get section name from window.song");
+        //console.log("could not get section name from window.song");
       }
       drawUpArrow();
       drawDownArrow();

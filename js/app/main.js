@@ -1,6 +1,6 @@
 // this is the entry point for the entire application
 
-define(["app/metronome", "app/metronomeTable", "app/song", "test/controls"], function(metronome, table, song, test){
+define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], function(metronome, table, song, test){
 
   //// define global metronome data object before anything else
   window.song = song.getInstance();

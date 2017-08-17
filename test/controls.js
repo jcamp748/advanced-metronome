@@ -1,6 +1,6 @@
 define(["qunit", "app/song"], function(QUnit, song){
-  QUnit.config.autostart = false;
-  QUnit.start();
+  //QUnit.config.autostart = false;
+  //QUnit.start();
   QUnit.test( "verify control functionality", function( assert ) {
     var testObj = {
       "0" : {
