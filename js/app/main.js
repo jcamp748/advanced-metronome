@@ -4,6 +4,7 @@ define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], fun
 
   //// define global metronome data object before anything else
   window.song = song.getInstance();
+  table.initialize();
 
 
   //// add metronome as an observer to the song
