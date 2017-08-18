@@ -65,6 +65,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     }
 
     window.song = song.getInstance(testObj);
+    table.initialize();
     // make sure window.song object exists
     assert.notEqual(window.song, undefined, "window.song exists");
     assert.equal( window.song.measures.length, 7, "song starts with 7 measures");
