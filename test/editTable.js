@@ -81,6 +81,31 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     assert.ok($secondRow.hasClass("highlight"), "the second row is highlighted");
     assert.ok(verifyForm(), "form data matches row data");
 
+    // test adding and removing sections
+    //
+    // test create
+    var mySection = {
+        "timesig" : "4/4",
+        "tempo" : "100",
+        "count" : "10",
+        "section" : "my section"
+      };
+    var createdSection = table.create();
+    assert.deepEqual(createdSection, mySection, "should have created new dummy section");
+    // test unshift
+    var firstSection = {
+        "timesig" : "2/4",
+        "tempo" : "220",
+        "count" : "3",
+        "section" : "my first section"
+      };
+    table.unshift(firstSection);
+    // test push
+    // test insert
+    // test deleteRow
+    // test updateRow
+    
+
 
 
   });
