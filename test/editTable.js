@@ -64,10 +64,17 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
       return match;
     }
 
+    // utility method for getting a measure from metronomeData
     function getMeasure(index) {
       return window.song.metronomeData[index];
     }
 
+    // utility method for getting last index from metronomeData
+    function getLastIndex() {
+      return Object.keys(window.song.metronomeData).length;
+    }
+
+    // initialize test data
     window.song = song.getInstance(testObj);
     table.initialize();
     // make sure window.song object exists
@@ -96,6 +103,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
       };
     var createdSection = table.create();
     assert.deepEqual(createdSection, mySection, "should have created new dummy section");
+
     // test unshift
     var firstSection = {
         "timesig" : "2/4",
@@ -105,7 +113,10 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
       };
     table.unshift(firstSection);
     assert.deepEqual(getMeasure(1), firstSection, "unshift first section");
+    assert.deepEqual(getMeasure(0), leadIn, "lead in should be the same");
+
     // test push
+    var leadIn = getMeasure(0);
     var pushSection = {
         "timesig" : "7/4",
         "tempo" : "250",
@@ -113,13 +124,9 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
         "section" : "my push section"
       };
     table.push(pushSection);
-
-    // utility method for getting last index from metronomeData
-    function getLastIndex() {
-      return Object.keys(window.song.metronomeData).length;
-    }
-
     assert.deepEqual(getMeasure(getLastIndex()), pushSection, "last section should be push section");
+    assert.deepEqual(getMeasure(0), leadIn, "lead in should be the same");
+    
     // test insert
     var insertSection = {
         "timesig" : "5/8",
@@ -131,18 +138,22 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     var oldMeasure7 = getMeasure(7);
     var lastMeasure = getMeasure(getLastIndex());
     table.insert(insertSection, 7);
+    assert.deepEqual(getMeasure(0), leadIn, "lead in should be the same");
     assert.deepEqual(getMeasure(7), insertSection, "insertSection should be at index 7");
     assert.deepEqual(getMeasure(8), oldMeasure7, "section seven should now be 8"); 
     assert.deepEqual(getMeasure(6), oldMeasure6, "section six should be the same as it was");
     assert.deepEqual(getMeasure(getLastIndex()), lastMeasure, "last measure should be the same");
+
     // test deleteRow
     var oldMeasure2 = getMeasure(2);
     lastMeasure = getMeasure(getLastIndex());
     // delete 'my first section'
     $("#metronomeTable tbody").children(":nth-child(2)").click();  
     table.deleteRow();
+    assert.deepEqual(getMeasure(0), leadIn, "lead in should be the same");
     assert.deepEqual(getMeasure(1), oldMeasure2, "measure 2 should now be 1");
     assert.deepEqual(getMeasure(getLastIndex()), lastMeasure, "last measure should still be the same");
+
     // test updateRow
     
 
