@@ -169,10 +169,28 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     assert.equal(countData, $firstRow.children(":nth-child(3)").text(), "count data should match");
     assert.equal(sectionData, $firstRow.children(":nth-child(4)").text(), "section data should match");
     // change data in fields
+    var myTestData = {
+      "timesig" : "5/8",
+      "tempo" : "333",
+      "count" : "1",
+      "section" : "new section"
+    };
+    $("#timeInput").val(myTestData.timesig);
+    $("#tempoInput").val(myTestData.tempo);
+    $("#countInput").val(myTestData.count);
+    $("#sectionInput").val(myTestData.section);
     // click update
+    $("#updateRowButton").click();
     // assert data in table
-    // change data in fields
-    // click update
+    timesigData = $("#timeInput").val();
+    tempoData = $("#tempoInput").val();
+    countData = $("#countInput").val();
+    sectionData = $("#sectionInput").val();
+    assert.equal(timesigData, $firstRow.children(":nth-child(1)").text(), "timesig data should match");
+    assert.equal(tempoData, $firstRow.children(":nth-child(2)").text(), "tempo data should match");
+    assert.equal(countData, $firstRow.children(":nth-child(3)").text(), "count data should match");
+    assert.equal(sectionData, $firstRow.children(":nth-child(4)").text(), "section data should match");
+    // click save 
     // assert data in table
     // assert data in metronomeData
     
