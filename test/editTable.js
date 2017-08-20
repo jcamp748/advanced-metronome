@@ -66,12 +66,12 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
 
     // utility method for getting a measure from metronomeData
     function getMeasure(index) {
-      return window.song.metronomeData[index];
+      return window.song.measures[index];
     }
 
     // utility method for getting last index from metronomeData
     function getLastIndex() {
-      return Object.keys(window.song.metronomeData).length;
+      return Object.keys(window.song.measures.length);
     }
 
     // initialize test data
@@ -155,6 +155,26 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     assert.deepEqual(getMeasure(getLastIndex()), lastMeasure, "last measure should still be the same");
 
     // test updateRow
+    $firstRow = $("#metronomeTable tbody").children(":nth-child(1)");
+    $firstRow.click();
+    // assert row highlighted
+    assert.ok($firstRow.hasClass("highlight"), "third row should be highlighted");
+    // verify data in fields
+    var timesigData = $("#timeInput").val();
+    var tempoData = $("#tempoInput").val();
+    var countData = $("#countInput").val();
+    var sectionData = $("#sectionInput").val();
+    assert.equal(timesigData, $firstRow.children(":nth-child(1)").text(), "timesig data should match");
+    assert.equal(tempoData, $firstRow.children(":nth-child(2)").text(), "tempo data should match");
+    assert.equal(countData, $firstRow.children(":nth-child(3)").text(), "count data should match");
+    assert.equal(sectionData, $firstRow.children(":nth-child(4)").text(), "section data should match");
+    // change data in fields
+    // click update
+    // assert data in table
+    // change data in fields
+    // click update
+    // assert data in table
+    // assert data in metronomeData
     
 
 
