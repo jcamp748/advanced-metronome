@@ -94,6 +94,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
 
     // test adding and removing sections
     //
+    assert.equal(window.song.measures.length, 7, "should start with 7 measures");
     // test create
     var mySection = {
         "timesig" : "4/4",
@@ -106,17 +107,25 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
 
     // test unshift
     var firstSection = {
-        "timesig" : "2/4",
-        "tempo" : "220",
-        "count" : "1",
-        "section" : "my first section"
-      };
+      "timesig" : "2/4",
+      "tempo" : "220",
+      "count" : "1",
+      "section" : "my first section"
+    };
+    var newLeadIn = {
+      "timesig" : "2/4",
+      "tempo" : "220",
+      "count" : "1",
+      "section" : "lead in"
+    };
+    var oldMeasure1 = getMeasure(1);
     table.unshift(firstSection);
     assert.deepEqual(getMeasure(1), firstSection, "unshift first section");
-    assert.deepEqual(getMeasure(0), leadIn, "lead in should be the same");
+    assert.deepEqual(getMeasure(0), newLeadIn, "lead in should have changed tempo and timesig");
+    assert.deepEqual(getMeasure(2), oldMeasure1, "measure 2 should be old measure 1");
+    assert.equal(window.song.measures.length, 8, "should be 8 measures");
 
     // test push
-    var leadIn = getMeasure(0);
     var pushSection = {
         "timesig" : "7/4",
         "tempo" : "250",
@@ -125,40 +134,58 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
       };
     table.push(pushSection);
     assert.deepEqual(getMeasure(getLastIndex()), pushSection, "last section should be push section");
-    assert.deepEqual(getMeasure(0), leadIn, "lead in should be the same");
+    assert.equal(window.song.measures.length, 9, "should be 9 measures");
     
     // test insert
     var insertSection = {
         "timesig" : "5/8",
         "tempo" : "123",
-        "count" : "1",
-        "section" : "my first section"
+        "count" : "2",
+        "section" : "my insert section"
       };
-    var oldMeasure6 = getMeasure(6);
-    var oldMeasure7 = getMeasure(7);
+    var oldMeasure4 = getMeasure(4);
+    var oldMeasure5 = getMeasure(5);
     var lastMeasure = getMeasure(getLastIndex());
-    table.insert(insertSection, 7);
+    var leadIn = getMeasure(0);
+    table.insert(insertSection, 4);
     assert.deepEqual(getMeasure(0), leadIn, "lead in should be the same");
-    assert.deepEqual(getMeasure(7), insertSection, "insertSection should be at index 7");
-    assert.deepEqual(getMeasure(8), oldMeasure7, "section seven should now be 8"); 
-    assert.deepEqual(getMeasure(6), oldMeasure6, "section six should be the same as it was");
-    assert.deepEqual(getMeasure(getLastIndex()), lastMeasure, "last measure should be the same");
+    assert.deepEqual(getMeasure(4), oldMeasure4, "measure 4 should be unchanged");
+    assert.deepEqual(getMeasure(5), insertSection, "section 5 should be insert section");
+    assert.deepEqual(getMeasure(6), insertSection, "section 6 should be insert section");
+    assert.deepEqual(getMeasure(7), oldMeasure5, "section 7 should be old measure 5");
+    assert.equal(window.song.measures.length, 11, "should be 11 measures");
 
     // test deleteRow
     var oldMeasure2 = getMeasure(2);
-    lastMeasure = getMeasure(getLastIndex());
+    newLeadIn = {
+      "timesig" : "4/4/",
+      "tempo" : "100",
+      "count" : "1",
+      "section" : "lead in"
+    };
+
     // delete 'my first section'
     $("#metronomeTable tbody").children(":nth-child(2)").click();  
     table.deleteRow();
-    assert.deepEqual(getMeasure(0), leadIn, "lead in should be the same");
+    assert.deepEqual(getMeasure(0), newLeadIn, "lead in should different now");
     assert.deepEqual(getMeasure(1), oldMeasure2, "measure 2 should now be 1");
-    assert.deepEqual(getMeasure(getLastIndex()), lastMeasure, "last measure should still be the same");
+    assert.equal(window.song.measures.length, 11, "should be 10 measures");
+    // delete 'chorus'
+    oldMeasure4 = getMeasure(4);
+    oldMeasure6 = getMeasure(6);
+    $("#metronomeTable tbody").children(":nth-child(3)").click();
+    table.deleteRow();
+    assert.deepEqual(getMeasure(2), oldMeasure4, "measure 2 should be old measure 4");
+    assert.deepEqual(getMeasure(3), oldMeasure4, "measure 3 should be old measure 5");
+    assert.deepEqual(getMeasure(4), oldMeasure6, "measure 4 should be old measure 6");
+    assert.equal(window.song.measures.length, 11, "should be 8 measures");
+
 
     // test updateRow
     $firstRow = $("#metronomeTable tbody").children(":nth-child(1)");
     $firstRow.click();
     // assert row highlighted
-    assert.ok($firstRow.hasClass("highlight"), "third row should be highlighted");
+    assert.ok($firstRow.hasClass("highlight"), "first row should be highlighted");
     // verify data in fields
     var timesigData = $("#timeInput").val();
     var tempoData = $("#tempoInput").val();
@@ -190,12 +217,12 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     assert.equal(tempoData, $firstRow.children(":nth-child(2)").text(), "tempo data should match");
     assert.equal(countData, $firstRow.children(":nth-child(3)").text(), "count data should match");
     assert.equal(sectionData, $firstRow.children(":nth-child(4)").text(), "section data should match");
-    // click save 
-    // assert data in table
     // assert data in metronomeData
-    
-
-
+    var measure1 = getMeasure(1);
+    assert.equal(measure1.timesig, timesigData, "timesig matches in metronomeData");
+    assert.equal(measure1.tempo, tempoData, "timesig matches in metronomeData");
+    assert.equal(measure1.count, countData, "timesig matches in metronomeData");
+    assert.equal(measure1.section, sectionData, "timesig matches in metronomeData");
 
   });
 });
