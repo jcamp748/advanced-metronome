@@ -120,6 +120,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     };
     var oldMeasure1 = getMeasure(1);
     table.unshift(firstSection);
+    debugger;
     assert.deepEqual(getMeasure(1), firstSection, "unshift first section");
     assert.deepEqual(getMeasure(0), newLeadIn, "lead in should have changed tempo and timesig");
     assert.deepEqual(getMeasure(2), oldMeasure1, "measure 2 should be old measure 1");

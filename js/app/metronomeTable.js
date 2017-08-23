@@ -127,7 +127,15 @@ define(function(){
   return {
 
     unshift: function(section) {
-      // add section to front of data array
+      // add section to metronomeData after lead in
+      var len = Object.keys(window.song.metronomeData).length;
+      var oldData = Object.assign({}, window.song.metronomeData);
+      var secondSection = window.song.metronomeData[1];
+      window.song.metronomeData[1] = section;
+      for( var i = 2; i < len + 1; i++) {
+        window.song.metronomeData[i] = oldData[i - 1];
+      }
+      update();
     },
 
     push: function(section) {
