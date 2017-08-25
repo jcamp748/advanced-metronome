@@ -71,7 +71,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
 
     // utility method for getting last index from metronomeData
     function getLastIndex() {
-      return Object.keys(window.song.measures.length);
+      return Object.keys(window.song.measures).length - 1;
     }
 
     // initialize test data
@@ -120,7 +120,6 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     };
     var oldMeasure1 = getMeasure(1);
     table.unshift(firstSection);
-    debugger;
     assert.deepEqual(getMeasure(1), firstSection, "unshift first section");
     assert.deepEqual(getMeasure(0), newLeadIn, "lead in should have changed tempo and timesig");
     assert.deepEqual(getMeasure(2), oldMeasure1, "measure 2 should be old measure 1");
@@ -159,7 +158,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     // test deleteRow
     var oldMeasure2 = getMeasure(2);
     newLeadIn = {
-      "timesig" : "4/4/",
+      "timesig" : "4/4",
       "tempo" : "100",
       "count" : "1",
       "section" : "lead in"
@@ -170,7 +169,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     table.deleteRow();
     assert.deepEqual(getMeasure(0), newLeadIn, "lead in should different now");
     assert.deepEqual(getMeasure(1), oldMeasure2, "measure 2 should now be 1");
-    assert.equal(window.song.measures.length, 11, "should be 10 measures");
+    assert.equal(window.song.measures.length, 10, "should be 10 measures");
     // delete 'chorus'
     oldMeasure4 = getMeasure(4);
     oldMeasure6 = getMeasure(6);
@@ -179,7 +178,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     assert.deepEqual(getMeasure(2), oldMeasure4, "measure 2 should be old measure 4");
     assert.deepEqual(getMeasure(3), oldMeasure4, "measure 3 should be old measure 5");
     assert.deepEqual(getMeasure(4), oldMeasure6, "measure 4 should be old measure 6");
-    assert.equal(window.song.measures.length, 11, "should be 8 measures");
+    assert.equal(window.song.measures.length, 8, "should be 8 measures");
 
 
     // test updateRow
@@ -209,6 +208,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     $("#sectionInput").val(myTestData.section);
     // click update
     $("#updateRowButton").click();
+    $firstRow = $("#metronomeTable tbody").children(":nth-child(1)");
     // assert data in table
     timesigData = $("#timeInput").val();
     tempoData = $("#tempoInput").val();
@@ -221,9 +221,9 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     // assert data in metronomeData
     var measure1 = getMeasure(1);
     assert.equal(measure1.timesig, timesigData, "timesig matches in metronomeData");
-    assert.equal(measure1.tempo, tempoData, "timesig matches in metronomeData");
-    assert.equal(measure1.count, countData, "timesig matches in metronomeData");
-    assert.equal(measure1.section, sectionData, "timesig matches in metronomeData");
+    assert.equal(measure1.tempo, tempoData, "tempo matches in metronomeData");
+    assert.equal(measure1.count, countData, "count matches in metronomeData");
+    assert.equal(measure1.section, sectionData, "section matches in metronomeData");
 
   });
 });

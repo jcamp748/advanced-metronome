@@ -136,15 +136,29 @@ define(function(){
         window.song.metronomeData[i] = oldData[i - 1];
       }
       update();
+      window.song.updateMeasures();
+      window.song.measures[0].tempo = section.tempo;
+      window.song.measures[0].timesig = section.timesig;
     },
 
     push: function(section) {
       // add section to end of array
+      var index = Object.keys(window.song.metronomeData).length;
+      window.song.metronomeData[index] = section;
+      window.song.updateMeasures();
     },
 
     insert: function(section, index) {
       // put SECTION at INDEX and move the rest of the
       // sections up 1 place
+      var len = Object.keys(window.song.metronomeData).length;
+      var oldData = Object.assign({}, window.song.metronomeData);
+      window.song.metronomeData[index] = section;
+      for(var i = index; i < len; i++) {
+        window.song.metronomeData[i + 1] = oldData[i];
+      }
+      window.song.updateMeasures();
+
     },
 
     deleteRow: function() {
@@ -162,6 +176,9 @@ define(function(){
       }
       window.song.metronomeData = data;
       update();
+      window.song.updateMeasures();
+      window.song.measures[0].tempo = window.song.measures[1].tempo;
+      window.song.measures[0].timesig = window.song.measures[1].timesig;
     },
 
     create: function() {
@@ -187,6 +204,15 @@ define(function(){
         generateTable();
         // highlight updated row
         $("#metronomeTable tbody").children(":nth-child(" + rowIndex.toString() + ")").attr("class", "highlight");
+        // we have to add 1 to the index because row 0 is reserved for the lead in section
+        var $row = $("tr.highlight");
+        var index = getIndex($row) + 1;
+        window.song.metronomeData[1].timesig = $row.children(":nth-child(1)").text();
+        window.song.metronomeData[1].tempo = $row.children(":nth-child(2)").text();
+        window.song.metronomeData[1].count = $row.children(":nth-child(3)").text();
+        window.song.metronomeData[1].section = $row.children(":nth-child(4)").text();
+        window.song.updateMeasures();
+
       }
     },
 

@@ -87,6 +87,9 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       getSectionName: function() { return instance.currentMeasure["section"]; },
       getMeasureNumber: function() { return instance.measure;},
       getMeasureData: function() {return instance.currentMeasure;},
+      updateMeasures: function() {
+        populateMeasures();
+      },
       
       save: function() {
         // write xhr request code here
@@ -169,10 +172,10 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         loadData(data);
         populateMeasures();
         loadMeasure(0);
+        instance = _.extend(instance, subject);
       }
-      instance = _.extend(instance, subject);
       return instance;
-    }
+    },
 
   };
 });
