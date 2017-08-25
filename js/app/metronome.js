@@ -1,4 +1,4 @@
-define(["SegmentDisplay/segment-display", "app/song"], function(segmentDisplay) {
+define(["SegmentDisplay/segment-display", "app/song"], function(segmentDisplay, song) {
 
   var ctx = document.getElementById('metronome-canvas').getContext('2d');
 
