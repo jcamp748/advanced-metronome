@@ -3,44 +3,44 @@
 define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], function(metronome, table, song, test){
 
   //// define global metronome data object before anything else
-  window.song = song.getInstance();
+  //window.song = song.getInstance();
   table.initialize();
 
 
   //// add metronome as an observer to the song
-  window.song.addObserver(metronome);
+  song.getInstance().addObserver(metronome);
 
   // logic for metronome controls
   $("#skipBackButton").click(function(){
-    window.song.skipBack();
+    song.getInstance().skipBack();
   });
 
   $("#rewindButton").click(function(){
-    window.song.rewind();
+    song.getInstance().rewind();
   });
 
   $("#playButton").click(function(){
     $(this).attr("disabled", true);
     $("#pauseButton").attr("disabled", false);
-    window.song.play();
+    song.getInstance().play();
   });
 
   $("#pauseButton").click(function(){
     $(this).attr("disabled", true);
     $("#playButton").attr("disabled", false);
-    window.song.pause();
+    song.getInstance().pause();
   });
 
   $("#fastForwardButton").click(function(){
-    window.song.fastForward();
+    song.getInstance().fastForward();
   });
 
   $("#skipForwardButton").click(function(){
-    window.song.skipForward();
+    song.getInstance().skipForward();
   });
 
   $("#resetButton").click(function(){
-    window.song.reset();
+    song.getInstance().reset();
   });
 
   $("#editButton").click(function(){
@@ -56,7 +56,7 @@ define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], fun
   });
 
   $("#saveRowButton").click(function(){
-    window.song.save();
+    song.getInstance().save();
   });
 
   $("#addRowBeforeButton").click(function(){

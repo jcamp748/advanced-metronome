@@ -1,4 +1,4 @@
-define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
+define(["SegmentDisplay/segment-display", "app/song"], function(segmentDisplay) {
 
   var ctx = document.getElementById('metronome-canvas').getContext('2d');
 
@@ -237,10 +237,10 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
 
     if(hoverUp) {
       //console.log("increase tempo");
-      window.song.increaseTempo();
+      song.getInstance().increaseTempo();
     } else if(hoverDown) {
       //console.log("decrease tempo");
-      window.song.decreaseTempo();
+      song.getInstance().decreaseTempo();
     } else {
       //do nothing
     }
@@ -252,33 +252,33 @@ define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
       roundedRect(0, 0, 600, 400, 12, "black");
       roundedRect(thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
       try { 
-        beatValue.setValue(window.song.getBeat().toString());
+        beatValue.setValue(song.getInstance().getBeat().toString());
       } catch (e) {
-        //console.log("could not get beat from window.song");
+        //console.log("could not get beat from song.getInstance()");
       }
       tempoLabel.setValue('tempo');
       try {
-        tempoValue.setValue(window.song.getTempo().toString());
+        tempoValue.setValue(song.getInstance().getTempo().toString());
       } catch (e) {
-        //console.log("could  not get tempo from window.song");
+        //console.log("could  not get tempo from song.getInstance()");
       }
       countLabel.setValue('count');
       try { 
-        countValue.setValue(window.song.getCount().toString());
+        countValue.setValue(song.getInstance().getCount().toString());
       } catch (e) {
-        //console.log("could not get count from window.song");
+        //console.log("could not get count from song.getInstance()");
       }
       sigLabel.setValue('sig');
       try {
-        sigValue.setValue(window.song.getTimeSig());
+        sigValue.setValue(song.getInstance().getTimeSig());
       } catch (e) {
-        //console.log("could not get timesig from window.song");
+        //console.log("could not get timesig from song.getInstance()");
       }
       sectionLabel.setValue('section');
       try {
-        sectionValue.setValue(window.song.getSectionName());
+        sectionValue.setValue(song.getInstance().getSectionName());
       } catch (e) {
-        //console.log("could not get section name from window.song");
+        //console.log("could not get section name from song.getInstance()");
       }
       drawUpArrow();
       drawDownArrow();

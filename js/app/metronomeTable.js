@@ -1,7 +1,7 @@
 // this module is the api for editing the global
 // metronome data structure that the application 
 // logic is based on
-define(function(){
+define(['app/song'], function(song){
   // do initialization work here
  
   // private utility functions for updating table
@@ -31,8 +31,8 @@ define(function(){
     // use window.metronomeData to generate table
     $("#metronomeTable").append(generateHead());
     $("#metronomeTable").append($('<tbody></tbody>'));
-    for(var section in window.song.metronomeData) {
-      addRow(generateRow(window.song.metronomeData[section]));
+    for(var section in song.getInstance().metronomeData) {
+      addRow(generateRow(song.getInstance().metronomeData[section]));
     }
   }
 
@@ -78,7 +78,7 @@ define(function(){
       // populate form with data from section
       $row.addClass("highlight");
       $("#metronomeForm .form-group").each(function(index, el){
-        var section = window.song.metronomeData[getIndex($row)];
+        var section = song.getInstance().metronomeData[getIndex($row)];
         var value = section[Object.keys(section)[index]];
         $(this).children(":nth-child(2)").val(value);
 
@@ -101,14 +101,14 @@ define(function(){
       3: ":nth-child(4)"
     };
 
-    var oldData = window.song.metronomeData[rowIndex];
+    var oldData = song.getInstance().metronomeData[rowIndex];
     var newData = oldData;
 
     for(var key in oldData) {
       newData[key] = $form.children(selectors[i]).children(":nth-child(2)").val();
       i++;
     }
-    window.song.metronomeData[rowIndex] = newData;
+    song.getInstance().metronomeData[rowIndex] = newData;
     return rowIndex;
   }
 
@@ -128,36 +128,36 @@ define(function(){
 
     unshift: function(section) {
       // add section to metronomeData after lead in
-      var len = Object.keys(window.song.metronomeData).length;
-      var oldData = Object.assign({}, window.song.metronomeData);
-      var secondSection = window.song.metronomeData[1];
-      window.song.metronomeData[1] = section;
+      var len = Object.keys(song.getInstance().metronomeData).length;
+      var oldData = Object.assign({}, song.getInstance().metronomeData);
+      var secondSection = song.getInstance().metronomeData[1];
+      song.getInstance().metronomeData[1] = section;
       for( var i = 2; i < len + 1; i++) {
-        window.song.metronomeData[i] = oldData[i - 1];
+        song.getInstance().metronomeData[i] = oldData[i - 1];
       }
       update();
-      window.song.updateMeasures();
-      window.song.measures[0].tempo = section.tempo;
-      window.song.measures[0].timesig = section.timesig;
+      song.getInstance().updateMeasures();
+      song.getInstance().measures[0].tempo = section.tempo;
+      song.getInstance().measures[0].timesig = section.timesig;
     },
 
     push: function(section) {
       // add section to end of array
-      var index = Object.keys(window.song.metronomeData).length;
-      window.song.metronomeData[index] = section;
-      window.song.updateMeasures();
+      var index = Object.keys(song.getInstance().metronomeData).length;
+      song.getInstance().metronomeData[index] = section;
+      song.getInstance().updateMeasures();
     },
 
     insert: function(section, index) {
       // put SECTION at INDEX and move the rest of the
       // sections up 1 place
-      var len = Object.keys(window.song.metronomeData).length;
-      var oldData = Object.assign({}, window.song.metronomeData);
-      window.song.metronomeData[index] = section;
+      var len = Object.keys(song.getInstance().metronomeData).length;
+      var oldData = Object.assign({}, song.getInstance().metronomeData);
+      song.getInstance().metronomeData[index] = section;
       for(var i = index; i < len; i++) {
-        window.song.metronomeData[i + 1] = oldData[i];
+        song.getInstance().metronomeData[i + 1] = oldData[i];
       }
-      window.song.updateMeasures();
+      song.getInstance().updateMeasures();
 
     },
 
@@ -165,20 +165,20 @@ define(function(){
       // get index of highlighted row
       var index = getIndex($("tr.highlight"));
       // remove data from global object
-      delete window.song.metronomeData[index];
+      delete song.getInstance().metronomeData[index];
       // change the indices of remaining keys in the object
-      var numberOfKeys = Object.keys(window.song.metronomeData).length;
+      var numberOfKeys = Object.keys(song.getInstance().metronomeData).length;
       var data = {};
       var i = 0;
-      for(var key in window.song.metronomeData) {
-        data[i] = window.song.metronomeData[key];
+      for(var key in song.getInstance().metronomeData) {
+        data[i] = song.getInstance().metronomeData[key];
         i++;
       }
-      window.song.metronomeData = data;
+      song.getInstance().metronomeData = data;
       update();
-      window.song.updateMeasures();
-      window.song.measures[0].tempo = window.song.measures[1].tempo;
-      window.song.measures[0].timesig = window.song.measures[1].timesig;
+      song.getInstance().updateMeasures();
+      song.getInstance().measures[0].tempo = song.getInstance().measures[1].tempo;
+      song.getInstance().measures[0].timesig = song.getInstance().measures[1].timesig;
     },
 
     create: function() {
@@ -207,11 +207,11 @@ define(function(){
         // we have to add 1 to the index because row 0 is reserved for the lead in section
         var $row = $("tr.highlight");
         var index = getIndex($row) + 1;
-        window.song.metronomeData[1].timesig = $row.children(":nth-child(1)").text();
-        window.song.metronomeData[1].tempo = $row.children(":nth-child(2)").text();
-        window.song.metronomeData[1].count = $row.children(":nth-child(3)").text();
-        window.song.metronomeData[1].section = $row.children(":nth-child(4)").text();
-        window.song.updateMeasures();
+        song.getInstance().metronomeData[1].timesig = $row.children(":nth-child(1)").text();
+        song.getInstance().metronomeData[1].tempo = $row.children(":nth-child(2)").text();
+        song.getInstance().metronomeData[1].count = $row.children(":nth-child(3)").text();
+        song.getInstance().metronomeData[1].section = $row.children(":nth-child(4)").text();
+        song.getInstance().updateMeasures();
 
       }
     },

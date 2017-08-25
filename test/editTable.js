@@ -66,20 +66,20 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
 
     // utility method for getting a measure from metronomeData
     function getMeasure(index) {
-      return window.song.measures[index];
+      return song.getInstance().measures[index];
     }
 
     // utility method for getting last index from metronomeData
     function getLastIndex() {
-      return Object.keys(window.song.measures).length - 1;
+      return Object.keys(song.getInstance().measures).length - 1;
     }
 
     // initialize test data
-    window.song = song.getInstance(testObj);
+    song.getInstance(testObj);
     table.initialize();
-    // make sure window.song object exists
-    assert.notEqual(window.song, undefined, "window.song exists");
-    assert.equal( window.song.measures.length, 7, "song starts with 7 measures");
+    // make sure song.getInstance() object exists
+    assert.notEqual(song.getInstance(), undefined, "song.getInstance() exists");
+    assert.equal( song.getInstance().measures.length, 7, "song starts with 7 measures");
 
     // test row click event
     var $firstRow = $("#metronomeTable tbody").children(":nth-child(1)");
@@ -94,7 +94,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
 
     // test adding and removing sections
     //
-    assert.equal(window.song.measures.length, 7, "should start with 7 measures");
+    assert.equal(song.getInstance().measures.length, 7, "should start with 7 measures");
     // test create
     var mySection = {
         "timesig" : "4/4",
@@ -123,7 +123,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     assert.deepEqual(getMeasure(1), firstSection, "unshift first section");
     assert.deepEqual(getMeasure(0), newLeadIn, "lead in should have changed tempo and timesig");
     assert.deepEqual(getMeasure(2), oldMeasure1, "measure 2 should be old measure 1");
-    assert.equal(window.song.measures.length, 8, "should be 8 measures");
+    assert.equal(song.getInstance().measures.length, 8, "should be 8 measures");
 
     // test push
     var pushSection = {
@@ -134,7 +134,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
       };
     table.push(pushSection);
     assert.deepEqual(getMeasure(getLastIndex()), pushSection, "last section should be push section");
-    assert.equal(window.song.measures.length, 9, "should be 9 measures");
+    assert.equal(song.getInstance().measures.length, 9, "should be 9 measures");
     
     // test insert
     var insertSection = {
@@ -153,7 +153,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     assert.deepEqual(getMeasure(5), insertSection, "section 5 should be insert section");
     assert.deepEqual(getMeasure(6), insertSection, "section 6 should be insert section");
     assert.deepEqual(getMeasure(7), oldMeasure5, "section 7 should be old measure 5");
-    assert.equal(window.song.measures.length, 11, "should be 11 measures");
+    assert.equal(song.getInstance().measures.length, 11, "should be 11 measures");
 
     // test deleteRow
     var oldMeasure2 = getMeasure(2);
@@ -169,7 +169,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     table.deleteRow();
     assert.deepEqual(getMeasure(0), newLeadIn, "lead in should different now");
     assert.deepEqual(getMeasure(1), oldMeasure2, "measure 2 should now be 1");
-    assert.equal(window.song.measures.length, 10, "should be 10 measures");
+    assert.equal(song.getInstance().measures.length, 10, "should be 10 measures");
     // delete 'chorus'
     oldMeasure4 = getMeasure(4);
     oldMeasure6 = getMeasure(6);
@@ -178,7 +178,7 @@ define(["qunit", "app/song", "app/metronomeTable"], function(QUnit, song, table)
     assert.deepEqual(getMeasure(2), oldMeasure4, "measure 2 should be old measure 4");
     assert.deepEqual(getMeasure(3), oldMeasure4, "measure 3 should be old measure 5");
     assert.deepEqual(getMeasure(4), oldMeasure6, "measure 4 should be old measure 6");
-    assert.equal(window.song.measures.length, 8, "should be 8 measures");
+    assert.equal(song.getInstance().measures.length, 8, "should be 8 measures");
 
 
     // test updateRow
