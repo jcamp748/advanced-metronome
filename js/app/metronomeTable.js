@@ -170,21 +170,21 @@ define(['app/song'], function(song){
     deleteRow: function() {
       // get index of highlighted row
       var index = getIndex($("tr.highlight"));
+      var oldData = Object.assign({}, song.getMetronomeData());
       // remove data from global object
-      delete song.getMetronomeData()[index];
+      delete oldData[index];
       // change the indices of remaining keys in the object
       var numberOfKeys = Object.keys(song.getMetronomeData()).length;
-      var data = {};
+      var newData = {};
       var i = 0;
-      for(var key in song.getMetronomeData()) {
-        data[i] = song.getMetronomeData()[key];
+      for(var key in oldData) {
+        newData[i] = oldData[key];
         i++;
       }
-      song.getMetronomeData() = data;
       update();
-      song.getInstance().updateMeasures();
-      song.getInstance().measures[0].tempo = song.getInstance().measures[1].tempo;
-      song.getInstance().measures[0].timesig = song.getInstance().measures[1].timesig;
+      newData[0].tempo = newData[1].tempo;
+      newData[0].timesig = newData[1].timesig;
+      song.editData(newData);
     },
 
     create: function() {
@@ -213,11 +213,12 @@ define(['app/song'], function(song){
         // we have to add 1 to the index because row 0 is reserved for the lead in section
         var $row = $("tr.highlight");
         var index = getIndex($row) + 1;
-        song.getMetronomeData()[1].timesig = $row.children(":nth-child(1)").text();
-        song.getMetronomeData()[1].tempo = $row.children(":nth-child(2)").text();
-        song.getMetronomeData()[1].count = $row.children(":nth-child(3)").text();
-        song.getMetronomeData()[1].section = $row.children(":nth-child(4)").text();
-        song.getInstance().updateMeasures();
+        var newData = Object.assign({}, song.getMetronomeData());
+        newData[index].timesig = $row.children(":nth-child(1)").text();
+        newData[index].tempo = $row.children(":nth-child(2)").text();
+        newData[index].count = $row.children(":nth-child(3)").text();
+        newData[index].section = $row.children(":nth-child(4)").text();
+        song.editData(newData);
 
       }
     },

@@ -67,22 +67,6 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     //instance.notify(this);
   //};
 
-  //function init(data) {
-    //data = data || null;
-    //// private variables
-    //try {
-      //time = 0.0;
-      //measure = 0;
-      //observers = null;
-      //measures = [];
-      //metronomeData = data;
-      //currentMeasure = {};
-      //currentBeat = 0;
-    //} catch(e) {
-      //console.log(e); 
-    //}
-  //}
-
     // private methods
     
     // return public methods and variables
@@ -104,9 +88,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       getSectionName: function() { return currentMeasure["section"]; },
       getMeasureNumber: function() { return measure;},
       getMeasureData: function() {return currentMeasure;},
-      updateMeasures: function() {
-        populateMeasures();
-      },
+      updateMeasures: function() {populateMeasures();},
 
       editData: function(data) {
         metronomeData = data;
@@ -184,21 +166,4 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       },
     }, subject);
 
-  //}
-
-  //return {
-    //// get the singleton instance if one exists
-    //// or create one if it doesn't
-    //getInstance: function(data) {
-      //if (!instance || (instance && data)) {
-        //instance = init(data);
-        //loadData(data);
-        //populateMeasures();
-        //loadMeasure(0);
-        //instance = _.extend(instance, subject);
-      //}
-      //return instance;
-    //},
-
-  //};
 });
