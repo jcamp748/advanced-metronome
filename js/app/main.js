@@ -2,8 +2,8 @@
 
 define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], function(metronome, table, song, test){
 
-  //// define global metronome data object before anything else
-  //window.song = song.;
+  song.getMetronomeData();
+  //song has been loaded
   table.initialize();
 
 

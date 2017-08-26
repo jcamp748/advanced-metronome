@@ -1,6 +1,6 @@
 define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
   var instance = null; 
-  var metronomeData = {};
+  var metronomeData = null; 
   var measures = [];
   var currentMeasure = {};
   var measure = 0;
@@ -13,9 +13,14 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     } else {
       // load data via xhr request
       var success = false;
-      console.log("xhr request for data");
-      if(!success) {
+      // make xhr request for data
+      //
+      //
+      if (success) {
+        console.log("xhr request for data succeeded!");
+      } else {
         // request failed, fill with dummy data
+        console.log("xhr request for data failed.");
         metronomeData = {
           "0" : {
             "timesig" : "4/4",
