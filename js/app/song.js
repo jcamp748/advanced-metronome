@@ -1,4 +1,4 @@
-define(["worker!app/metronomeWorker.js"], function(worker) {
+define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
   var instance = null; 
   var metronomeData = {};
   var measures = [];
@@ -86,7 +86,7 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
     // private methods
     
     // return public methods and variables
-    return {
+    return _.extend({
       getMetronomeData: function() { 
         if(!metronomeData) {
           loadData();
@@ -117,7 +117,7 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
       save: function() {
         // write xhr request code here
         console.log("saved to server");
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       skipBack: function() {
@@ -127,29 +127,29 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
         } else {
           loadMeasure(i);
         }
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       rewind: function() {
         console.log("rewind metronome");
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       play: function() {
         console.log("play song");
         //worker.postMessage("start");
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       pause: function() {
         console.log("pause song");
         //worker.postMessage("pause");
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       fastForward: function() {
         console.log("fast forward");
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       skipForward: function() {
@@ -159,30 +159,30 @@ define(["worker!app/metronomeWorker.js"], function(worker) {
         } else {
           loadMeasure(i);
         }
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       reset: function() {
         console.log("reset to beginning of song");
         loadMeasure(0);
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       seekTo: function() {
         console.log("seek in song");
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       increaseTempo: function() {
         tempo++;
-        //instance.notify(instance);
+        this.notify(this);
       },
 
       decreaseTempo: function() {
         tempo--;
-        //instance.notify(instance);
+        this.notify(this);
       },
-    };
+    }, subject);
 
   //}
 

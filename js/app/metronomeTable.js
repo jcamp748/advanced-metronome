@@ -155,11 +155,15 @@ define(['app/song'], function(song){
       // sections up 1 place
       var len = Object.keys(song.getMetronomeData()).length;
       var oldData = Object.assign({}, song.getMetronomeData());
-      song.getMetronomeData()[index] = section;
-      for(var i = index; i < len; i++) {
-        song.getMetronomeData()[i + 1] = oldData[i];
+      var newData = {};
+      for(var i = 0; i < index; i++) {
+        newData[i] = oldData[i];
       }
-      song.getInstance().updateMeasures();
+      newData[index] = section;
+      for(var i = index; i < len; i++) {
+        newData[i + 1] = oldData[i];
+      }
+      song.editData(newData);
 
     },
 
