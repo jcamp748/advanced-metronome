@@ -3,7 +3,6 @@
 // logic is based on
 define(['app/song'], function(song){
   // do initialization work here
- 
   // private utility functions for updating table
   
   
@@ -31,8 +30,8 @@ define(['app/song'], function(song){
     // use window.metronomeData to generate table
     $("#metronomeTable").append(generateHead());
     $("#metronomeTable").append($('<tbody></tbody>'));
-    for(var section in song.getInstance().metronomeData) {
-      addRow(generateRow(song.getInstance().metronomeData[section]));
+    for(var section in song.getMetronomeData()) {
+      addRow(generateRow(song.getMetronomeData()[section]));
     }
   }
 
@@ -78,7 +77,7 @@ define(['app/song'], function(song){
       // populate form with data from section
       $row.addClass("highlight");
       $("#metronomeForm .form-group").each(function(index, el){
-        var section = song.getInstance().metronomeData[getIndex($row)];
+        var section = song.getMetronomeData()[getIndex($row)];
         var value = section[Object.keys(section)[index]];
         $(this).children(":nth-child(2)").val(value);
 
@@ -101,14 +100,14 @@ define(['app/song'], function(song){
       3: ":nth-child(4)"
     };
 
-    var oldData = song.getInstance().metronomeData[rowIndex];
+    var oldData = song.getMetronomeData()[rowIndex];
     var newData = oldData;
 
     for(var key in oldData) {
       newData[key] = $form.children(selectors[i]).children(":nth-child(2)").val();
       i++;
     }
-    song.getInstance().metronomeData[rowIndex] = newData;
+    song.getMetronomeData()[rowIndex] = newData;
     return rowIndex;
   }
 
@@ -128,34 +127,37 @@ define(['app/song'], function(song){
 
     unshift: function(section) {
       // add section to metronomeData after lead in
-      var len = Object.keys(song.getInstance().metronomeData).length;
-      var oldData = Object.assign({}, song.getInstance().metronomeData);
-      var secondSection = song.getInstance().metronomeData[1];
-      song.getInstance().metronomeData[1] = section;
+      var len = Object.keys(song.getMetronomeData()).length;
+      var oldData = Object.assign({}, song.getMetronomeData());
+      var newData = {};
+      newData[0] = oldData[0];
+      newData[0].tempo = section.tempo;
+      newData[0].timesig = section.timesig;
+      newData[1] = section;
+      newData[2] = oldData[1];
       for( var i = 2; i < len + 1; i++) {
-        song.getInstance().metronomeData[i] = oldData[i - 1];
+        newData[i] = oldData[i - 1];
       }
       update();
-      song.getInstance().updateMeasures();
-      song.getInstance().measures[0].tempo = section.tempo;
-      song.getInstance().measures[0].timesig = section.timesig;
+      song.editData(newData);
     },
 
     push: function(section) {
       // add section to end of array
-      var index = Object.keys(song.getInstance().metronomeData).length;
-      song.getInstance().metronomeData[index] = section;
-      song.getInstance().updateMeasures();
+      var len = Object.keys(song.getMetronomeData()).length;
+      var newData = Object.assign({}, song.getMetronomeData());
+      newData[len] = section;
+      song.editData(newData);
     },
 
     insert: function(section, index) {
       // put SECTION at INDEX and move the rest of the
       // sections up 1 place
-      var len = Object.keys(song.getInstance().metronomeData).length;
-      var oldData = Object.assign({}, song.getInstance().metronomeData);
-      song.getInstance().metronomeData[index] = section;
+      var len = Object.keys(song.getMetronomeData()).length;
+      var oldData = Object.assign({}, song.getMetronomeData());
+      song.getMetronomeData()[index] = section;
       for(var i = index; i < len; i++) {
-        song.getInstance().metronomeData[i + 1] = oldData[i];
+        song.getMetronomeData()[i + 1] = oldData[i];
       }
       song.getInstance().updateMeasures();
 
@@ -165,16 +167,16 @@ define(['app/song'], function(song){
       // get index of highlighted row
       var index = getIndex($("tr.highlight"));
       // remove data from global object
-      delete song.getInstance().metronomeData[index];
+      delete song.getMetronomeData()[index];
       // change the indices of remaining keys in the object
-      var numberOfKeys = Object.keys(song.getInstance().metronomeData).length;
+      var numberOfKeys = Object.keys(song.getMetronomeData()).length;
       var data = {};
       var i = 0;
-      for(var key in song.getInstance().metronomeData) {
-        data[i] = song.getInstance().metronomeData[key];
+      for(var key in song.getMetronomeData()) {
+        data[i] = song.getMetronomeData()[key];
         i++;
       }
-      song.getInstance().metronomeData = data;
+      song.getMetronomeData() = data;
       update();
       song.getInstance().updateMeasures();
       song.getInstance().measures[0].tempo = song.getInstance().measures[1].tempo;
@@ -207,10 +209,10 @@ define(['app/song'], function(song){
         // we have to add 1 to the index because row 0 is reserved for the lead in section
         var $row = $("tr.highlight");
         var index = getIndex($row) + 1;
-        song.getInstance().metronomeData[1].timesig = $row.children(":nth-child(1)").text();
-        song.getInstance().metronomeData[1].tempo = $row.children(":nth-child(2)").text();
-        song.getInstance().metronomeData[1].count = $row.children(":nth-child(3)").text();
-        song.getInstance().metronomeData[1].section = $row.children(":nth-child(4)").text();
+        song.getMetronomeData()[1].timesig = $row.children(":nth-child(1)").text();
+        song.getMetronomeData()[1].tempo = $row.children(":nth-child(2)").text();
+        song.getMetronomeData()[1].count = $row.children(":nth-child(3)").text();
+        song.getMetronomeData()[1].section = $row.children(":nth-child(4)").text();
         song.getInstance().updateMeasures();
 
       }

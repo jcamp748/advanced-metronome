@@ -1,16 +1,22 @@
-define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
+define(["worker!app/metronomeWorker.js"], function(worker) {
   var instance = null; 
+  var metronomeData = {};
+  var measures = [];
+  var currentMeasure = {};
+  var measure = 0;
+  var currentBeat = 0;
+  var time = 0.0;
 
   function loadData(data) {
     if(data) {
-      instance.metronomeData = data;
+      metronomeData = data;
     } else {
       // load data via xhr request
       var success = false;
       console.log("xhr request for data");
       if(!success) {
         // request failed, fill with dummy data
-        instance.metronomeData = {
+        metronomeData = {
           "0" : {
             "timesig" : "4/4",
             "tempo" : "100",
@@ -41,19 +47,19 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   }
 
   function populateMeasures() {
-    instance.measures = [];
-    for(var section in instance.metronomeData) {
-      var count = parseInt(instance.metronomeData[section]["count"]);
+    measures = [];
+    for(var section in metronomeData) {
+      var count = parseInt(metronomeData[section]["count"]);
       for(var i = 0; i < count; i++) {
-        instance.measures.push(instance.metronomeData[section]);
+        measures.push(metronomeData[section]);
       }
     }
   }
 
   function loadMeasure(measureNumber) {
-    instance.currentMeasure = instance.measures[measureNumber];
-    instance.measure = measureNumber;
-    instance.currentBeat = 0;
+    currentMeasure = measures[measureNumber];
+    measure = measureNumber;
+    currentBeat = 0;
   }
 
   //worker.onmessage = function(e){
@@ -61,121 +67,138 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     //instance.notify(this);
   //};
 
-  function init(data) {
-    data = data || null;
-    // private variables
-    try {
-      instance.time = 0.0;
-      instance.measure = 0;
-      instance.observers = null;
-      instance.measures = [];
-      instance.metronomeData = data;
-      instance.currentMeasure = {};
-      instance.currentBeat = 0;
-    } catch(e) {
-      console.log(e); 
-    }
+  //function init(data) {
+    //data = data || null;
+    //// private variables
+    //try {
+      //time = 0.0;
+      //measure = 0;
+      //observers = null;
+      //measures = [];
+      //metronomeData = data;
+      //currentMeasure = {};
+      //currentBeat = 0;
+    //} catch(e) {
+      //console.log(e); 
+    //}
+  //}
 
     // private methods
     
     // return public methods and variables
     return {
-      getBeat: function() { return instance.currentBeat; },
-      getTempo: function() { return instance.currentMeasure["tempo"]; },
-      getCount: function() { return instance.currentMeasure["count"]; },
-      getTimeSig: function() { return instance.currentMeasure["timeSig"]; },
-      getSectionName: function() { return instance.currentMeasure["section"]; },
-      getMeasureNumber: function() { return instance.measure;},
-      getMeasureData: function() {return instance.currentMeasure;},
+      getMetronomeData: function() { 
+        if(!metronomeData) {
+          loadData();
+          return metronomeData;
+        } else {
+          return metronomeData;
+        }
+      },
+
+      getMeasures: function() { return measures; },
+      getBeat: function() { return currentBeat; },
+      getTempo: function() { return currentMeasure["tempo"]; },
+      getCount: function() { return currentMeasure["count"]; },
+      getTimeSig: function() { return currentMeasure["timeSig"]; },
+      getSectionName: function() { return currentMeasure["section"]; },
+      getMeasureNumber: function() { return measure;},
+      getMeasureData: function() {return currentMeasure;},
       updateMeasures: function() {
         populateMeasures();
+      },
+
+      editData: function(data) {
+        metronomeData = data;
+        populateMeasures();
+        loadMeasure(0);
       },
       
       save: function() {
         // write xhr request code here
         console.log("saved to server");
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       skipBack: function() {
-        var i = instance.measure
+        var i = measure
         if(i > 0) {
           loadMeasure(--i);
         } else {
           loadMeasure(i);
         }
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       rewind: function() {
         console.log("rewind metronome");
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       play: function() {
         console.log("play song");
         //worker.postMessage("start");
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       pause: function() {
         console.log("pause song");
         //worker.postMessage("pause");
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       fastForward: function() {
         console.log("fast forward");
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       skipForward: function() {
-        var i = instance.measure;
-        if(i < instance.measures.length - 1) {
+        var i = measure;
+        if(i < measures.length - 1) {
           loadMeasure(++i);
         } else {
           loadMeasure(i);
         }
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       reset: function() {
         console.log("reset to beginning of song");
         loadMeasure(0);
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       seekTo: function() {
         console.log("seek in song");
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       increaseTempo: function() {
         tempo++;
-        instance.notify(instance);
+        //instance.notify(instance);
       },
 
       decreaseTempo: function() {
         tempo--;
-        instance.notify(instance);
+        //instance.notify(instance);
       },
     };
 
-  }
+  //}
 
-  return {
-    // get the singleton instance if one exists
-    // or create one if it doesn't
-    getInstance: function(data) {
-      if (!instance || (instance && data)) {
-        instance = init(data);
-        loadData(data);
-        populateMeasures();
-        loadMeasure(0);
-        instance = _.extend(instance, subject);
-      }
-      return instance;
-    },
+  //return {
+    //// get the singleton instance if one exists
+    //// or create one if it doesn't
+    //getInstance: function(data) {
+      //if (!instance || (instance && data)) {
+        //instance = init(data);
+        //loadData(data);
+        //populateMeasures();
+        //loadMeasure(0);
+        //instance = _.extend(instance, subject);
+      //}
+      //return instance;
+    //},
 
-  };
+  //};
 });
