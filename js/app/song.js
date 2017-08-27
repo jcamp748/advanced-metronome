@@ -7,49 +7,6 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   var currentBeat = 0;
   var time = 0.0;
 
-  function loadData(data) {
-    if(data) {
-      metronomeData = data;
-    } else {
-      // load data via xhr request
-      var success = false;
-      // make xhr request for data
-      //
-      //
-      if (success) {
-        console.log("xhr request for data succeeded!");
-      } else {
-        // request failed, fill with dummy data
-        console.log("xhr request for data failed.");
-        metronomeData = {
-          "0" : {
-            "timesig" : "4/4",
-            "tempo" : "100",
-            "count" : "1",
-            "section" : "lead in"
-          },
-          "1" : {
-            "timesig" : "4/4",
-            "tempo" : "100",
-            "count" : "2",
-            "section" : "riff a"
-          },
-          "2" : {
-            "timesig" : "3/4",
-            "tempo" : "200",
-            "count" : "3",
-            "section" : "riff b"
-          },
-          "3" : {
-            "timesig" : "4/4",
-            "tempo" : "150",
-            "count" : "2",
-            "section" : "riff c"
-          }
-        };
-      }
-    }
-  }
 
   function populateMeasures() {
     measures = [];
@@ -65,6 +22,30 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     currentMeasure = measures[measureNumber];
     measure = measureNumber;
     currentBeat = 0;
+  }
+
+  function loadData(data) {
+    if(data) {
+      metronomeData = data;
+    } else {
+      // load data via xhr request
+      var success = false;
+      // make xhr request for data
+      //
+      //
+      var req = new XMLHttpRequest();
+      req.open('GET', "testData.json");
+      req.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status === 200) {
+          // TODO do some validation testing on this response
+          metronomeData = JSON.parse(this.response);
+          populateMeasures();
+          loadMeasure(0);
+          console.log("xhr request for data succeeded!");
+        } 
+      };
+      req.send();
+    }
   }
 
   //worker.onmessage = function(e){
