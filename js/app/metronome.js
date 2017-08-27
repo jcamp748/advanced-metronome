@@ -1,5 +1,5 @@
-define(["SegmentDisplay/segment-display", "app/song"], function(segmentDisplay, song) {
-
+define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
+  var song = null;
   var ctx = document.getElementById('metronome-canvas').getContext('2d');
 
   // initialize digital number display
@@ -252,31 +252,31 @@ define(["SegmentDisplay/segment-display", "app/song"], function(segmentDisplay, 
       roundedRect(0, 0, 600, 400, 12, "black");
       roundedRect(thickness, thickness, 550, 350, 12, segmentDisplay.backgroundColor);
       try { 
-        beatValue.setValue(song.getInstance().getBeat().toString());
+        beatValue.setValue(song.getBeat().toString());
       } catch (e) {
         //console.log("could not get beat from song.getInstance()");
       }
       tempoLabel.setValue('tempo');
       try {
-        tempoValue.setValue(song.getInstance().getTempo().toString());
+        tempoValue.setValue(song.getTempo().toString());
       } catch (e) {
         //console.log("could  not get tempo from song.getInstance()");
       }
       countLabel.setValue('count');
       try { 
-        countValue.setValue(song.getInstance().getCount().toString());
+        countValue.setValue(song.getCount().toString());
       } catch (e) {
         //console.log("could not get count from song.getInstance()");
       }
       sigLabel.setValue('sig');
       try {
-        sigValue.setValue(song.getInstance().getTimeSig());
+        sigValue.setValue(song.getTimeSig());
       } catch (e) {
         //console.log("could not get timesig from song.getInstance()");
       }
       sectionLabel.setValue('section');
       try {
-        sectionValue.setValue(song.getInstance().getSectionName());
+        sectionValue.setValue(song.getSectionName());
       } catch (e) {
         //console.log("could not get section name from song.getInstance()");
       }
@@ -288,9 +288,7 @@ define(["SegmentDisplay/segment-display", "app/song"], function(segmentDisplay, 
 
   return {
     update: function(context) {
-      console.log("update metronome with context");
-      
-
+      song = context;
     }
   };
 });
