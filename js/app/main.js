@@ -6,7 +6,6 @@ define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], fun
   //song has been loaded
   table.initialize();
 
-
   //// add metronome as an observer to the song
   song.addObserver(metronome);
 

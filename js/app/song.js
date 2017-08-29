@@ -42,6 +42,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
           populateMeasures();
           loadMeasure(0);
           console.log("xhr request for data succeeded!");
+          $("#resetButton").click();
         } 
       };
       req.send();
