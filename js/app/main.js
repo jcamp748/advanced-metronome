@@ -2,7 +2,7 @@
 
 define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], function(metronome, table, song, test){
 
-  song.getMetronomeData();
+  //song.getMetronomeData();
   //song has been loaded
   table.initialize();
 

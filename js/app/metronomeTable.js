@@ -30,8 +30,9 @@ define(['app/song'], function(song){
     // use window.metronomeData to generate table
     $("#metronomeTable").append(generateHead());
     $("#metronomeTable").append($('<tbody></tbody>'));
-    for(var section in song.getMetronomeData()) {
-      addRow(generateRow(song.getMetronomeData()[section]));
+    var data = song.getMetronomeData();
+    for(var section in data) {
+      addRow(generateRow(data[section]));
     }
   }
 
