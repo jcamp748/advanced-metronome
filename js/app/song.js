@@ -6,6 +6,8 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   var measure = 0;
   var currentBeat = 0;
   var time = 0.0;
+  var startTime = null;
+  var timerInterval = null;
 
 
   function populateMeasures() {
@@ -90,7 +92,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       },
 
       skipBack: function() {
-        var i = measure
+        var i = measure;
         if(i > 0) {
           loadMeasure(--i);
         } else {
@@ -106,12 +108,20 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       play: function() {
         console.log("play song");
+        startTime = new Date();
+        timerInterval = setInterval(function(){
+          var now = new Date();
+          time += now - startTime;
+          startTime = now;
+          console.log(time);
+        }, 10);
         //worker.postMessage("start");
         this.notify(this);
       },
 
       pause: function() {
         console.log("pause song");
+        clearInterval(timerInterval);
         //worker.postMessage("pause");
         this.notify(this);
       },
