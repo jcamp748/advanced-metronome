@@ -6,8 +6,8 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   var measure = 0;
   var currentBeat = 0;
   var time = 0.0;
-  var startTime = null;
-  var timerInterval = null;
+  var interval = 100;   // 100ms
+  var timeout = null;
 
 
   function populateMeasures() {
@@ -108,20 +108,25 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       play: function() {
         console.log("play song");
-        startTime = new Date();
-        timerInterval = setInterval(function(){
-          var now = new Date();
-          time += now - startTime;
-          startTime = now;
-          console.log(time);
-        }, 10);
+        var expected = Date.now() + interval;
+        timeout = setTimeout(step, interval);
+        function step() {
+          var dt = Date.now() - expected; 
+          if (dt > interval) {
+            // something unexpected happened
+          }
+          time += dt;
+          expected += interval;
+          timeout = setTimeout(step, Math.max(0, interval - dt));
+        }
+
         //worker.postMessage("start");
         this.notify(this);
       },
 
       pause: function() {
         console.log("pause song");
-        clearInterval(timerInterval);
+        clearTimeout(timeout);
         //worker.postMessage("pause");
         this.notify(this);
       },
