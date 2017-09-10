@@ -9,7 +9,14 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   var interval = 100;   // 100ms
   var timeout = null;
 
-
+  function prettyTime(ms) {
+    // display milliseconds in the form #.#
+    var s = Math.floor(ms/1000);
+    var r = ms % 1000;
+    var h = Math.floor(r/100);
+    var string = s.toString() + "." + h.toString();
+    return string;
+  }
   function populateMeasures() {
     measures = [];
     for(var section in metronomeData) {
@@ -108,16 +115,19 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       play: function() {
         console.log("play song");
-        var expected = Date.now() + interval;
+	var start = Date.now();
+        var expected = start + interval;
         timeout = setTimeout(step, interval);
         function step() {
-          var dt = Date.now() - expected; 
+	  var now = Date.now();
+          var dt = now - expected; 
           if (dt > interval) {
             // something unexpected happened
           }
-          time += dt;
+          time = now - start;
           expected += interval;
           timeout = setTimeout(step, Math.max(0, interval - dt));
+          $("#clock-display").text(prettyTime(time));
         }
 
         //worker.postMessage("start");
