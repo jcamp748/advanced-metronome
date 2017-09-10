@@ -64,6 +64,7 @@ define(["qunit", "app/song"], function(QUnit, song){
     // test the skipForward and skipBack buttons
     // these buttons should move forward and backward 1 measure respectively
     // simulate clicks on skip forward and back buttons and verify data
+    debugger;
     assert.equal(song.getSectionName(), "lead in", "song should start with lead in section");
     assert.equal(song.getMeasureNumber(), 0, "should start on measure 0");
     assert.deepEqual(song.getMeasureData(), testObj[0], "should be lead in data");

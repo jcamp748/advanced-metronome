@@ -5,8 +5,9 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   var currentMeasure = {};
   var measure = 0;
   var currentBeat = 0;
-  var time = 0;
-  var interval = 100;   // 100ms
+  var time = 0;              // ms
+  var clockInterval = 100;   // 100ms
+  var tickInterval = 0;
   var timeout = null;
 
   function prettyTime(ms) {
@@ -17,6 +18,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     var string = s.toString() + "." + h.toString();
     return string;
   }
+
   function populateMeasures() {
     measures = [];
     for(var section in metronomeData) {
@@ -27,11 +29,48 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     }
   }
 
+  function scheduleTick() {
+    // use the CURRENTMEASURE variable to set the TICKINTERVAL
+    tickInterval = ( 1 / currentMeasure.tempo ) * 60 * 1000;
+  }
+
   function loadMeasure(measureNumber) {
     currentMeasure = measures[measureNumber];
     measure = measureNumber;
     currentBeat = 0;
+    scheduleTick();
   }
+
+  function scheduleMeasure() {
+    // use the TIME variable to figure out what measure we are on
+    // then call loadMeasure()
+    var t = 0; //ms
+    measures.forEach(function(m, i, a) {
+      var ms = ( 1 / parseInt(m.tempo) ) * 60 * 1000;
+      var end = t + ms;
+      debugger;
+      if(t < time && time < end) {
+        // get the index of this measure and load it
+        loadMeasure(i);
+        return;
+      } else if(t == time) {
+        // get the index of this measure and load it
+        loadMeasure(i);
+        return;
+      } else if(end == time) {
+        // get the index of the next measure and load it
+        loadMeasure(++i);
+        return;
+      } else if( time > end) {
+        // something went wrong we overshot the time somehow
+        console.log("something went wrong in the scheduleMeasure function");
+      } else {
+        // t < time, keep going  
+      }        
+      t += end;
+    });
+  }
+
 
   function loadData(data) {
     if(data) {
@@ -114,25 +153,26 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       play: function() {
         console.log("play song");
+        scheduleMeasure();
         var start = Date.now();
-        var expected = start + interval;
+        var expected = start + clockInterval;
         var last = start;
-        timeout = setTimeout(step, interval);
+        timeout = setTimeout(step, clockInterval);
         function step() {
           var now = Date.now();
           var elapsed = now - last;
           last = now;
           var dt = now - expected; 
-          if (dt > interval) {
+          if (dt > clockInterval) {
             // something unexpected happened
           }
           time += elapsed;
-          expected += interval;
-          timeout = setTimeout(step, Math.max(0, interval - dt));
+          expected += clockInterval;
+          timeout = setTimeout(step, Math.max(0, clockInterval - dt));
           $("#clock-display").text(prettyTime(time));
         }
 
-        var message = {action: "start", interval: interval};
+        var message = {action: "start", interval: tickInterval};
         worker.postMessage(message);
         this.notify(this);
       },
@@ -140,7 +180,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       pause: function() {
         console.log("pause song");
         clearTimeout(timeout);
-        var message = {action: "pause", interval: interval};
+        var message = {action: "pause", interval: tickInterval};
         worker.postMessage(message);
         this.notify(this);
       },
