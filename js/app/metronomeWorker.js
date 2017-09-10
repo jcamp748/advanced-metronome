@@ -2,11 +2,12 @@ var interval = 200;
 var metroTimer = null;
 
 onmessage = function(e) {
-  if (e.data == "start") {
+  interval = e.data.interval;
+  if (e.data.action == "start") {
     metroTimer = setInterval(function(){
       postMessage("tick");
     }, interval);
-  } else if (e.data == "pause") {
+  } else if (e.data.action == "pause") {
     if (metroTimer) {
       clearInterval(metroTimer);
     }

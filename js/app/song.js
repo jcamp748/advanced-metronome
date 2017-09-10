@@ -58,10 +58,9 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     }
   }
 
-  //worker.onmessage = function(e){
-    //console.log("hello from song.js");
-    //instance.notify(this);
-  //};
+  worker.onmessage = function(e){
+    console.log(e.data);
+  };
 
     // private methods
     
@@ -133,14 +132,16 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
           $("#clock-display").text(prettyTime(time));
         }
 
-        //worker.postMessage("start");
+        var message = {action: "start", interval: interval};
+        worker.postMessage(message);
         this.notify(this);
       },
 
       pause: function() {
         console.log("pause song");
         clearTimeout(timeout);
-        //worker.postMessage("pause");
+        var message = {action: "pause", interval: interval};
+        worker.postMessage(message);
         this.notify(this);
       },
 
