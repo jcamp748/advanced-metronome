@@ -5,7 +5,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   var currentMeasure = {};
   var measure = 0;
   var currentBeat = 0;
-  var time = 0.0;
+  var time = 0;
   var interval = 100;   // 100ms
   var timeout = null;
 
@@ -115,16 +115,19 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       play: function() {
         console.log("play song");
-	var start = Date.now();
+        var start = Date.now();
         var expected = start + interval;
+        var last = start;
         timeout = setTimeout(step, interval);
         function step() {
-	  var now = Date.now();
+          var now = Date.now();
+          var elapsed = now - last;
+          last = now;
           var dt = now - expected; 
           if (dt > interval) {
             // something unexpected happened
           }
-          time = now - start;
+          time += elapsed;
           expected += interval;
           timeout = setTimeout(step, Math.max(0, interval - dt));
           $("#clock-display").text(prettyTime(time));
