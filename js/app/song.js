@@ -47,13 +47,15 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     var t = 0; //ms
     measures.forEach(function(m, i, a) {
       var ms = ( 1 / parseInt(m.tempo) ) * 60 * 1000;
-      var end = t + ms;
-      debugger;
+      var beatsPerMeasure = m.timesig.split("/")[0];
+      var end = t + (ms * beatsPerMeasure);
+      debugger
       if(t < time && time < end) {
         // get the index of this measure and load it
         loadMeasure(i);
         return;
       } else if(t == time) {
+        debugger;
         // get the index of this measure and load it
         loadMeasure(i);
         return;

@@ -1,6 +1,7 @@
 define(["SegmentDisplay/segment-display"], function(segmentDisplay) {
   var song = null;
   var ctx = document.getElementById('metronome-canvas').getContext('2d');
+  
 
   // initialize digital number display
   var beatValue = new segmentDisplay.SegmentDisplay("metronome-canvas", 0, 10, 0.2);
