@@ -123,6 +123,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       getMeasureNumber: function() { return measure;},
       getMeasureData: function() {return currentMeasure;},
       updateMeasures: function() {populateMeasures();},
+      getTime: function() {return time;},
 
       editData: function(data) {
         metronomeData = data;
