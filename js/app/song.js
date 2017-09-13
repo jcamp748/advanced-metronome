@@ -44,18 +44,16 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   function scheduleMeasure() {
     // use the TIME variable to figure out what measure we are on
     // then call loadMeasure()
-    var t = 0; //ms
-    measures.forEach(function(m, i, a) {
-      var ms = ( 1 / parseInt(m.tempo) ) * 60 * 1000;
-      var beatsPerMeasure = m.timesig.split("/")[0];
+    var t = 0;
+    for(var i=0; i < measures.length; i++) {
+      var ms = ( 1 / parseInt(measures[i].tempo) ) * 60 * 1000;
+      var beatsPerMeasure = measures[i].timesig.split("/")[0];
       var end = t + (ms * beatsPerMeasure);
-      debugger
       if(t < time && time < end) {
         // get the index of this measure and load it
         loadMeasure(i);
         return;
       } else if(t == time) {
-        debugger;
         // get the index of this measure and load it
         loadMeasure(i);
         return;
@@ -70,7 +68,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         // t < time, keep going  
       }        
       t += end;
-    });
+    }
   }
 
 
