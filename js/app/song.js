@@ -44,7 +44,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   function scheduleMeasure() {
     // use the TIME variable to figure out what measure we are on
     // then call loadMeasure()
-    var t = 0;
+    var t = time;
     for(var i=0; i < measures.length; i++) {
       var ms = ( 1 / parseInt(measures[i].tempo) ) * 60 * 1000;
       var beatsPerMeasure = measures[i].timesig.split("/")[0];
