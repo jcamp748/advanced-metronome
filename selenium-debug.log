@@ -1,78 +1,55 @@
-01:33:30.112 INFO - Launching a standalone Selenium Server
-01:33:30.137 INFO - Java: Oracle Corporation 25.144-b01
-01:33:30.137 INFO - OS: Linux 3.19.0-84-generic amd64
-01:33:30.148 INFO - v2.53.1, with Core v2.53.1. Built from revision a36b8b1
-01:33:30.197 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
+01:27:03.708 INFO - Launching a standalone Selenium Server
+01:27:03.732 INFO - Java: Oracle Corporation 25.144-b01
+01:27:03.733 INFO - OS: Linux 3.19.0-84-generic amd64
+01:27:03.741 INFO - v2.53.1, with Core v2.53.1. Built from revision a36b8b1
+01:27:03.788 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
 registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match the current platform LINUX
-01:33:30.197 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
+01:27:03.788 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
 registration capabilities Capabilities [{browserName=MicrosoftEdge, version=, platform=WINDOWS}] does not match the current platform LINUX
-01:33:30.197 INFO - Driver class not found: com.opera.core.systems.OperaDriver
-01:33:30.197 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
-01:33:30.198 INFO - Driver provider org.openqa.selenium.safari.SafariDriver registration is skipped:
+01:27:03.788 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+01:27:03.788 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
+01:27:03.789 INFO - Driver provider org.openqa.selenium.safari.SafariDriver registration is skipped:
 registration capabilities Capabilities [{browserName=safari, version=, platform=MAC}] does not match the current platform LINUX
-01:33:30.198 INFO - Driver class not found: org.openqa.selenium.htmlunit.HtmlUnitDriver
-01:33:30.199 INFO - Driver provider org.openqa.selenium.htmlunit.HtmlUnitDriver is not registered
-01:33:30.246 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
-01:33:30.246 INFO - Selenium Server is up and running
-01:33:30.442 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Login, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
-01:33:30.452 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Login, browserName=firefox, javascriptEnabled=true, platform=ANY}]
-01:33:33.329 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Login, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
-01:33:33.340 INFO - Executing: [get: localhost:8000])
-01:33:33.846 INFO - Done: [get: localhost:8000]
-01:33:33.852 INFO - Executing: [find element: By.cssSelector: #playButton])
-01:33:34.167 INFO - Done: [find element: By.cssSelector: #playButton]
-01:33:34.170 INFO - Executing: [click: 0 [[FirefoxDriver: firefox on LINUX (c88c2a79-faba-490d-8a3a-c88f6a181713)] -> css selector: #playButton]])
-01:33:34.244 INFO - Done: [click: 0 [[FirefoxDriver: firefox on LINUX (c88c2a79-faba-490d-8a3a-c88f6a181713)] -> css selector: #playButton]]
-01:33:34.250 INFO - Executing: [find element: By.cssSelector: main])
-01:33:35.273 WARN - Exception thrown
-org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"main"}
-Command duration or timeout: 12 milliseconds
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.53.1', revision: 'a36b8b1', time: '2016-06-30 17:37:03'
-System info: host: 'linux-box', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.19.0-84-generic', java.version: '1.8.0_144'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=44.0, platform=LINUX, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: c88c2a79-faba-490d-8a3a-c88f6a181713
-*** Element info: {Using=css selector, value=main}
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
-	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementByCssSelector(RemoteWebDriver.java:492)
-	at org.openqa.selenium.By$ByCssSelector.findElement(By.java:430)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.openqa.selenium.support.events.EventFiringWebDriver$2.invoke(EventFiringWebDriver.java:103)
-	at com.sun.proxy.$Proxy1.findElement(Unknown Source)
-	at org.openqa.selenium.support.events.EventFiringWebDriver.findElement(EventFiringWebDriver.java:188)
-	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:48)
-	at org.openqa.selenium.remote.server.handler.FindElement.call(FindElement.java:1)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at org.openqa.selenium.remote.server.DefaultSession$1.run(DefaultSession.java:176)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"css selector","selector":"main"}
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.53.1', revision: 'a36b8b1', time: '2016-06-30 17:37:03'
-System info: host: 'linux-box', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.19.0-84-generic', java.version: '1.8.0_144'
-Driver info: driver.version: unknown
-	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///tmp/anonymous5558688644513965508webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10770)
-	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///tmp/anonymous5558688644513965508webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10779)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///tmp/anonymous5558688644513965508webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12661)
-	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///tmp/anonymous5558688644513965508webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12666)
-	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///tmp/anonymous5558688644513965508webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12608)
-01:33:35.283 WARN - Exception: Unable to locate element: {"method":"css selector","selector":"main"}
-For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '2.53.1', revision: 'a36b8b1', time: '2016-06-30 17:37:03'
-System info: host: 'linux-box', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.19.0-84-generic', java.version: '1.8.0_144'
-Driver info: driver.version: unknown
-01:33:35.825 INFO - Executing: [delete session: 820ff917-cfde-4366-9f26-55d5311ff1de])
-01:33:35.886 INFO - Done: [delete session: 820ff917-cfde-4366-9f26-55d5311ff1de]
+01:27:03.790 INFO - Driver class not found: org.openqa.selenium.htmlunit.HtmlUnitDriver
+01:27:03.790 INFO - Driver provider org.openqa.selenium.htmlunit.HtmlUnitDriver is not registered
+01:27:03.831 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+01:27:03.831 INFO - Selenium Server is up and running
+01:27:04.006 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Login, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
+01:27:04.014 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Login, browserName=firefox, javascriptEnabled=true, platform=ANY}]
+01:27:06.745 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Login, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
+01:27:06.757 INFO - Executing: [get: localhost:8000])
+01:27:07.093 INFO - Done: [get: localhost:8000]
+01:27:07.098 INFO - Executing: [find element: By.cssSelector: #playButton])
+01:27:07.426 INFO - Done: [find element: By.cssSelector: #playButton]
+01:27:07.429 INFO - Executing: [click: 0 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #playButton]])
+01:27:07.553 INFO - Done: [click: 0 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #playButton]]
+01:27:10.561 INFO - Executing: [find element: By.cssSelector: #pauseButton])
+01:27:10.574 INFO - Done: [find element: By.cssSelector: #pauseButton]
+01:27:10.577 INFO - Executing: [click: 1 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #pauseButton]])
+01:27:10.653 INFO - Done: [click: 1 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #pauseButton]]
+01:27:10.657 INFO - Executing: [find element: By.cssSelector: #clock-display])
+01:27:10.673 INFO - Done: [find element: By.cssSelector: #clock-display]
+01:27:10.676 INFO - Executing: [get text: 2 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #clock-display]])
+01:27:10.702 INFO - Done: [get text: 2 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #clock-display]]
+01:27:11.706 INFO - Executing: [find element: By.cssSelector: #playButton])
+01:27:11.722 INFO - Done: [find element: By.cssSelector: #playButton]
+01:27:11.724 INFO - Executing: [click: 0 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #playButton]])
+01:27:11.803 INFO - Done: [click: 0 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #playButton]]
+01:27:14.810 INFO - Executing: [find element: By.cssSelector: #pauseButton])
+01:27:14.837 INFO - Done: [find element: By.cssSelector: #pauseButton]
+01:27:14.839 INFO - Executing: [click: 1 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #pauseButton]])
+01:27:14.919 INFO - Done: [click: 1 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #pauseButton]]
+01:27:14.922 INFO - Executing: [find element: By.cssSelector: #clock-display])
+01:27:14.937 INFO - Done: [find element: By.cssSelector: #clock-display]
+01:27:14.940 INFO - Executing: [get text: 2 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #clock-display]])
+01:27:14.957 INFO - Done: [get text: 2 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #clock-display]]
+01:27:14.962 INFO - Executing: [find element: By.cssSelector: #resetButton])
+01:27:15.134 INFO - Done: [find element: By.cssSelector: #resetButton]
+01:27:15.136 INFO - Executing: [click: 3 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #resetButton]])
+01:27:15.241 INFO - Done: [click: 3 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #resetButton]]
+01:27:15.246 INFO - Executing: [find element: By.cssSelector: #clock-display])
+01:27:15.257 INFO - Done: [find element: By.cssSelector: #clock-display]
+01:27:15.260 INFO - Executing: [get text: 2 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #clock-display]])
+01:27:15.286 INFO - Done: [get text: 2 [[FirefoxDriver: firefox on LINUX (eb7edbdc-5dba-4a98-95c0-4960a5de376a)] -> css selector: #clock-display]]
+01:27:15.290 INFO - Executing: [delete session: 2f3db9b1-d548-4d46-b171-cf7f998d93ca])
+01:27:15.378 INFO - Done: [delete session: 2f3db9b1-d548-4d46-b171-cf7f998d93ca]

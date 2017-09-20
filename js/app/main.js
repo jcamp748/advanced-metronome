@@ -8,6 +8,7 @@ define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], fun
 
   //// add metronome as an observer to the song
   song.addObserver(metronome);
+  window.song = song;
 
   // logic for metronome controls
   $("#skipBackButton").click(function(){
