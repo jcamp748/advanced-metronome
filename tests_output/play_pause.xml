@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="1">
+
+  <testsuite name="play_pause"
+    errors="1" failures="0" hostname="" id="" package="play_pause" skipped="0"
+    tests="1" time="0.004000" timestamp="Wed, 20 Sep 2017 16:51:15 GMT">
+  
+    <testcase name="play pause test" classname="play_pause" time="0.004000" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [Play Pause / play pause test]:
+
+  ReferenceError: data is not defined
+    at Object.play pause test (/home/jordan/workspace/advanced-metronome/tests/play_pause.js:41:9)
+    at Module.call (/home/jordan/.nvm/versions/node/v8.5.0/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /home/jordan/.nvm/versions/node/v8.5.0/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/home/jordan/.nvm/versions/node/v8.5.0/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/home/jordan/.nvm/versions/node/v8.5.0/lib/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/home/jordan/.nvm/versions/node/v8.5.0/lib/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /home/jordan/.nvm/versions/node/v8.5.0/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/home/jordan/.nvm/versions/node/v8.5.0/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/home/jordan/.nvm/versions/node/v8.5.0/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

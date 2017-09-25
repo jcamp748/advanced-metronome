@@ -98,6 +98,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   }
 
   worker.onmessage = function(e){
+    //update all data-* divs
     console.log(e.data);
   };
 
