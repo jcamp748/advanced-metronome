@@ -6,9 +6,18 @@ define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], fun
   //song has been loaded
   table.initialize();
 
+  // create all the hidden data divs
+  function createDataDiv(attribute) {
+    var $div =  $("<div></div>");
+    var s = "data-" + attribute;
+    $div.attr(s, "").hide();
+    $("body").append($div);
+  }
+
   //// add metronome as an observer to the song
   song.addObserver(metronome);
   window.song = song;
+  createDataDiv("tempo");
 
   // logic for metronome controls
   $("#skipBackButton").click(function(){

@@ -1,23 +1,23 @@
-12:11:28.154 INFO - Launching a standalone Selenium Server
-12:11:28.177 INFO - Java: Oracle Corporation 25.144-b01
-12:11:28.178 INFO - OS: Linux 3.19.0-84-generic amd64
-12:11:28.186 INFO - v2.53.1, with Core v2.53.1. Built from revision a36b8b1
-12:11:28.231 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
+23:15:26.131 INFO - Launching a standalone Selenium Server
+23:15:26.299 INFO - Java: Oracle Corporation 25.144-b01
+23:15:26.299 INFO - OS: Linux 3.19.0-47-generic amd64
+23:15:26.365 INFO - v2.53.1, with Core v2.53.1. Built from revision a36b8b1
+23:15:26.559 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
 registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match the current platform LINUX
-12:11:28.232 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
+23:15:26.559 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
 registration capabilities Capabilities [{browserName=MicrosoftEdge, version=, platform=WINDOWS}] does not match the current platform LINUX
-12:11:28.232 INFO - Driver class not found: com.opera.core.systems.OperaDriver
-12:11:28.232 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
-12:11:28.233 INFO - Driver provider org.openqa.selenium.safari.SafariDriver registration is skipped:
+23:15:26.560 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+23:15:26.560 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
+23:15:26.562 INFO - Driver provider org.openqa.selenium.safari.SafariDriver registration is skipped:
 registration capabilities Capabilities [{browserName=safari, version=, platform=MAC}] does not match the current platform LINUX
-12:11:28.233 INFO - Driver class not found: org.openqa.selenium.htmlunit.HtmlUnitDriver
-12:11:28.233 INFO - Driver provider org.openqa.selenium.htmlunit.HtmlUnitDriver is not registered
-12:11:28.272 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
-12:11:28.272 INFO - Selenium Server is up and running
-12:11:28.448 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Play Pause, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
-12:11:28.455 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Play Pause, browserName=firefox, javascriptEnabled=true, platform=ANY}]
-12:11:31.100 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Play Pause, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
-12:11:31.114 WARN - Exception thrown
+23:15:26.564 INFO - Driver class not found: org.openqa.selenium.htmlunit.HtmlUnitDriver
+23:15:26.564 INFO - Driver provider org.openqa.selenium.htmlunit.HtmlUnitDriver is not registered
+23:15:26.989 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+23:15:26.990 INFO - Selenium Server is up and running
+23:15:27.922 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Play Pause, browserName=firefox, javascriptEnabled=true, platform=ANY}]])
+23:15:27.971 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Play Pause, browserName=firefox, javascriptEnabled=true, platform=ANY}]
+23:15:42.564 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Play Pause, browserName=firefox, javascriptEnabled=true, platform=ANY}]]
+23:15:42.614 WARN - Exception thrown
 java.lang.ClassCastException: java.util.HashMap cannot be cast to java.util.List
 	at org.openqa.selenium.remote.server.handler.ExecuteScript.setJsonParameters(ExecuteScript.java:44)
 	at org.openqa.selenium.remote.server.rest.ResultConfig.handle(ResultConfig.java:99)
@@ -39,18 +39,18 @@ java.lang.ClassCastException: java.util.HashMap cannot be cast to java.util.List
 	at org.openqa.jetty.http.SocketListener.handleConnection(SocketListener.java:243)
 	at org.openqa.jetty.util.ThreadedServer.handle(ThreadedServer.java:358)
 	at org.openqa.jetty.util.ThreadPool$PoolThread.run(ThreadPool.java:537)
-12:11:31.116 WARN - Exception: java.util.HashMap cannot be cast to java.util.List
-12:11:31.141 INFO - Executing: [execute script: var passedArgs = Array.prototype.slice.call(arguments,0); return function (){
+23:15:42.761 WARN - Exception: java.util.HashMap cannot be cast to java.util.List
+23:15:42.847 INFO - Executing: [execute script: var passedArgs = Array.prototype.slice.call(arguments,0); return function (){
         alert(window.song.getMeasureData());
       }.apply(window, passedArgs);, []])
-12:11:31.995 WARN - Exception thrown
+23:15:45.339 WARN - Exception thrown
 org.openqa.selenium.WebDriverException: window.song is undefined
-Command duration or timeout: 27 milliseconds
+Command duration or timeout: 97 milliseconds
 Build info: version: '2.53.1', revision: 'a36b8b1', time: '2016-06-30 17:37:03'
-System info: host: 'linux-box', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.19.0-84-generic', java.version: '1.8.0_144'
+System info: host: 'linux-laptop', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.19.0-47-generic', java.version: '1.8.0_144'
 Driver info: org.openqa.selenium.firefox.FirefoxDriver
 Capabilities [{applicationCacheEnabled=true, rotatable=false, handlesAlerts=true, databaseEnabled=true, version=44.0, platform=LINUX, nativeEvents=false, acceptSslCerts=true, webStorageEnabled=true, locationContextEnabled=true, browserName=firefox, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
-Session ID: 210acde3-7014-4b27-8eed-7b159dd4c7fb
+Session ID: 0b14a56f-9d2c-40a9-ae32-243768dcb5e5
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -74,44 +74,28 @@ Session ID: 210acde3-7014-4b27-8eed-7b159dd4c7fb
 	at java.lang.Thread.run(Thread.java:748)
 Caused by: org.openqa.selenium.WebDriverException: window.song is undefined
 Build info: version: '2.53.1', revision: 'a36b8b1', time: '2016-06-30 17:37:03'
-System info: host: 'linux-box', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.19.0-84-generic', java.version: '1.8.0_144'
+System info: host: 'linux-laptop', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.19.0-47-generic', java.version: '1.8.0_144'
 Driver info: driver.version: unknown
 	at <anonymous class>.anonymous/<(about:blank line 69 > Function:2)
 	at <anonymous class>.anonymous(about:blank line 69 > Function:1)
 	at <anonymous class>.handleEvaluateEvent(about:blank:69)
-12:11:31.996 WARN - Exception: window.song is undefined
+23:15:45.342 WARN - Exception: window.song is undefined
 Build info: version: '2.53.1', revision: 'a36b8b1', time: '2016-06-30 17:37:03'
-System info: host: 'linux-box', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.19.0-84-generic', java.version: '1.8.0_144'
+System info: host: 'linux-laptop', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '3.19.0-47-generic', java.version: '1.8.0_144'
 Driver info: driver.version: unknown
-12:11:32.162 INFO - Executing: [get: localhost:8000])
-12:11:32.509 INFO - Done: [get: localhost:8000]
-12:11:32.514 INFO - Executing: [find element: By.cssSelector: #playButton])
-12:11:32.799 INFO - Done: [find element: By.cssSelector: #playButton]
-12:11:32.807 INFO - Executing: [click: 0 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #playButton]])
-12:11:32.932 INFO - Done: [click: 0 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #playButton]]
-12:11:35.956 INFO - Executing: [find element: By.cssSelector: #pauseButton])
-12:11:35.967 INFO - Done: [find element: By.cssSelector: #pauseButton]
-12:11:35.973 INFO - Executing: [click: 1 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #pauseButton]])
-12:11:36.046 INFO - Done: [click: 1 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #pauseButton]]
-12:11:36.050 INFO - Executing: [find element: By.cssSelector: #clock-display])
-12:11:36.066 INFO - Done: [find element: By.cssSelector: #clock-display]
-12:11:36.071 INFO - Executing: [get text: 2 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #clock-display]])
-12:11:36.099 INFO - Done: [get text: 2 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #clock-display]]
-12:11:37.103 INFO - Executing: [find element: By.cssSelector: #playButton])
-12:11:37.130 INFO - Done: [find element: By.cssSelector: #playButton]
-12:11:37.132 INFO - Executing: [click: 0 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #playButton]])
-12:11:37.214 INFO - Done: [click: 0 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #playButton]]
-12:11:40.220 INFO - Executing: [find element: By.cssSelector: #pauseButton])
-12:11:40.247 INFO - Done: [find element: By.cssSelector: #pauseButton]
-12:11:40.250 INFO - Executing: [click: 1 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #pauseButton]])
-12:11:40.333 INFO - Done: [click: 1 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #pauseButton]]
-12:11:40.336 INFO - Executing: [find element: By.cssSelector: #clock-display])
-12:11:40.362 INFO - Done: [find element: By.cssSelector: #clock-display]
-12:11:40.364 INFO - Executing: [get text: 2 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #clock-display]])
-12:11:40.384 INFO - Done: [get text: 2 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #clock-display]]
-12:11:40.391 INFO - Executing: [find element: By.cssSelector: #resetButton])
-12:11:40.401 INFO - Done: [find element: By.cssSelector: #resetButton]
-12:11:40.410 INFO - Executing: [click: 3 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #resetButton]])
-12:11:40.480 INFO - Done: [click: 3 [[FirefoxDriver: firefox on LINUX (210acde3-7014-4b27-8eed-7b159dd4c7fb)] -> css selector: #resetButton]]
-12:11:40.484 INFO - Executing: [delete session: b2b50b6c-309e-4d5c-a15a-3686411863f5])
-12:11:40.688 INFO - Done: [delete session: b2b50b6c-309e-4d5c-a15a-3686411863f5]
+23:15:45.383 INFO - Executing: [get: localhost:8000])
+23:15:46.647 INFO - Done: [get: localhost:8000]
+23:15:46.659 INFO - Executing: [find element: By.cssSelector: #playButton])
+23:15:48.715 INFO - Done: [find element: By.cssSelector: #playButton]
+23:15:48.724 INFO - Executing: [click: 0 [[FirefoxDriver: firefox on LINUX (0b14a56f-9d2c-40a9-ae32-243768dcb5e5)] -> css selector: #playButton]])
+23:15:49.730 INFO - Done: [click: 0 [[FirefoxDriver: firefox on LINUX (0b14a56f-9d2c-40a9-ae32-243768dcb5e5)] -> css selector: #playButton]]
+23:15:52.742 INFO - Executing: [find element: By.cssSelector: #pauseButton])
+23:15:53.545 INFO - Done: [find element: By.cssSelector: #pauseButton]
+23:15:53.558 INFO - Executing: [click: 1 [[FirefoxDriver: firefox on LINUX (0b14a56f-9d2c-40a9-ae32-243768dcb5e5)] -> css selector: #pauseButton]])
+23:15:54.510 INFO - Done: [click: 1 [[FirefoxDriver: firefox on LINUX (0b14a56f-9d2c-40a9-ae32-243768dcb5e5)] -> css selector: #pauseButton]]
+23:15:54.521 INFO - Executing: [find element: By.cssSelector: #clock-display])
+23:15:55.312 INFO - Done: [find element: By.cssSelector: #clock-display]
+23:15:55.324 INFO - Executing: [get text: 2 [[FirefoxDriver: firefox on LINUX (0b14a56f-9d2c-40a9-ae32-243768dcb5e5)] -> css selector: #clock-display]])
+23:15:56.112 INFO - Done: [get text: 2 [[FirefoxDriver: firefox on LINUX (0b14a56f-9d2c-40a9-ae32-243768dcb5e5)] -> css selector: #clock-display]]
+23:15:56.128 INFO - Executing: [delete session: a98f57b3-3d69-40db-80c8-a65dc4a82aa3])
+23:15:56.876 INFO - Done: [delete session: a98f57b3-3d69-40db-80c8-a65dc4a82aa3]
