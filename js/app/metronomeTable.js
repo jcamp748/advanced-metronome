@@ -70,6 +70,9 @@ define(['app/song'], function(song){
       // create td with class col-xs-3
       $row.append( $('<td></td>').text(section[prop]).addClass("col-xs-3"));
     }
+    // add checkbox to row
+    debugger;
+    $row.append( $('<input>').attr("type", "checkbox") );
     $row.click(function(){
       // highlight row in table
       $("#metronomeTable tbody").children().removeClass("highlight");
