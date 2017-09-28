@@ -45,10 +45,9 @@ define(["qunit", "app/metronomeTable"], function(QUnit, table) {
       var data = [];
 
       var $row = $("#metronomeTable tbody").children(".highlight");
-      $row.children().each(function() {
-        // this is the current DOM element in the loop
-        data.push($(this).text());
-      });
+      for(var i = 0; i < 4; i++) {
+        data.push( $( $row.children()[i] ).text());
+      }
       return data;
     }
 
