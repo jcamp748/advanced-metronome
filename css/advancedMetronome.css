@@ -17,3 +17,8 @@ button.add-section {
 #saveRowButton {
   margin-left: 5px;
 }
+
+td {
+  text-align: center; /* center checkbox horizontally */
+  vertical-align: middle; /* center checkbox vertically */
+}
