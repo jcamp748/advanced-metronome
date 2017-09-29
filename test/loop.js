@@ -72,9 +72,9 @@ define(["qunit"], function(QUnit){
     window.song.skipForward();
     assert.deepEqual(window.song.getMeasureData(), testObj["2"], "song should be on chorus now");
     window.song.skipForward();
-    assert.deepEqual(window.song.getMeasureData(), testObj["1"], "song should be on intro now");
+    assert.deepEqual(window.song.getMeasureData(), testObj["2"], "song should still be on chorus now");
     window.song.skipForward();
-    assert.deepEqual(window.song.getMeasureData(), testObj["2"], "song should be on chorus now");
+    assert.deepEqual(window.song.getMeasureData(), testObj["1"], "song should be on intro now");
 
 
   });

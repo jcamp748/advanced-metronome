@@ -98,9 +98,22 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   }
 
   worker.onmessage = function(e){
-    //update all data-* divs
+    
     console.log(e.data);
   };
+
+  function updateDataDivs() {
+    //update all data-* divs
+    $dataDivs = $(".dataDiv");
+    for(var i = 0; i < $dataDivs.length; i++) {
+      var key = Object.keys(currentMeasure)[i];
+      var selector = "data-" + Object.keys(currentMeasure)[i];
+      //$( $dataDivs[i] ).data(key, currentMeasure[key]);
+      debugger;
+      $( "div[" + selector + "]" ).attr(selector, currentMeasure[key]);
+
+    }
+  }
 
     // private methods
     
@@ -123,12 +136,13 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       getSectionName: function() { return currentMeasure["section"]; },
       getMeasureNumber: function() { return measure;},
       getMeasureData: function() {return currentMeasure;},
-      updateMeasures: function() {populateMeasures();},
+      //updateMeasures: function() {populateMeasures();},
       getTime: function() {return time;},
 
       editData: function(data) {
         metronomeData = data;
         populateMeasures();
+        updateDataDivs();
         loadMeasure(0);
       },
       
@@ -145,11 +159,13 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         } else {
           loadMeasure(i);
         }
+        updateDataDivs();
         this.notify(this);
       },
 
       rewind: function() {
         console.log("rewind metronome");
+        updateDataDivs();
         this.notify(this);
       },
 
@@ -189,6 +205,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       fastForward: function() {
         console.log("fast forward");
+        updateDataDivs();
         this.notify(this);
       },
 
@@ -199,27 +216,32 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         } else {
           loadMeasure(i);
         }
+        updateDataDivs();
         this.notify(this);
       },
 
       reset: function() {
         console.log("reset to beginning of song");
         loadMeasure(0);
+        updateDataDivs();
         this.notify(this);
       },
 
       seekTo: function() {
         console.log("seek in song");
+        updateDataDivs();
         this.notify(this);
       },
 
       increaseTempo: function() {
         tempo++;
+        updateDataDivs();
         this.notify(this);
       },
 
       decreaseTempo: function() {
         tempo--;
+        updateDataDivs();
         this.notify(this);
       },
     }, subject);

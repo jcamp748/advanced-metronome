@@ -11,13 +11,19 @@ define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], fun
     var $div =  $("<div></div>");
     var s = "data-" + attribute;
     $div.attr(s, "").hide();
+    $div.addClass("dataDiv");
     $("body").append($div);
   }
 
   //// add metronome as an observer to the song
   song.addObserver(metronome);
   window.song = song;
+  createDataDiv("timesig");
   createDataDiv("tempo");
+  createDataDiv("measures");
+  createDataDiv("name");
+
+  // logic for metronome controls
 
   // logic for metronome controls
   $("#skipBackButton").click(function(){
