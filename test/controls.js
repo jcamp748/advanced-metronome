@@ -64,17 +64,13 @@ define(["qunit"], function(QUnit){
     // test the skipForward and skipBack buttons
     // these buttons should move forward and backward 1 measure respectively
     // simulate clicks on skip forward and back buttons and verify data
-    assert.equal(window.song.getSectionName(), "lead in", "song should start with lead in section");
-    assert.equal(window.song.getMeasureNumber(), 0, "should start on measure 0");
-    assert.deepEqual(window.song.getMeasureData(), testObj[0], "should be lead in data");
+    assert.equal(window.song.getSectionName(), "intro", "song should start with intro section");
+    assert.equal(window.song.getMeasureNumber(), 1, "should start on measure 1");
+    assert.deepEqual(window.song.getMeasureData(), testObj[1], "should be intro data");
 
     skipBackButton.trigger("click");
-    assert.equal(window.song.getSectionName(), "lead in", "song should still be on lead in section");
-    assert.equal(window.song.getMeasureNumber(), 0, "should still be on measure 0");
-
-    skipForwardButton.trigger("click");
-    assert.equal(window.song.getMeasureNumber(), 1, "should be on measure 1 now");
-    assert.deepEqual(window.song.getMeasureData(), testObj[1], "should be intro data");
+    assert.equal(window.song.getSectionName(), "intro", "song should still be on intro section");
+    assert.equal(window.song.getMeasureNumber(), 1, "should still be on measure 1");
 
     skipForwardButton.trigger("click");
     assert.equal(window.song.getMeasureNumber(), 2, "should be on measure 2 now");
@@ -112,14 +108,14 @@ define(["qunit"], function(QUnit){
     // the reset button should take us back to the first measure regardless of where we are
     var resetButton = $("#resetButton");
     resetButton.trigger("click");
-    assert.equal(window.song.getMeasureNumber(), 0, "should be on measure 0");
-    assert.deepEqual(window.song.getMeasureData(), testObj[0], "should be on lead in data");
+    assert.equal(window.song.getMeasureNumber(), 1, "should be on measure 1");
+    assert.deepEqual(window.song.getMeasureData(), testObj[1], "should be on lead in data");
     skipForwardButton.trigger("click");
-    assert.equal(window.song.getMeasureNumber(), 1, "should be on measure 1 now");
-    assert.deepEqual(window.song.getMeasureData(), testObj[1], "should be intro data");
+    assert.equal(window.song.getMeasureNumber(), 2, "should be on measure 2 now");
+    assert.deepEqual(window.song.getMeasureData(), testObj[2], "should be chorus data");
     resetButton.trigger("click");
-    assert.equal(window.song.getMeasureNumber(), 0, "should be on measure 0");
-    assert.deepEqual(window.song.getMeasureData(), testObj[0], "should be on lead in data");
+    assert.equal(window.song.getMeasureNumber(), 1, "should be on measure 1");
+    assert.deepEqual(window.song.getMeasureData(), testObj[1], "should be on intro data");
 
 
     

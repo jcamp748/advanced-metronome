@@ -134,7 +134,19 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       getTimeSig: function() { return currentMeasure["timeSig"]; },
       getSectionName: function() { return currentMeasure["section"]; },
       getMeasureNumber: function() { return measure;},
-      getMeasureData: function() {return currentMeasure;},
+      getMeasureData: function() {
+        if(measure == 0) {
+          return measures[1]
+        } else {
+          return currentMeasure;
+        }
+      },
+
+      setMeasure: function(number) {
+        // set measure when user clicks on row
+        loadMeasure(number);
+
+      },
       //updateMeasures: function() {populateMeasures();},
       getTime: function() {return time;},
 
