@@ -109,7 +109,6 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       var key = Object.keys(currentMeasure)[i];
       var selector = "data-" + Object.keys(currentMeasure)[i];
       //$( $dataDivs[i] ).data(key, currentMeasure[key]);
-      debugger;
       $( "div[" + selector + "]" ).attr(selector, currentMeasure[key]);
 
     }

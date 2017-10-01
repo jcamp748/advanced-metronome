@@ -20,8 +20,8 @@ define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], fun
   window.song = song;
   createDataDiv("timesig");
   createDataDiv("tempo");
-  createDataDiv("measures");
-  createDataDiv("name");
+  createDataDiv("count");
+  createDataDiv("section");
 
   // logic for metronome controls
 
