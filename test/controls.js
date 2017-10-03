@@ -60,10 +60,12 @@ define(["qunit"], function(QUnit){
 
     var skipBackButton = $("#skipBackButton");
     var skipForwardButton = $("#skipForwardButton");
+    var resetButton = $("#resetButton");
 
     // test the skipForward and skipBack buttons
     // these buttons should move forward and backward 1 measure respectively
     // simulate clicks on skip forward and back buttons and verify data
+    resetButton.trigger("click");
     assert.equal(window.song.getSectionName(), "intro", "song should start with intro section");
     assert.equal(window.song.getMeasureNumber(), 1, "should start on measure 1");
     assert.deepEqual(window.song.getMeasureData(), testObj[1], "should be intro data");
@@ -106,7 +108,6 @@ define(["qunit"], function(QUnit){
 
     // test reset button
     // the reset button should take us back to the first measure regardless of where we are
-    var resetButton = $("#resetButton");
     resetButton.trigger("click");
     assert.equal(window.song.getMeasureNumber(), 1, "should be on measure 1");
     assert.deepEqual(window.song.getMeasureData(), testObj[1], "should be on lead in data");

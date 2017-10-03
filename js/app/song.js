@@ -154,7 +154,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         metronomeData = data;
         populateMeasures();
         updateDataDivs();
-        loadMeasure(0);
+        loadMeasure(1);
       },
       
       save: function() {
