@@ -165,7 +165,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       skipBack: function() {
         var i = measure;
-        if(i > 0) {
+        if(i > 1) {
           loadMeasure(--i);
         } else {
           loadMeasure(i);
@@ -233,7 +233,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       reset: function() {
         console.log("reset to beginning of song");
-        loadMeasure(0);
+        loadMeasure(1);
         updateDataDivs();
         this.notify(this);
       },
