@@ -71,7 +71,8 @@ define(['app/song'], function(song){
       $row.append( $('<td></td>').text(section[prop]).addClass("col-xs-3"));
     }
     // add checkbox to row
-    $row.append( $('<td></td>').append( $('<input>').attr("type", "checkbox") ));
+    var $checkBox = $('<input>').attr("type", "checkbox").change(song.updateLoop());
+    $row.append( $('<td></td>').append( $checkBox ));
     $row.click(function(){
       // highlight row in table
       $("#metronomeTable tbody").children().removeClass("highlight");

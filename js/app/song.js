@@ -2,6 +2,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   var instance = null; 
   var metronomeData = null; 
   var measures = [];
+  var loop = [];
   var currentMeasure = {};
   var measure = 0;
   var currentBeat = 0;
@@ -114,10 +115,17 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     }
   }
 
+  function updateLoop() {
+    debugger;
+    
+    console.log("update loop 2");
+  }
+
     // private methods
     
     // return public methods and variables
     return _.extend({
+      updateLoop: function() { updateLoop(); },
       getMetronomeData: function() { 
         if(!metronomeData) {
           loadData();
