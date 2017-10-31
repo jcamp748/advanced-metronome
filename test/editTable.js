@@ -213,6 +213,7 @@ define(["qunit", "app/metronomeTable"], function(QUnit, table) {
     tempoData = $("#tempoInput").val();
     countData = $("#countInput").val();
     sectionData = $("#sectionInput").val();
+    debugger;
     assert.equal(timesigData, $firstRow.children(":nth-child(1)").text(), "timesig data should match");
     assert.equal(tempoData, $firstRow.children(":nth-child(2)").text(), "tempo data should match");
     assert.equal(countData, $firstRow.children(":nth-child(3)").text(), "count data should match");

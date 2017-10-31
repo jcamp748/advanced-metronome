@@ -36,38 +36,40 @@ define(["qunit"], function(QUnit){
       return $( $td.children()[0] );
     }
 
-    function check(row) {
-      var $box = getCheckbox(row);
+    function check(rows, index) {
+      var $box = getCheckbox(rows[index]);
       $box.attr("checked", "true");
+      $(rows[index])addClass("highlight");
     }
 
-    function uncheck(row) {
-      var $box = getCheckbox(row);
+    function uncheck(rows, index) {
+      var $box = getCheckbox(rows[index]);
       $box.attr("checked", "false");
+      $(rows[index]).removeClass("highlight");
     }
 
-    var rows = $("#metronomeTable tbody").children();
+    var $rows = $("#metronomeTable tbody").children();
 
     assert.deepEqual(window.song.getMeasureData(), testObj["1"], "song should start on intro");
 
     // checking the first box should cause the song to loop on the 'intro' section
-    check(rows[0]);
+    check($rows, 0);
     window.song.skipForward();
     assert.deepEqual(window.song.getMeasureData(), testObj["1"], "song should still be on intro");
 
     // checking the last box should cause the song to start on outro
-    uncheck(rows[0]);
-    check(rows[3]);
+    uncheck($rows, 0);
+    check($rows, 3);
     assert.deepEqual(window.song.getMeasureData(), testObj["3"], "song should be on outro");
 
     // skipping forward should cause the song to loop on the last measure
     window.song.skipForward();
     assert.deepEqual(window.song.getMeasureData(), testObj["3"], "song should still be on outro");
 
-    // checking the first 2 rows should cause the song to loop over the first two sections
-    uncheck(rows[3]);
-    check(rows[0]);
-    check(rows[1]);
+    // checking the first 2 $rows should cause the song to loop over the first two sections
+    uncheck($rows, 3);
+    check($rows, 0);
+    check($rows, 1);
     assert.deepEqual(window.song.getMeasureData(), testObj["1"], "song should start on intro");
     window.song.skipForward();
     assert.deepEqual(window.song.getMeasureData(), testObj["2"], "song should be on chorus now");

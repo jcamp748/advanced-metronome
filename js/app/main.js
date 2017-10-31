@@ -17,6 +17,7 @@ define(["app/metronome", "app/metronomeTable", "app/song", "app/testSuite"], fun
 
   //// add metronome as an observer to the song
   song.addObserver(metronome);
+  song.addObserver(table);
   window.song = song;
   createDataDiv("timesig");
   createDataDiv("tempo");

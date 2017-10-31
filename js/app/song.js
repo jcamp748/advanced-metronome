@@ -28,6 +28,8 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         measures.push(metronomeData[section]);
       }
     }
+    // figure out how to generate the table here without using
+    // the circular reference
   }
 
   function scheduleTick() {
@@ -116,7 +118,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   }
 
   function updateLoop() {
-    debugger;
+    var $rows = $("#metronomeTable tbody").children();
     
     console.log("update loop 2");
   }
@@ -163,6 +165,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         populateMeasures();
         updateDataDivs();
         loadMeasure(1);
+        this.notify(this);
       },
       
       save: function() {

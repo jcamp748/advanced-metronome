@@ -31,9 +31,15 @@ define(['app/song'], function(song){
     $("#metronomeTable").append(generateHead());
     $("#metronomeTable").append($('<tbody></tbody>'));
     var data = song.getMetronomeData();
-    for(var section in data) {
-      addRow(generateRow(data[section]));
+    if(data) {
+      var len = Object.keys(data).length;
+      for(var i = 1; i < len; i++) {
+        addRow(generateRow(data[i]));
+      }
     }
+    //for(var section in data) {
+      //addRow(generateRow(data[section]));
+    //}
   }
 
   function generateHead() {
@@ -71,7 +77,7 @@ define(['app/song'], function(song){
       $row.append( $('<td></td>').text(section[prop]).addClass("col-xs-3"));
     }
     // add checkbox to row
-    var $checkBox = $('<input>').attr("type", "checkbox").change(song.updateLoop());
+    var $checkBox = $('<input>').attr("type", "checkbox").change(song.updateLoop);
     $row.append( $('<td></td>').append( $checkBox ));
     $row.click(function(){
       // highlight row in table
@@ -81,7 +87,8 @@ define(['app/song'], function(song){
       // populate form with data from section
       $row.addClass("highlight");
       $("#metronomeForm .form-group").each(function(index, el){
-        var section = song.getMetronomeData()[getIndex($row)];
+        // metronomeData is indexed at 1 so we need to add 1 to the table row
+        var section = song.getMetronomeData()[getIndex($row) + 1];
         var value = section[Object.keys(section)[index]];
         $(this).children(":nth-child(2)").val(value);
 
@@ -120,14 +127,19 @@ define(['app/song'], function(song){
     $("#metronomeTable tbody").append($row);
   }
 
-  function update() {
+  function updateTable() {
       deleteTable();
       generateTable();
    }
 
+
   // return the api
   // the global object is an array of Section objects
   return {
+    update: function(context) {
+      //song = context;
+      updateTable();
+    },
 
     unshift: function(section) {
       // add section to metronomeData after lead in
@@ -142,7 +154,7 @@ define(['app/song'], function(song){
       for( var i = 2; i < len + 1; i++) {
         newData[i] = oldData[i - 1];
       }
-      update();
+      updateTable();
       song.editData(newData);
     },
 
@@ -185,7 +197,7 @@ define(['app/song'], function(song){
         newData[i] = oldData[key];
         i++;
       }
-      update();
+      updateTable();
       newData[0].tempo = newData[1].tempo;
       newData[0].timesig = newData[1].timesig;
       song.editData(newData);
@@ -218,11 +230,13 @@ define(['app/song'], function(song){
         var $row = $("tr.highlight");
         var index = getIndex($row) + 1;
         var newData = Object.assign({}, song.getMetronomeData());
+        debugger;
         newData[index].timesig = $row.children(":nth-child(1)").text();
         newData[index].tempo = $row.children(":nth-child(2)").text();
         newData[index].count = $row.children(":nth-child(3)").text();
         newData[index].section = $row.children(":nth-child(4)").text();
         song.editData(newData);
+        updateTable();
 
       }
     },
