@@ -164,7 +164,8 @@ define(["qunit", "app/metronomeTable"], function(QUnit, table) {
     };
 
     // delete 'my first section'
-    $("#metronomeTable tbody").children(":nth-child(2)").click();  
+    $("#metronomeTable tbody").children(":nth-child(1)").click();  
+    debugger;
     table.deleteRow();
     assert.deepEqual(getMeasure(0), newLeadIn, "lead in should different now");
     assert.deepEqual(getMeasure(1), oldMeasure2, "measure 2 should now be 1");

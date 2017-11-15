@@ -39,7 +39,7 @@ define(["qunit"], function(QUnit){
     function check(rows, index) {
       var $box = getCheckbox(rows[index]);
       $box.attr("checked", "true");
-      $(rows[index])addClass("highlight");
+      $(rows[index]).addClass("highlight");
     }
 
     function uncheck(rows, index) {

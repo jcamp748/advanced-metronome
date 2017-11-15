@@ -123,6 +123,17 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     console.log("update loop 2");
   }
 
+  function setLeadInMeasure() {
+    var first = measures[1];
+    var lead = {
+        "timesig" : first.timesig,
+        "tempo" : first.tempo,
+        "count" : "1",
+        "section" : "lead in"
+      };
+    metronomeData[0] = lead;
+  }
+
     // private methods
     
     // return public methods and variables
@@ -165,6 +176,8 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         populateMeasures();
         updateDataDivs();
         loadMeasure(1);
+        // set lead in measure
+        setLeadInMeasure();
         this.notify(this);
       },
       
