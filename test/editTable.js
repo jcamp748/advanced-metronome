@@ -117,11 +117,11 @@ define(["qunit", "app/metronomeTable"], function(QUnit, table) {
       "count" : "1",
       "section" : "lead in"
     };
-    var oldMeasure1 = getMeasure(1);
+    var oldSection1 = getMeasure(1);
     table.unshift(firstSection);
     assert.deepEqual(getMeasure(1), firstSection, "unshift first section");
     assert.deepEqual(getMeasure(0), newLeadIn, "lead in should have changed tempo and timesig");
-    assert.deepEqual(getMeasure(2), oldMeasure1, "measure 2 should be old measure 1");
+    assert.deepEqual(getMeasure(2), oldSection1, "measure 2 should be old measure 1");
     assert.equal(window.song.getMeasures().length, 8, "should be 8 measures");
 
     // test push
@@ -142,20 +142,20 @@ define(["qunit", "app/metronomeTable"], function(QUnit, table) {
         "count" : "2",
         "section" : "my insert section"
       };
-    var oldMeasure4 = getMeasure(4);
-    var oldMeasure5 = getMeasure(5);
+    var oldSection4 = getMeasure(4);
+    var oldSection5 = getMeasure(5);
     var lastMeasure = getMeasure(getLastIndex());
     var leadIn = getMeasure(0);
     table.insert(insertSection, 4);
     assert.deepEqual(getMeasure(0), leadIn, "lead in should be the same");
-    assert.deepEqual(getMeasure(4), oldMeasure4, "measure 4 should be unchanged");
+    assert.deepEqual(getMeasure(4), oldSection4, "measure 4 should be unchanged");
     assert.deepEqual(getMeasure(5), insertSection, "section 5 should be insert section");
     assert.deepEqual(getMeasure(6), insertSection, "section 6 should be insert section");
-    assert.deepEqual(getMeasure(7), oldMeasure5, "section 7 should be old measure 5");
+    assert.deepEqual(getMeasure(7), oldSection5, "section 7 should be old measure 5");
     assert.equal(window.song.getMeasures().length, 11, "should be 11 measures");
 
     // test deleteRow
-    var oldMeasure2 = getMeasure(2);
+    var oldSection2 = getMeasure(2);
     newLeadIn = {
       "timesig" : "4/4",
       "tempo" : "100",
@@ -165,19 +165,20 @@ define(["qunit", "app/metronomeTable"], function(QUnit, table) {
 
     // delete 'my first section'
     $("#metronomeTable tbody").children(":nth-child(1)").click();  
-    debugger;
     table.deleteRow();
     assert.deepEqual(getMeasure(0), newLeadIn, "lead in should different now");
-    assert.deepEqual(getMeasure(1), oldMeasure2, "measure 2 should now be 1");
+    assert.deepEqual(getMeasure(1), oldSection2, "measure 2 should now be 1");
     assert.equal(window.song.getMeasures().length, 10, "should be 10 measures");
-    // delete 'chorus'
-    oldMeasure4 = getMeasure(4);
-    oldMeasure6 = getMeasure(6);
+    // delete 'my insert section ( section 3 )'
+    oldSection2  = song.getMetronomeData()[2];
+    oldSection4 = song.getMetronomeData()[4];
+    oldSection5 = song.getMetronomeData()[5];
     $("#metronomeTable tbody").children(":nth-child(3)").click();
+    debugger;
     table.deleteRow();
-    assert.deepEqual(getMeasure(2), oldMeasure4, "measure 2 should be old measure 4");
-    assert.deepEqual(getMeasure(3), oldMeasure4, "measure 3 should be old measure 5");
-    assert.deepEqual(getMeasure(4), oldMeasure6, "measure 4 should be old measure 6");
+    assert.deepEqual(song.getMetronomeData()[2], oldSection2, "section2 should be the same");
+    assert.deepEqual(song.getMetronomeData()[3], oldSection4, "section3 should be old section4");
+    assert.deepEqual(song.getMetronomeData()[4], oldSection5, "section4 should be old section5");
     assert.equal(window.song.getMeasures().length, 8, "should be 8 measures");
 
 
@@ -214,7 +215,6 @@ define(["qunit", "app/metronomeTable"], function(QUnit, table) {
     tempoData = $("#tempoInput").val();
     countData = $("#countInput").val();
     sectionData = $("#sectionInput").val();
-    debugger;
     assert.equal(timesigData, $firstRow.children(":nth-child(1)").text(), "timesig data should match");
     assert.equal(tempoData, $firstRow.children(":nth-child(2)").text(), "tempo data should match");
     assert.equal(countData, $firstRow.children(":nth-child(3)").text(), "count data should match");

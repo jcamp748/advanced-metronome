@@ -28,8 +28,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         measures.push(metronomeData[section]);
       }
     }
-    // figure out how to generate the table here without using
-    // the circular reference
+    // set lead in measure
   }
 
   function scheduleTick() {

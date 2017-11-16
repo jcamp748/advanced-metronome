@@ -204,6 +204,13 @@ define(['app/song'], function(song){
       for(var i = 1; i < numberOfKeys; i++) {
         newData[i] = oldData[keys[i]];
       }
+      var leadIn = {
+        "timesig" : newData[1].timesig,
+        "tempo" : newData[1].tempo,
+        "count" : "1",
+        "section" : "lead in"
+      };
+      newData[0] = leadIn;
       song.editData(newData);
       updateTable();
     },
