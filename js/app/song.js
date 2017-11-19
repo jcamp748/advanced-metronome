@@ -133,6 +133,19 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     metronomeData[0] = lead;
   }
 
+  function getLoop() {
+    var rows = $("#metronomeTable tbody").children();
+    var length = rows.length;
+    var loop = [];
+    for(var i = 0; i < length; i++) {
+      var row = rows[i];
+      if( $(row).children(":last-child").children().is(":checked") ) {
+        loop.push(i);
+      }
+    }
+    return loop;
+  }
+
     // private methods
     
     // return public methods and variables
@@ -245,7 +258,15 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       skipForward: function() {
         var i = measure;
-        if(i < measures.length - 1) {
+        var loop = getLoop();
+        if( loop ) {
+          if( loop[i + 1] ) {
+            loadMeasure(loop[i++]);
+          } else {
+            loadMeasure(loop[0]);
+          }
+        } 
+        else if(i < measures.length - 1) {
           loadMeasure(++i);
         } else {
           loadMeasure(i);

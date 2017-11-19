@@ -174,7 +174,6 @@ define(["qunit", "app/metronomeTable"], function(QUnit, table) {
     oldSection4 = song.getMetronomeData()[4];
     oldSection5 = song.getMetronomeData()[5];
     $("#metronomeTable tbody").children(":nth-child(3)").click();
-    debugger;
     table.deleteRow();
     assert.deepEqual(song.getMetronomeData()[2], oldSection2, "section2 should be the same");
     assert.deepEqual(song.getMetronomeData()[3], oldSection4, "section3 should be old section4");
