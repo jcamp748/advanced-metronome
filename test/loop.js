@@ -60,6 +60,8 @@ define(["qunit"], function(QUnit){
     // checking the last box should cause the song to start on outro
     uncheck($rows, 0);
     check($rows, 3);
+    $("#metronomeTable tbody").children()[2].click();
+    debugger;
     assert.deepEqual(window.song.getMeasureData(), testObj["3"], "song should be on outro");
 
     // skipping forward should cause the song to loop on the last measure

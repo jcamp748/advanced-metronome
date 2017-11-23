@@ -201,10 +201,20 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
       skipBack: function() {
         var i = measure;
-        if(i > 1) {
-          loadMeasure(--i);
+        var loop = getLoop();
+        // check if loop array has any elements
+        if( loop.length ) {
+          if( loop[i - 1] ) {
+            loadMeasure(loop[i--]);
+          } else {
+            loadMeasure(loop[loop.length - 1]);
+          }
         } else {
-          loadMeasure(i);
+          if(i > 1) {
+            loadMeasure(--i);
+          } else {
+            loadMeasure(i);
+          }
         }
         updateDataDivs();
         this.notify(this);
@@ -259,17 +269,19 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       skipForward: function() {
         var i = measure;
         var loop = getLoop();
-        if( loop ) {
+        // check if loop array has any elements
+        if( loop.length ) {
           if( loop[i + 1] ) {
             loadMeasure(loop[i++]);
           } else {
             loadMeasure(loop[0]);
           }
-        } 
-        else if(i < measures.length - 1) {
-          loadMeasure(++i);
         } else {
-          loadMeasure(i);
+          if(i < measures.length - 1) {
+            loadMeasure(++i);
+          } else {
+            loadMeasure(i);
+          }
         }
         updateDataDivs();
         this.notify(this);
