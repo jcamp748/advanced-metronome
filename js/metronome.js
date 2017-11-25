@@ -22,7 +22,7 @@ var sectionNumber = 0;          // section of the metronomeData hash we are on
 //var metronomeData = {};         // object that will hold the data
 var playData = [];              // empty array that will hold sections to be played
 var loopComplete = false;       // true when we have successfully looped
-// hello
+// hello atom
 
 // colorscheme for metronome screen
 var backgroundColor = "rgba(196, 226, 196, 1)";
