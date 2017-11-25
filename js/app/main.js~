@@ -1,0 +1,6 @@
+define(function (require) {
+
+  var metronome = require('./metronome');
+
+  var myMetronome = getInstance
+

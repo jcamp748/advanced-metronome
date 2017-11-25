@@ -1,0 +1,22 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/jordan/.nvm/versions/node/v5.5.0/bin/node',
+1 verbose cli   '/home/jordan/.nvm/versions/node/v5.5.0/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'tests/homepage.js' ]
+2 info using npm@3.3.12
+3 info using node@v5.5.0
+4 verbose stack Error: ENOENT: no such file or directory, open '/home/jordan/workspace/advanced-metronome/package.json'
+4 verbose stack     at Error (native)
+5 verbose cwd /home/jordan/workspace/advanced-metronome
+6 error Linux 3.19.0-84-generic
+7 error argv "/home/jordan/.nvm/versions/node/v5.5.0/bin/node" "/home/jordan/.nvm/versions/node/v5.5.0/bin/npm" "run" "tests/homepage.js"
+8 error node v5.5.0
+9 error npm  v3.3.12
+10 error path /home/jordan/workspace/advanced-metronome/package.json
+11 error code ENOENT
+12 error errno -2
+13 error syscall open
+14 error enoent ENOENT: no such file or directory, open '/home/jordan/workspace/advanced-metronome/package.json'
+14 error enoent This is most likely not a problem with npm itself
+14 error enoent and is related to npm not being able to find a file.
+15 verbose exit [ -2, true ]

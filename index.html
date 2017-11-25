@@ -8,47 +8,30 @@
     <link rel="stylesheet" href="css/advancedMetronome.css">
     <!-- Latest compiled and minified CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
-    <script src="https://code.jquery.com/qunit/qunit-2.0.0.js"></script>
+    <!--<script src="https://code.jquery.com/qunit/qunit-2.0.0.js"></script>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
   </head>
   <body>
-    <div id="metronome-wrapper" class='container'>
-      <script>
-        window.metronomeData = {
-          "0" : {
-            "timesig" : "4/4",
-            "tempo" : "100",
-            "count" : "2",
-            "section" : "riff a"
-          },
-          "1" : {
-            "timesig" : "3/4",
-            "tempo" : "200",
-            "count" : "3",
-            "section" : "riff b"
-          },
-          "2" : {
-            "timesig" : "4/4",
-            "tempo" : "120",
-            "count" : "2",
-            "section" : "riff c"
-          }
-        };
-      
-      </script>
+      <div id="metronome-wrapper" class='container'>
+	  <div id="clock-display"></div>
       <div id='display-wrapper'>
         <canvas id='metronome-canvas' height='400' width='600'></canvas>
       </div>
       <div id="metronome-controls">
-        <button onclick="this.innerText = play()" class="metronome-control btn btn-primary">play</button>
-        <button onclick="reset()" class="metronome-control btn btn-primary">reset</button>
-        <button onclick="$('#form-wrapper').toggleClass('hidden')" class="metronome-control btn btn-primary">edit</button>
+        <button id='skipBackButton' class='metronome-control btn btn-primary'>back</button>
+        <button id='rewindButton' class='metronome-control btn btn-primary'>rewind</button>
+        <button id='playButton' class="metronome-control btn btn-primary">play</button>
+        <button id='pauseButton' class="metronome-control btn btn-primary" disabled='true'>pause</button>
+        <button id='fastForwardButton' class='metronome-control btn btn-primary'>forward</button>
+        <button id='skipForwardButton' class='metronome-control btn btn-primary'>skip</button>
+        <button id='resetButton'  class="metronome-control btn btn-primary">reset</button>
+        <button id='editButton'  class="metronome-control btn btn-primary">edit</button>
       </div>
       <div id="form-wrapper" style="display: block;" class="container hidden">
         <div class="row">
           <div class="col-md-4">
-            <form id="metronome-form" role="form" action="#" method="#">
+            <form id="metronomeForm" role="form" action="#" method="#">
               <div class='form-group'>
                 <label for='timeInput' class='control-label'>Time Signature</label>
                 <input type='text' id='timeInput' value='' class='form-control'>
@@ -69,13 +52,13 @@
                 <input type='text' id='sectionInput' value='' class='form-control'>
                 <div class='help-block with-errors'></div>
               </div>
-              <button class='btn btn-primary table-button' type='button' id='updateRowButton' onclick='validate()'>update</button>
-              <button class='btn btn-primary table-button' type='button' id='deleteRowButton' onclick='deleteRow()'>delete row</button>
+              <button class='btn btn-primary table-button' type='button' id='updateRowButton'>update</button>
+              <button class='btn btn-primary table-button' type='button' id='deleteRowButton'>delete row</button>
               <button class='btn btn-primary' id='saveRowButton' form='metronome-form' formaction='#' formmethod='#'>save</button>
             </form>
           </div>
           <div class='col-md-8'>
-            <table id='metro-table' class='table table-striped'>
+            <table id='metronomeTable' class='table table-striped'>
               <thead>
                 <tr>
                   <th class='col-xs-2'>time sig</th>
@@ -100,26 +83,46 @@
                   Lead In
                 </label>
               </div>
-              <button type='button' class='btn btn-primary table-button' onclick='addRowBefore()' id='addRowBeforeButton'>Add Row Before</button>
-              <button type='button' class='btn btn-primary table-button' onclick='addRowAfter()' id='addRowAfterButton'>Add Row After</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              <button type='button' class='btn btn-primary table-button' id='addRowBeforeButton'>Add Row Before</button>
+              <button type='button' class='btn btn-primary table-button' id='addRowAfterButton'>Add Row After</button>
+            </div> <!-- end row -->
+          </div> <!-- end col-md-8-->
+        </div> <!-- end row -->
+      </div> <!-- end form-wrapper -->
+    </div> <!-- end metronome-wrapper -->
 
-    <script src="js/scrollTable.js"></script>
-    <script src="js/metronome.js"></script>
-    <script src="js/metroForm.js"></script>
-    <script src="test/markup.js"></script>
-    <script src="test/validator.js"></script>
-    <script src="test/controls.js"></script>
-    <script src="test/addRow.js"></script>
-    <script src="test/deleteRow.js"></script>
-    <script src="test/includeButton.js"></script>
+
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="js/config.js"></script>
+    <script src='js/lib/require.js'></script>
+    <!--<script>-->
+      <!--QUnit.config.autostart = false; -->
+    <!--</script>-->
+    <script type="text/javascript">
+      require(["app/main"], function(){
+        // do stuff after main loaded
+        //QUnit.start(); 
+      }); 
+    </script>
+    <!--<script type="text/javascript" src="js/SegmentDisplay/segment-display.js"></script>-->
+    <!--<script src="js/scrollTable.js"></script>-->
+    <!--<script src="js/metronome.js"></script>-->
+    <!--<script src="js/metroForm.js"></script>-->
+    <!-- load syn library for unit tests -->
+
+    <!-- display qunit results -->
+    <div id='qunit'></div>
+    <div id='qunit-fixture'></div>
+    <!-- load in unit tests -->
+   
+     <!--<script src="test/markup.js"></script>-->
+   <!--<script src="test/validator.js"></script>-->
+   <!--<script src="test/controls.js"></script>-->
+   <!--<script src="test/addRow.js"></script>-->
+   <!--<script src="test/deleteRow.js"></script>-->
+   <!--<script src="test/includeButton.js"></script> -->
     <!--[if lt IE 9]>
       <script type="text/javascript" src="excanvas.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="js/SegmentDisplay/segment-display.js"></script>
   </body>
 </html>

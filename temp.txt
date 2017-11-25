@@ -1,0 +1,29 @@
+always set the pattern
+
+type I
+
+  beatValue.cornerType      = 2;
+  beatValue.displayType     = 7;
+  beatValue.displayAngle    = 9;
+  beatValue.digitHeight     = 20;
+  beatValue.digitWidth      = 12;
+  beatValue.digitDistance   = 2;
+  beatValue.segmentWidth    = 3;
+  beatValue.segmentDistance = 0.5;
+  beatValue.colorOn         = segmentOn;
+  beatValue.colorOff        = segmentOff;
+
+type II
+
+  sigLabel.cornerType      = 2;
+  sigLabel.displayType     = 7;
+  sigLabel.displayAngle    = 9;
+  sigLabel.digitHeight     = 20;
+  sigLabel.digitWidth      = 12;
+  sigLabel.digitDistance   = 2;
+  sigLabel.segmentWidth    = 1;
+  sigLabel.segmentDistance = 0.5;
+  sigLabel.segmentCount    = 14;
+  sigLabel.colorOn         = segmentOn;
+  sigLabel.colorOff        = segmentOff;
+
