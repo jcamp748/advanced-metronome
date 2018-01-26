@@ -1,10 +1,10 @@
 // this module is the api for editing the global
-// metronome data structure that the application 
+// metronome data structure that the application
 // logic is based on
 define(['app/song'], function(song){
   // do initialization work here
   // private utility functions for updating table
-  
+
   // utitlity function to test equality of rows
   function rowsEqual(row1, row2) {
     for(var i = 0; i < 4; i++) {
@@ -16,7 +16,7 @@ define(['app/song'], function(song){
     }
     return true;
   }
-  
+
   // utility function to get the index of the current row
   function getIndex($row) {
     var $table = $("#metronomeTable tbody");
@@ -73,8 +73,8 @@ define(['app/song'], function(song){
     });
     return $head;
   }
-    
-          
+
+
 
   function insertTable() {
     // inject table into html view
@@ -89,7 +89,7 @@ define(['app/song'], function(song){
       $row.append( $('<td></td>').text(section[prop]).addClass("col-xs-3"));
     }
     // add checkbox to row
-    var $checkBox = $('<input>').attr("type", "checkbox").change(song.updateLoop);
+    var $checkBox = $('<input>').attr("type", "checkbox").change(song.updateLoop());
     $row.append( $('<td></td>').append( $checkBox ));
     $row.click(function(){
       // highlight row in table
@@ -104,6 +104,19 @@ define(['app/song'], function(song){
         var value = section[Object.keys(section)[i]];
         $($formGroup[i]).children(":nth-child(2)").val(value);
       }
+
+      // find the index of this row and change the
+      var index = getIndex($row);
+      data = song.getMetronomeData();
+      // get the total number of measures until the desired
+      // section starts
+      var totalMeasures = 0;
+      for(var i = 0; i < index; i++) {
+        totalMeasures += parseInt(data[i].count);
+      }
+      // load the next measure
+      song.setMeasure(++totalMeasures);
+
     });
     return $row;
   }
@@ -264,4 +277,3 @@ define(['app/song'], function(song){
   };
 
 });
-

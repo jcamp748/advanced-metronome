@@ -1,6 +1,6 @@
 define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subject) {
-  var instance = null; 
-  var metronomeData = null; 
+  var instance = null;
+  var metronomeData = null;
   var measures = [];
   var loop = [];
   var currentMeasure = {};
@@ -43,6 +43,24 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     scheduleTick();
   }
 
+  function loadSection(sectionNumber) {
+    // load the first measure of `sectionNumber`
+    var sectionData = metronomeData[sectionNumber];
+    var len = Object.keys(metronomeData).length;
+
+    // skip past the first N measures
+    var totalMeasures = 0;
+    for (var i = 0; i < len; i++ ) {
+      totalMeasures += parseInt(metronomeData[i].count);
+      if ( song.getMeasureData() == song.getMetronomeData()[i] ) {
+        break;
+      }
+    }
+
+    // load the next measure
+    loadMeasure(++totalMeasures);
+  }
+
   function scheduleMeasure() {
     // use the TIME variable to figure out what measure we are on
     // then call loadMeasure()
@@ -67,8 +85,8 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         // something went wrong we overshot the time somehow
         console.log("something went wrong in the scheduleMeasure function");
       } else {
-        // t < time, keep going  
-      }        
+        // t < time, keep going
+      }
       t += end;
     }
   }
@@ -93,14 +111,14 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
           loadMeasure(0);
           console.log("xhr request for data succeeded!");
           $("#resetButton").click();
-        } 
+        }
       };
       req.send();
     }
   }
 
   worker.onmessage = function(e){
-    
+
     console.log(e.data);
   };
 
@@ -118,8 +136,6 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
   function updateLoop() {
     var $rows = $("#metronomeTable tbody").children();
-    
-    console.log("update loop 2");
   }
 
   function setLeadInMeasure() {
@@ -133,6 +149,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
     metronomeData[0] = lead;
   }
 
+  // return an array of ints representing the repeat loop
   function getLoop() {
     var rows = $("#metronomeTable tbody").children();
     var length = rows.length;
@@ -147,11 +164,11 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
   }
 
     // private methods
-    
+
     // return public methods and variables
     return _.extend({
       updateLoop: function() { updateLoop(); },
-      getMetronomeData: function() { 
+      getMetronomeData: function() {
         if(!metronomeData) {
           loadData();
           return metronomeData;
@@ -176,7 +193,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       },
 
       setMeasure: function(number) {
-        // set measure when user clicks on row
+        // set the metronomeData when user clicks on row
         loadMeasure(number);
 
       },
@@ -192,13 +209,14 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         setLeadInMeasure();
         this.notify(this);
       },
-      
+
       save: function() {
         // write xhr request code here
         console.log("saved to server");
         this.notify(this);
       },
 
+      // go forward 1 section
       skipBack: function() {
         var i = measure;
         var loop = getLoop();
@@ -220,6 +238,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         this.notify(this);
       },
 
+      // go back 1 measure
       rewind: function() {
         console.log("rewind metronome");
         updateDataDivs();
@@ -237,7 +256,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
           var now = Date.now();
           var elapsed = now - last;
           last = now;
-          var dt = now - expected; 
+          var dt = now - expected;
           if (dt > clockInterval) {
             // something unexpected happened
           }
@@ -260,27 +279,38 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
         this.notify(this);
       },
 
+      // go forward 1 measure
       fastForward: function() {
         console.log("fast forward");
         updateDataDivs();
         this.notify(this);
       },
 
+      // go forward one section
       skipForward: function() {
-        var i = measure;
+        // get the length of Metronme Data Hash
+        var len = Object.keys(song.getMeasureData()).length;
+
+        // figure what the current section is
+        var currentSection = 0;
+        for(var i = 0; i < len; i++) {
+          if ( song.getMeasureData() == song.getMetronomeData()[i] ) {
+            currentSection = i;
+          }
+        }
         var loop = getLoop();
         // check if loop array has any elements
         if( loop.length ) {
           if( loop[i + 1] ) {
-            loadMeasure(loop[i++]);
+            loadSection(loop[i++]);
           } else {
-            loadMeasure(loop[0]);
+            loadSection(loop[0]);
           }
         } else {
           if(i < measures.length - 1) {
-            loadMeasure(++i);
+            loadSection(++i);
           } else {
-            loadMeasure(i);
+            loadSection(i);
           }
         }
         updateDataDivs();

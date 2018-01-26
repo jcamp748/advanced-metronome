@@ -61,7 +61,6 @@ define(["qunit"], function(QUnit){
     uncheck($rows, 0);
     check($rows, 3);
     $("#metronomeTable tbody").children()[2].click();
-    debugger;
     assert.deepEqual(window.song.getMeasureData(), testObj["3"], "song should be on outro");
 
     // skipping forward should cause the song to loop on the last measure
@@ -72,11 +71,13 @@ define(["qunit"], function(QUnit){
     uncheck($rows, 3);
     check($rows, 0);
     check($rows, 1);
+    window.song.reset();
     assert.deepEqual(window.song.getMeasureData(), testObj["1"], "song should start on intro");
     window.song.skipForward();
     assert.deepEqual(window.song.getMeasureData(), testObj["2"], "song should be on chorus now");
     window.song.skipForward();
-    assert.deepEqual(window.song.getMeasureData(), testObj["2"], "song should still be on chorus now");
+    assert.deepEqual(window.song.getMeasureData(), testObj["2"], "song should still be on chorus");
+    debugger;
     window.song.skipForward();
     assert.deepEqual(window.song.getMeasureData(), testObj["1"], "song should be on intro now");
 
