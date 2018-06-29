@@ -1,0 +1,81 @@
+
+index.html,376
+metronome6,132
+back22,1001
+rewind23,1093
+play24,1185
+pause25,1273
+forward26,1379
+skip27,1477
+reset28,1572
+edit29,1663
+Time SignaturemetronomeForm36,2014
+Tempo41,2298
+Number of measures46,2575
+sectionName51,2865
+update55,3113
+delete row56,3223
+save57,3337
+time sig64,3649
+Loop77,4174
+Lead In83,4391
+Add Row Before86,4463
+Add Row After87,4584
+-->118,5734
+
+INSTALL,16
+the Worker(1,0
+
+nightwatch.conf.js,155
+var SELENIUM_CONFIGURATION 1,0
+var FIREFOX_CONFIGURATION 8,154
+var DEFAULT_CONFIGURATION 14,264
+var ENVIRONMENTS 21,430
+module.exports exports25,488
+
+package-lock.json,24
+  "requires": true,2,2
+
+qscrape,21
+ID_TESTRESULT 7,102
+
+tags,188
+Entry	node_modules/node_modules300,130203
+function	node_modules/node_modules2125,975963
+function	node_modules/node_modules2126,976052
+function	node_modules/node_modules2127,976143
+
+temp.txt,903
+  beatValue.cornerType cornerType5,32
+  beatValue.displayType displayType6,65
+  beatValue.displayAngle displayAngle7,98
+  beatValue.digitHeight digitHeight8,131
+  beatValue.digitWidth digitWidth9,165
+  beatValue.digitDistance digitDistance10,199
+  beatValue.segmentWidth segmentWidth11,232
+  beatValue.segmentDistance segmentDistance12,265
+  beatValue.colorOn colorOn13,300
+  beatValue.colorOff colorOff14,341
+  sigLabel.cornerType cornerType18,393
+  sigLabel.displayType displayType19,425
+  sigLabel.displayAngle displayAngle20,457
+  sigLabel.digitHeight digitHeight21,489
+  sigLabel.digitWidth digitWidth22,522
+  sigLabel.digitDistance digitDistance23,555
+  sigLabel.segmentWidth segmentWidth24,587
+  sigLabel.segmentDistance segmentDistance25,619
+  sigLabel.segmentCount segmentCount26,653
+  sigLabel.colorOn colorOn27,686
+  sigLabel.colorOff colorOff28,726
+
+testData.json,0
+
+selenium-debug.log,0
+
+README.md,0
+
+npm-debug.log,0
+
+grep,0
+
+debug.info,0

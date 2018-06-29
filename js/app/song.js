@@ -45,20 +45,21 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
 
   function loadSection(sectionNumber) {
     // load the first measure of `sectionNumber`
-    var sectionData = metronomeData[sectionNumber];
-    var len = Object.keys(metronomeData).length;
+    let metroData = window.song.getMetronomeData();
+    var len = Object.keys(metroData).length;
 
     // skip past the first N measures
     var totalMeasures = 0;
     for (var i = 0; i < len; i++ ) {
-      totalMeasures += parseInt(metronomeData[i].count);
-      if ( song.getMeasureData() == song.getMetronomeData()[i] ) {
+      if ( window.song.getMeasureData() == metroData[i] ) {
         break;
+      } else {
+	totalMeasures += parseInt(metroData[i].count);
       }
     }
 
     // load the next measure
-    loadMeasure(++totalMeasures);
+    loadMeasure(totalMeasures);
   }
 
   function scheduleMeasure() {
@@ -201,7 +202,7 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       getTime: function() {return time;},
 
       editData: function(data) {
-        metronomeData = data;
+        loadData(data);
         populateMeasures();
         updateDataDivs();
         loadMeasure(1);
@@ -289,13 +290,16 @@ define(["worker!app/metronomeWorker.js", "app/subject"], function(worker, subjec
       // go forward one section
       skipForward: function() {
         // get the length of Metronme Data Hash
-        var len = Object.keys(song.getMeasureData()).length;
+	let metroData = window.song.getMetronomeData();
+        var len = Object.keys(metroData).length;
+	var nextSection = 0;
 
         // figure what the current section is
-        var currentSection = 0;
         for(var i = 0; i < len; i++) {
-          if ( song.getMeasureData() == song.getMetronomeData()[i] ) {
-            currentSection = i;
+          if ( window.song.getMeasureData() == metroData[i] ) {
+	    console.log("get section: " + i++);
+	    nextSection = i++;
+	    break;
           }
         }
         var loop = getLoop();

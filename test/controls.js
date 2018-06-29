@@ -74,6 +74,7 @@ define(["qunit"], function(QUnit){
     assert.equal(window.song.getSectionName(), "intro", "song should still be on intro section");
     assert.equal(window.song.getMeasureNumber(), 1, "should still be on measure 1");
 
+    debugger;
     skipForwardButton.trigger("click");
     assert.equal(window.song.getMeasureNumber(), 2, "should be on measure 2 now");
     assert.deepEqual(window.song.getMeasureData(), testObj[2], "should be chorus data");
